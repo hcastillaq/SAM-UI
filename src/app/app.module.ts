@@ -13,7 +13,7 @@ import { entityConfig } from "./store/entity/entity-metadata";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
 import { HttpClientModule } from "@angular/common/http";
-
+import { ToastrModule } from "ngx-toastr";
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -25,18 +25,18 @@ import { HttpClientModule } from "@angular/common/http";
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
-      }
+        strictActionImmutability: true,
+      },
     }),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     EntityDataModule.forRoot(entityConfig),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
-      logOnly: environment.production
-    })
+      logOnly: environment.production,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
