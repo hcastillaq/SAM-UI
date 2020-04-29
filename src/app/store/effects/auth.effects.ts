@@ -4,6 +4,7 @@ import { EAuthActions } from "../actions/auth.actions";
 import { map, mergeMap, catchError } from "rxjs/operators";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { IAccount } from "src/app/interfaces/account";
+import { EMPTY } from "rxjs";
 @Injectable()
 export class AuthEffects {
   constructor(private actions$: Actions, private authService: AuthService) {}
@@ -14,8 +15,7 @@ export class AuthEffects {
       mergeMap((account: IAccount) =>
         this.authService.login(account).pipe(
           mergeMap((resp) => {
-            console.log("nooo");
-            return [];
+            return EMPTY;
           })
         )
       )

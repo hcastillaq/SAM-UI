@@ -33,10 +33,13 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
     const request = req.clone({ setHeaders: headersConfig });
     return next.handle(request).pipe(
-      filter((resp: any) => resp.status),
-      filter((resp: any) => resp.body.errors),
-      map((resp) => {
-        SNACKBAR$.next({ message: resp.body.errors[0].message, type: "error" });
+      map((resp: any) => {
+        if (resp.status && resp.body.errors) {
+          SNACKBAR$.next({
+            message: resp.body.errors[0].message,
+            type: "error",
+          });
+        }
         return resp;
       })
     );
