@@ -13,10 +13,13 @@ import { EntityDataModule } from "@ngrx/data";
 import { entityConfig } from "./store/entity/entity-metadata";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { SnackbarComponent } from "./components/snackbar/snackbar.component";
 import { SnackbarTemplateComponent } from "./components/snackbar-template/snackbar-template.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { AuthEffects } from "./store/effects/auth.effects";
+import { GraphQLModule } from "./graphql.module";
+import { HttpTokenInterceptor } from "./interceptors/token.interceptor";
 
 @NgModule({
   declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
@@ -34,15 +37,18 @@ import { FlexLayoutModule } from "@angular/flex-layout";
         strictActionImmutability: true,
       },
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AuthEffects]),
     StoreRouterConnectingModule.forRoot(),
     EntityDataModule.forRoot(entityConfig),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
+    GraphQLModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [SnackbarComponent, SnackbarTemplateComponent],
 })

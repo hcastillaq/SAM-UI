@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DICTIONARY, ROUTES } from "./../../../../helpers/helpers";
+import { Store } from "@ngrx/store";
+import { IAppState } from "./../../../../store/state/app.state";
+import { authActionLogin } from "src/app/store/actions/auth.actions";
+import { AuthService } from "src/app/services/auth/auth.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -11,7 +15,12 @@ export class LoginComponent implements OnInit {
   public DICTIONARY = DICTIONARY;
   public ROUTES = ROUTES;
   public hide = true;
-  constructor(private fb: FormBuilder) {}
+
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<IAppState>,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -21,6 +30,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("login user", this.form.value);
+    this.store.dispatch(authActionLogin(this.form.value));
   }
 }
