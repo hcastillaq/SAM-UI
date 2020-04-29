@@ -14,15 +14,19 @@ import { entityConfig } from "./store/entity/entity-metadata";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
 import { HttpClientModule } from "@angular/common/http";
+import { SnackbarComponent } from "./components/snackbar/snackbar.component";
+import { SnackbarTemplateComponent } from "./components/snackbar-template/snackbar-template.component";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    FlexLayoutModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -40,5 +44,6 @@ import { HttpClientModule } from "@angular/common/http";
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [SnackbarComponent, SnackbarTemplateComponent],
 })
 export class AppModule {}
