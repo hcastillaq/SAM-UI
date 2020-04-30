@@ -24,18 +24,16 @@ export class LoginGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    console.log(route.data);
-
     if (!this.session.validate()) {
       if (!route.data.auth) {
-        this.router$.navigateByUrl(ROUTERS_LIST.AUTH.LOGIN);
+        this.goToLogin();
         return false;
       }
     } else {
       if (route.data.auth !== undefined && route.data.auth) {
         if (route.data.logout !== undefined && route.data.logout) {
           this.session.logout();
-          this.router$.navigateByUrl(ROUTERS_LIST.AUTH.LOGIN);
+          this.goToLogin();
           return false;
         }
         this.router$.navigateByUrl(GO_ROL_HOME(this.session.getUser().rol.rol));
@@ -47,5 +45,11 @@ export class LoginGuard implements CanActivate {
       }
     }
     return true;
+  }
+
+  goToLogin() {
+    this.router$.navigateByUrl(
+      `/${ROUTERS_LIST.AUTH.ROOT}/${ROUTERS_LIST.AUTH.LOGIN}`
+    );
   }
 }

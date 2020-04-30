@@ -14,8 +14,9 @@ export const ROUTERS_LIST = {
   },
   AUTH: {
     ROOT: "auth",
-    LOGIN: "/auth/login",
-    REGISTER: "/auth/register",
+    LOGIN: "login",
+    REGISTER: "register",
+    LOGOUT: "logout",
   },
 };
 
