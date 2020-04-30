@@ -6,9 +6,14 @@ import { ROL_ACCESS } from "./rols.helpers";
 export const ROUTERS_LIST = {
   SUPER_ADMIN: {
     ACCESS: [ROL_ACCESS.SUPER_ADMIN],
-    ROOT: "/spadmin",
+    ROOT: "spadmin",
+  },
+  ADMIN: {
+    ACCESS: [ROL_ACCESS.ADMIN],
+    ROOT: "admin",
   },
   AUTH: {
+    ROOT: "auth",
     LOGIN: "/auth/login",
     REGISTER: "/auth/register",
   },
@@ -26,5 +31,5 @@ export function GO_ROL_HOME(rol: Number): string {
       pathName = key;
     }
   });
-  return ROUTERS_LIST[`${pathName}`].ROOT;
+  return "/" + ROUTERS_LIST[`${pathName}`].ROOT;
 }

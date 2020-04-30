@@ -40,8 +40,12 @@ export class SessionService {
    * @return { Boolean }
    */
   rolAccess(access): Boolean {
-    const rol = this.jwt.getObjectToken().type;
+    const rol = this.getUser().rol.rol;
     let state = access.includes(rol);
     return state;
+  }
+
+  logout() {
+    this.jwt.destroyToken();
   }
 }
