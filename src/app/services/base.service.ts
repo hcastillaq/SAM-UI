@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Apollo } from "apollo-angular";
-import { Observable } from "rxjs";
+import { Observable, EMPTY } from "rxjs";
 import gql from "graphql-tag";
+import { catchError } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -14,9 +15,11 @@ export class BaseService {
     query = gql`
       ${query}
     `;
-    return this.apollo.watchQuery({
-      query,
-    }).valueChanges;
+    return this.apollo
+      .watchQuery({
+        query,
+      })
+      .valueChanges.pipe(catchError((resp) => EMPTY));
   }
 
   get(url, params: HttpParams = new HttpParams()) {

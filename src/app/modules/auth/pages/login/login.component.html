@@ -22,6 +22,12 @@
             {{DICTIONARY.FORMS.EMAIL}}
           </mat-label>
           <input matInput formControlName="email">
+          <mat-error *ngIf="form.get('email').hasError('email')">
+            Correo electrónico invalido
+          </mat-error>
+          <mat-error *ngIf="form.get('email').hasError('required')">
+            El campo es obligatorio
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>
@@ -30,16 +36,31 @@
           <input matInput 
             formControlName="password"
             [type]="hide ? 'password' : 'text'" />
-          <button mat-icon-button matSuffix 
+          <button 
+            type="button"
+            mat-icon-button matSuffix 
             (click)="hide = !hide" 
             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+           <mat-error *ngIf="form.get('email').hasError('required')">
+            El campo es obligatorio
+          </mat-error>
         </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="end center">
-          <button mat-flat-button 
-          [disabled]="form.invalid"
-          color="primary" fxFlex="100%">Ingresar</button>
+        <div fxLayout="column"  class="mt-1">
+          <div fxLayout="row" fxFlex="100%">
+            <button
+              class="height"
+              mat-flat-button 
+              [disabled]="form.invalid || (loading | async)"
+              color="primary" fxFlex="100%" 
+              fxLayoutAlign="center center">
+              <span *ngIf="!(loading | async)">Ingresar</span>
+              <mat-spinner  
+                *ngIf="loading | async" color="primary" diameter="25"></mat-spinner>
+            </button>
+          </div>
+          
         </div>
     </mat-card-content>
     </form>

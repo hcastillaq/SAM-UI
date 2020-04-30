@@ -30,3 +30,12 @@ body {
 .text-secondary {
 	color: $text-secondary !important;
 }
+
+button {
+	&.height {
+		min-height: 40px !important;
+	}
+	mat-spinner {
+		margin: 5px;
+	}
+}

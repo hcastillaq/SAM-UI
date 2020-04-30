@@ -1,3 +1,7 @@
-export interface IAuthState {}
+export interface IAuthState {
+  loading: Boolean;
+}
 
-export const initialAuthState: IAuthState = {};
+export const initialAuthState: IAuthState = {
+  loading: false,
+};
