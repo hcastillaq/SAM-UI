@@ -1,7 +1,7 @@
 /**
  * Object with contain the all phrases and words for the app in user views
  */
-export default {
+export const DICTIONARY = {
   APP: {
     NAME: "SAM",
   },
