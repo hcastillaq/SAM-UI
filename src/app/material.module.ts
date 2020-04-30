@@ -91,4 +91,4 @@ import { MatTreeModule } from "@angular/material/tree";
   ],
   entryComponents: [MatSnackBarContainer]
 })
-export class AppMaterialModule {}
+export class MaterialModule {}

@@ -1,0 +1,41 @@
+@import "./sass/sam.theme.scss";
+@import "./vars.scss";
+@import "./modules/modules.scss";
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  background-color: $background !important;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-card {
+  border-radius: 10px !important;
+  box-shadow: $box-shadow;
+}
+
+.reset {
+  margin: 0px;
+  padding: 0px;
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.text-secondary {
+  color: $text-secondary !important;
+}
+
+button {
+  &.height {
+    min-height: 40px !important;
+  }
+  mat-spinner {
+    margin: 5px;
+  }
+}
