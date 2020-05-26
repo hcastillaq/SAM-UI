@@ -24,6 +24,7 @@ export class LoginGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
+    console.log(this.session.validate())
     if (!this.session.validate()) {
       if (!route.data.auth) {
         this.goToLogin();

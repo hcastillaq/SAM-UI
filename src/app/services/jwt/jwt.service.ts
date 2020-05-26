@@ -5,6 +5,8 @@ import * as tokenDecode from "jwt-decode";
   providedIn: "root",
 })
 export class JwtService {
+
+  tokenName = "sam-ui-jwtToken";
   constructor() {}
   /**
    * Función encargada de devolver el token almacenado en el localStorage.
@@ -12,7 +14,7 @@ export class JwtService {
    * @return Retorna un `String` que corresponde al token actual.
    */
   getToken(): String {
-    return window.localStorage["jwtToken"];
+    return window.localStorage[`${this.tokenName}`];
   }
 
   /**
@@ -22,7 +24,7 @@ export class JwtService {
    * @return {void}
    */
   saveToken(jwtToken: String): void {
-    window.localStorage["jwtToken"] = jwtToken;
+    window.localStorage[`${this.tokenName}`] = jwtToken;
   }
 
   /**
@@ -31,7 +33,7 @@ export class JwtService {
    * @return {void}
    */
   destroyToken(): void {
-    window.localStorage.removeItem("jwtToken");
+    window.localStorage.removeItem(`${this.tokenName}`);
   }
 
   /**
