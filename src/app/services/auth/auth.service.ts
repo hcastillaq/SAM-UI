@@ -11,15 +11,13 @@ export class AuthService extends BaseService {
     const query = `
     query {
       login(input: { email: "${account.email}", password: "${account.password}" }) {
-        token
+        token,
         user {
-          name
-          rol {
-            rol
-            description
-          }
+          access,
+          name,
+          rol,
           company {
-            _id
+            _id,
             name
           }
         }

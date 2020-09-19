@@ -2,11 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DICTIONARY } from "./../../../../helpers/dictionary.helpers";
 import { ROUTERS_LIST } from "./../../../../helpers/routes.helpers";
-import { Store, select } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { IAppState } from "./../../../../store/state/app.state";
 import { authActionLogin } from "src/app/store/actions/auth.actions";
-import { AuthService } from "src/app/services/auth/auth.service";
-import { Observable } from "apollo-link";
 import { selectAuthLoading } from "src/app/store/selectors/auth.selectors";
 @Component({
   selector: "app-login",
@@ -24,8 +22,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      email: ["superadmin@gmail.com", [Validators.required, Validators.email]],
-      password: ["123456", [Validators.required]],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required]],
     });
   }
 

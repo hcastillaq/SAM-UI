@@ -68,7 +68,7 @@ export class JwtService {
    */
   getObjectToken(): any | null {
     const token = this.getToken();
-    if (token === null || token === undefined) return null;
+    if (token) return null;
     return this.decodeToken(token);
   }
 }

@@ -9,15 +9,6 @@ const routes: Routes = [
     loadChildren: () =>
       import("./modules/auth/auth.module").then((m) => m.AuthModule),
   },
-  {
-    path: ROUTERS_LIST.SUPER_ADMIN.ROOT,
-    loadChildren: () =>
-      import("./modules/spadmin/spadmin.module").then((m) => m.SpadminModule),
-    canActivate: [LoginGuard],
-    data: {
-      access: ROUTERS_LIST.SUPER_ADMIN.ACCESS,
-    },
-  },
 ];
 
 @NgModule({
