@@ -4,7 +4,7 @@ import { SnackbarTemplateComponent } from "../snackbar-template/snackbar-templat
 import { Subject } from "rxjs";
 import { Snackbar } from "src/app/interfaces/snackbar";
 
-export const SNACKBAR$ = new Subject<Snackbar>();
+export const SNACKBAR = new Subject<Snackbar>();
 
 @Component({
   selector: "app-snackbar",
@@ -20,7 +20,7 @@ export class SnackbarComponent implements OnInit {
   constructor(private _snackBar: MatSnackBar) {}
 
   ngOnInit() {
-    SNACKBAR$.subscribe((options: Snackbar) => {
+    SNACKBAR.subscribe((options: Snackbar) => {
       this.config = { ...this.config, ...options };
       this.openSnackBar();
     });

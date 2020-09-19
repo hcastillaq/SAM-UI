@@ -6,11 +6,10 @@ import {
   HttpRequest,
   HttpErrorResponse,
 } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { RouterStateSnapshot, ActivatedRoute } from "@angular/router";
-import { catchError, map, filter } from "rxjs/operators";
-import { Store } from "@ngrx/store";
-import { SNACKBAR$ } from "../components/snackbar/snackbar.component";
+import { Observable } from "rxjs";
+import { ActivatedRoute } from "@angular/router";
+import { map } from "rxjs/operators";
+import { SNACKBAR } from "../components/snackbar/snackbar.component";
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
@@ -35,7 +34,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       map((resp: any) => {
         if (resp.status && resp.body.errors) {
-          SNACKBAR$.next({
+          SNACKBAR.next({
             message: resp.body.errors[0].message,
             type: "error",
           });
@@ -44,6 +43,4 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       })
     );
   }
-
-  launchNotificationError(message: String) {}
 }

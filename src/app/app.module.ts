@@ -20,6 +20,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { AuthEffects } from "./store/effects/auth.effects";
 import { GraphQLModule } from "./graphql.module";
 import { HttpTokenInterceptor } from "./interceptors/token.interceptor";
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],

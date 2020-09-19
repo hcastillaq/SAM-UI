@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterContentInit } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterContentInit, ChangeDetectorRef } from "@angular/core";
 import { MatSidenav } from "@angular/material/sidenav";
 import { DICTIONARY } from "./../../helpers/dictionary.helpers";
 import { FlatTreeControl } from "@angular/cdk/tree";
@@ -6,11 +6,11 @@ import {
   MatTreeFlattener,
   MatTreeFlatDataSource,
 } from "@angular/material/tree";
+import { MediaMatcher } from '@angular/cdk/layout';
+import { Subject } from 'rxjs';
 
-/**
- * Food data with nested structure.
- * Each node has a name and an optional list of children.
- */
+export const SIDENAV$ = new Subject<never>();
+
 interface TreeNode {
   name: string;
   to?: string;
@@ -40,6 +40,7 @@ const TREE_DATA: TreeNode[] = [
   },
 ];
 
+
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
   expandable: boolean;
@@ -55,8 +56,6 @@ interface ExampleFlatNode {
 export class SidenavComponent implements OnInit, AfterContentInit {
   @ViewChild("sidenav", { static: true }) sidenav: MatSidenav;
   DICTIONARY = DICTIONARY;
-  reason = "";
-
   navigation = [
     {
       to: "/spadmin",
@@ -65,8 +64,16 @@ export class SidenavComponent implements OnInit, AfterContentInit {
     },
   ];
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit(): void {
     this.dataSource.data = TREE_DATA;
+    SIDENAV$.subscribe( () => {
+      this.sidenav.toggle();
+    });
+  }
+  ngAfterContentInit(): void {
+    this.sidenav.close();
   }
 
   private _transformer = (node: TreeNode, level: number) => {
@@ -95,14 +102,8 @@ export class SidenavComponent implements OnInit, AfterContentInit {
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   close(reason: string) {
-    this.reason = reason;
     this.sidenav.close();
   }
-  ngOnInit(): void {}
 
-  ngAfterContentInit(): void {
-    //Called after ngOnInit when the component's or directive's content has been initialized.
-    //Add 'implements AfterContentInit' to the class.
-    this.sidenav.open();
-  }
+  
 }
