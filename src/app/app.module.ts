@@ -33,8 +33,8 @@ import { HttpTokenInterceptor } from "./interceptors/token.interceptor";
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
+        strictStateImmutability: false,
+        strictActionImmutability: false,
       },
     }),
     EffectsModule.forRoot([AuthEffects]),

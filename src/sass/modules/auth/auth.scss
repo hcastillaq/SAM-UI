@@ -1,18 +1,27 @@
 // Import theming functions
 .auth {
-	height: 100vh;
-	.auth__card {
-		padding-top: 40px;
-		width: 320px;
-		.auth__card__form {
-			padding: 10px 20px 0px 20px;
-		}
-		.auth__card__header {
-			margin-bottom: 20px;
-			.title {
-				margin: 0px 0px 20px 0px !important;
-				color: mat-color($primary) !important;
-			}
-		}
-	}
+  height: 100vh;
+
+  .auth__card {
+    padding-top: 40px;
+    min-width: 320px;
+    width: 20%;
+
+    mat-form-field {
+      margin-bottom: 5px;
+    }
+
+    .auth__card__form {
+      padding: 10px 20px 0px 20px;
+    }
+
+    .auth__card__header {
+      margin-bottom: 20px;
+
+      .title {
+        margin: 0px 0px 20px 0px !important;
+        color: mat-color($primary) !important;
+      }
+    }
+  }
 }

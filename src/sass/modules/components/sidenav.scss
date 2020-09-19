@@ -1,0 +1,70 @@
+.sidenav {
+	padding: 0px 10px 0px 10px;
+	width: 250px;
+	background-color: $background;
+	.sidenav__title {
+		height: $toolbarheight;
+		border-bottom: 1px solid red;
+		display: flex;
+		align-items: center;
+		span {
+			color: mat-color($primary) !important;
+		}
+	}
+	.sidenav__routes {
+		.mat-tree-node {
+			&[aria-level="1"] {
+				.sidenav__routes__route {
+					justify-content: center !important;
+					&.active {
+						box-shadow: none !important;
+						font-weight: 500;
+					}
+					&:hover {
+						transition: all .1s ease-in-out;
+						background-color: rgba(0, 0, 0, 0.04) !important;
+					}
+				}
+			}
+			.sidenav__routes__route {
+				border-radius: 9999px;
+				padding: 0px 1.5rem 0px 1.5rem;
+				height: 48px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				outline: none;
+				cursor: pointer;
+				transition: all 500ms cubic-bezier(0.35, 0, 0.25, 1);
+				&:hover {
+					background-color: white;
+				}
+				&.active {
+					background-color: white;
+					box-shadow: 0px 3px 5px -1px rgba(82, 63, 104, 0.06), 0px 6px 10px 0px rgba(82, 63, 104, 0.042),
+						0px 1px 18px 0px rgba(82, 63, 104, 0.036);
+				}
+			}
+		}
+	}
+}
+
+.sidenav-container {
+	position: absolute !important;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.mat-drawer-backdrop.mat-drawer-shown {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.mat-tree {
+	background-color: $background !important;
+}
+.mat-tree-node {
+	padding: 5px !important;
+	min-height: 50px;
+	background-color: transparent !important;
+}

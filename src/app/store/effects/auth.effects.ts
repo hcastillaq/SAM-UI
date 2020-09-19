@@ -16,7 +16,6 @@ import { IAppState } from "../state/app.state";
 import { Store } from "@ngrx/store";
 import { JwtService } from "src/app/services/jwt/jwt.service";
 import { Router } from "@angular/router";
-import { GO_ROL_HOME } from "src/app/helpers/routes.helpers";
 @Injectable()
 export class AuthEffects {
   constructor(
@@ -35,10 +34,10 @@ export class AuthEffects {
       }),
       mergeMap((account: IAccount) =>
         this.authService.login(account).pipe(
-          delay(500),
+          delay(1000),
           mergeMap((resp) => {
             this.jwt.saveToken(resp.token);
-            this.router.navigateByUrl(GO_ROL_HOME(resp.user.rol.rol));
+            this.router.navigateByUrl("/");
             return [authActionLoading({ loading: false })];
           }),
           finalize(() => {

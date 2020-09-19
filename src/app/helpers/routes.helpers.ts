@@ -19,18 +19,3 @@ export const ROUTERS_LIST = {
     LOGOUT: "logout",
   },
 };
-
-/**
- *  Retorna la url del modulo al que el usuario activo deberia ir
- * @param { Number } rol - rol del usuario, es un numero
- * @return { String }
- */
-export function GO_ROL_HOME(rol: Number): string {
-  let pathName = "";
-  Object.keys(ROL_ACCESS).forEach((key) => {
-    if (ROL_ACCESS[`${key}`] === rol) {
-      pathName = key;
-    }
-  });
-  return "/" + ROUTERS_LIST[`${pathName}`].ROOT;
-}

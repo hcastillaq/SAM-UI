@@ -35,7 +35,7 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import {
   MatSnackBarModule,
-  MatSnackBarContainer
+  MatSnackBarContainer,
 } from "@angular/material/snack-bar";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
@@ -87,8 +87,8 @@ import { MatTreeModule } from "@angular/material/tree";
     MatTooltipModule,
     MatTreeModule,
     PortalModule,
-    ScrollingModule
+    ScrollingModule,
   ],
-  entryComponents: [MatSnackBarContainer]
+  entryComponents: [MatSnackBarContainer],
 })
 export class MaterialModule {}
