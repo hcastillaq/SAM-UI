@@ -11,3 +11,8 @@ export const ROUTERS_LIST = {
     LOGOUT: "logout",
   },
 };
+
+
+export const MODULES_LIST = {
+  AUTH: 'auth'
+}

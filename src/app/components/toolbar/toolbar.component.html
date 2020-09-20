@@ -1,5 +1,27 @@
-<mat-toolbar class="toolbar">
+<mat-toolbar class="toolbar" fxLayout="row" fxLayoutAlign="space-between center">
   <button mat-icon-button color="primary" (click)="sideNav()">
     <mat-icon>menu</mat-icon>
   </button>
+  <div>
+    <div>
+      <button class="toolbar__userBtn" mat-button color="primary" fxLayout="row" fxLayoutAlign="center"
+        [matMenuTriggerFor]="menu">
+        <span>{{data.name}}</span>
+        <mat-icon color="primary">person</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu" class="toolbar__userMenu">
+        <div class="toolbar__userMenu__header">
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-icon color="white">person</mat-icon>
+            <div class="mr-5">
+              <span>{{data.name}}</span>
+              <h3 class="mat-caption">{{data.rol}}</h3>
+            </div>
+          </div>
+
+        </div>
+      </mat-menu>
+    </div>
+  </div>
 </mat-toolbar>

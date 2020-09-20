@@ -1,3 +1,35 @@
 .toolbar {
   background-color: $background !important;
+
+  .toolbar__userBtn {
+    span {
+      margin-right: 10px;
+      font-weight: 500;
+      color: black;
+      font-size: 16px;
+      text-transform: capitalize;
+    }
+  }
+
+
+}
+
+
+.toolbar__userMenu {
+  .toolbar__userMenu__header {
+    width: 250px;
+    height: 60px;
+    padding: 10px;
+    background-color: mat-color($primary, 500);
+    color: white;
+    display: flex;
+    text-transform: capitalize;
+
+    .mat-icon {
+      font-size: 2.5em;
+      margin-right: 10px;
+      width: auto !important;
+      height: auto !important;
+    }
+  }
 }
