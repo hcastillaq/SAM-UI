@@ -9,6 +9,7 @@ export const DICTIONARY = {
     PHRASE: "Bienvenido de nuevo",
     NOT_ACCOUNT: "No tienes una cuenta?",
     CREATE_ACCOUNT: "Click aquí para crearla",
+    LOGOUT: 'Cerrar Session'
   },
   FORMS: {
     PASSWORD: "Contraseña",

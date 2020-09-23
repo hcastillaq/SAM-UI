@@ -9,7 +9,6 @@
         <span>{{data.name}}</span>
         <mat-icon color="primary">person</mat-icon>
       </button>
-
       <mat-menu #menu="matMenu" class="toolbar__userMenu">
         <div class="toolbar__userMenu__header">
           <div fxLayout="row" fxLayoutAlign="center center">
@@ -19,7 +18,20 @@
               <h3 class="mat-caption">{{data.rol}}</h3>
             </div>
           </div>
-
+        </div>
+        <div class="toolbar__userMenu__content">
+          <div class="toolbar__userMenu__content__item" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="column" fxLayoutGap="5px">
+              <span>Mi Perfil</span>
+              <span class="mat-caption mat-small text-secondary">Información personal</span>
+            </div>
+            <button mat-icon-button>
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="toolbar__userMenu__footer" (click)="logout()">
+          <button mat-button color="primary">{{dictionary.AUTH.LOGOUT}}</button>
         </div>
       </mat-menu>
     </div>

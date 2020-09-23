@@ -27,16 +27,17 @@ export class LoginGuard implements CanActivate {
 
     switch (route.data.module_name) {
       case MODULES_LIST.AUTH:
-        if(this.session.validate()){
+        if (this.session.validate()) {
           this.router$.navigate(["/"]);
-        } 
-        break;       
-      default:
+        }
         break;
-    }
-    if (!this.session.validate()) {
-      this.session.logout();
-      this.router$.navigateByUrl(`${ROUTERS_LIST.AUTH.ROOT}/ ${ROUTERS_LIST.AUTH.LOGIN}`);
+      default:
+        if (!this.session.validate()) {
+          this.session.logout();
+          this.router$.navigateByUrl(`${ROUTERS_LIST.AUTH.ROOT}/${ROUTERS_LIST.AUTH.LOGIN}`);
+          return false;
+        }
+        break;
     }
     return true;
   }
