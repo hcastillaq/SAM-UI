@@ -23,7 +23,7 @@ jobs:
       run: npm install
       
     - name: DEVELOP
-      if: ${{github.ref !== 'refs/heads/master'}}
+      if: ${{github.ref != 'refs/heads/master'}}
       run: npm run build
       
     - name: MASTER
