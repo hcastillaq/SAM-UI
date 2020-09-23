@@ -5,7 +5,7 @@ import { JwtService } from "../jwt/jwt.service";
   providedIn: "root",
 })
 export class SessionService {
-  constructor(private jwt: JwtService) {}
+  constructor(private jwt: JwtService) { }
 
   /**
    * Retornar el usuario activo
@@ -22,7 +22,7 @@ export class SessionService {
   validate(): boolean {
     let valid = true;
     const token = this.jwt.getToken();
-    if (token === null || token === undefined) {
+    if (!token) {
       valid = false;
     } else {
       valid = !this.jwt.verifyExpToken(this.jwt.decodeToken(token).exp);

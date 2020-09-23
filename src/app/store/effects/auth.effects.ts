@@ -2,20 +2,20 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { EAuthActions, authActionLoading } from "../actions/auth.actions";
 import {
-  map,
   mergeMap,
-  catchError,
   finalize,
   tap,
   delay,
 } from "rxjs/operators";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { IAccount } from "src/app/interfaces/account";
-import { EMPTY } from "rxjs";
 import { IAppState } from "../state/app.state";
 import { Store } from "@ngrx/store";
 import { JwtService } from "src/app/services/jwt/jwt.service";
 import { Router } from "@angular/router";
+import { SessionService } from 'src/app/services/session/session.service';
+import { ROUTERS_LIST } from 'src/app/helpers/routes.helpers';
+import { SNACKBAR } from 'src/app/components/snackbar/snackbar.component';
 @Injectable()
 export class AuthEffects {
   constructor(
@@ -23,8 +23,9 @@ export class AuthEffects {
     private store: Store<IAppState>,
     private authService: AuthService,
     private jwt: JwtService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private sessionServicie: SessionService
+  ) { }
 
   login$ = createEffect(() =>
     this.actions$.pipe(
@@ -46,5 +47,22 @@ export class AuthEffects {
         )
       )
     )
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EAuthActions.LOGOUT),
+      tap(() => {
+        this.sessionServicie.logout();
+        SNACKBAR.next({
+          message: 'Hasta la proxima!',
+          type: "success",
+        });
+        this.router.navigateByUrl(`${ROUTERS_LIST.AUTH.ROOT}/${ROUTERS_LIST.AUTH.LOGIN}`);
+      })
+    ),
+    {
+      dispatch: false
+    }
   );
 }

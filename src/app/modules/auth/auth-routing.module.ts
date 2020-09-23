@@ -10,17 +10,7 @@ const routes: Routes = [
     component: LoginComponent,
     canActivate: [LoginGuard],
     data: {
-      auth: true,
-      logout: false,
-    },
-  },
-  {
-    path: ROUTERS_LIST.AUTH.LOGOUT,
-    component: LoginComponent,
-    canActivate: [LoginGuard],
-    data: {
-      auth: true,
-      logout: true,
+      module_name: 'auth'
     },
   },
   {
@@ -33,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AuthRoutingModule {}
+export class AuthRoutingModule { }
