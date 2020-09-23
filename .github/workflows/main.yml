@@ -20,8 +20,9 @@ jobs:
     - uses: actions/setup-node@master
     - run: npm install
     - name: DEVELOP
-      if: github.ref == 'refs/heads/develop'
+      if: github.ref !== 'refs/heads/master'
       run: npm run build
+      
     - name: MASTER
       if: github.ref == 'refs/heads/master'
       run: npm run build:prod
