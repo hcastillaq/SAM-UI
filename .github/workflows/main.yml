@@ -18,9 +18,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: actions/setup-node@master
-    - run: npm install
+      
+    - name: INSTALL
+      run: npm install
+      
     - name: DEVELOP
-      if: github.ref !== 'refs/heads/master'
+      if: ${{github.ref !== 'refs/heads/master'}}
       run: npm run build
       
     - name: MASTER
