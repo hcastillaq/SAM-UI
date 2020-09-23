@@ -1,12 +1,17 @@
 name: CI
 
 on:
+
   push:
     branches:
     - master
     - develop
-    - release/*
-
+    - release/
+  pull_request:
+    branches:
+    - master
+    - develop
+    - release/
 jobs:
   build:
     runs-on: ubuntu-latest
