@@ -8,7 +8,7 @@ import { MaterialModule } from "./material.module";
 import { StoreModule } from "@ngrx/store";
 import { reducers, metaReducers } from "./store/reducers";
 import { EffectsModule } from "@ngrx/effects";
-import { StoreRouterConnectingModule } from "@ngrx/router-store";
+import { RouterState, StoreRouterConnectingModule } from "@ngrx/router-store";
 import { EntityDataModule } from "@ngrx/data";
 import { entityConfig } from "./store/entity/entity-metadata";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -22,6 +22,7 @@ import { GraphQLModule } from "./graphql.module";
 import { HttpTokenInterceptor } from "./interceptors/token.interceptor";
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { RouterCustomSerializer } from './helpers/serializers/route.serializer';
 
 @NgModule({
   declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
@@ -40,7 +41,10 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
       },
     }),
     EffectsModule.forRoot([AuthEffects]),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({
+      serializer: RouterCustomSerializer,
+      routerState: RouterState.Full,
+    }),
     EntityDataModule.forRoot(entityConfig),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

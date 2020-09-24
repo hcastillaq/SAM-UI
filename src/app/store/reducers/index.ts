@@ -1,3 +1,4 @@
+import { routerReducer } from '@ngrx/router-store';
 import {
   ActionReducer,
   ActionReducerMap,
@@ -12,6 +13,7 @@ import { authReducer } from "./auth.reducer";
 
 export const reducers: ActionReducerMap<IAppState> = {
   auth: authReducer,
+  router: routerReducer
 };
 
 export function clearState(reducer) {
