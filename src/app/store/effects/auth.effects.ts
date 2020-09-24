@@ -72,7 +72,7 @@ export class AuthEffects {
     map((resp: any) => {
       const user: IUser = { ...resp.user }
       this.jwt.saveToken(resp.token);
-      this.router.navigate(["/"], { state: { hola: "hola" } });
+      this.router.navigate(["/"]);
       return authActionSetUser(user);
     })
   ));
