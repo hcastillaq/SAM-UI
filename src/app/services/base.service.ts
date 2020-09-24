@@ -9,7 +9,7 @@ import { catchError } from "rxjs/operators";
   providedIn: "root",
 })
 export class BaseService {
-  constructor(private http$: HttpClient, private apollo: Apollo) {}
+  constructor(private http$: HttpClient, private apollo: Apollo) { }
 
   graphqlQuery(query): Observable<any> {
     query = gql`
@@ -20,6 +20,14 @@ export class BaseService {
         query,
       })
       .valueChanges.pipe(catchError((resp) => EMPTY));
+  }
+  graphqlMutation(query): Observable<any> {
+    query = gql`
+      ${query}
+    `;
+    return this.apollo.mutate({
+      mutation: query
+    }).pipe(catchError((resp) => EMPTY));
   }
 
   get(url, params: HttpParams = new HttpParams()) {

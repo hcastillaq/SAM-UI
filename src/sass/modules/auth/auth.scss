@@ -4,21 +4,26 @@
 
   .auth__card {
     padding-top: 40px;
-    min-width: 320px;
-    width: 20%;
+    width: 320px;
+    border-radius: .25em !important;
 
     mat-form-field {
       margin-bottom: 5px;
     }
 
     .auth__card__form {
-      padding: 10px 20px 0px 20px;
+      padding: 10px 10px 0px 10px;
     }
 
     .auth__card__header {
       margin-bottom: 20px;
 
+      .subtitle {
+        font-size: 18px;
+      }
+
       .title {
+        font-weight: bold;
         margin: 0px 0px 20px 0px !important;
         color: mat-color($primary) !important;
       }
