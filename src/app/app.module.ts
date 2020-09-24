@@ -54,4 +54,4 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
   bootstrap: [AppComponent],
   entryComponents: [SnackbarComponent, SnackbarTemplateComponent],
 })
-export class AppModule {}
+export class AppModule { }
