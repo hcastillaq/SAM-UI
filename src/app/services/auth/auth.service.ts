@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BaseService } from "../base.service";
 import { IAccount } from "src/app/interfaces/account";
 import { map } from "rxjs/operators";
+import { IRegister } from 'src/app/interfaces/register.interface';
 
 @Injectable({
   providedIn: "root",
@@ -16,6 +17,7 @@ export class AuthService extends BaseService {
           access,
           name,
           rol,
+          email,
           company {
             _id,
             name
@@ -25,5 +27,36 @@ export class AuthService extends BaseService {
     }
   `;
     return super.graphqlQuery(query).pipe(map((resp) => resp.data.login));
+  }
+  register(account: IRegister) {
+    const query = `
+      mutation {
+        register(
+          input: 
+          {
+              user: {
+                email: "${account.email}", 
+                password: "${account.password}"
+              }, 
+              company: {
+                name: "${account.company}"
+              }
+          }
+        ) {
+          token
+          user {
+            email
+            name,
+            access,
+            rol,
+            company {
+              _id,
+              name
+            }
+          }
+        }
+      }
+  `;
+    return super.graphqlMutation(query).pipe(map((resp) => resp.data.register));
   }
 }
