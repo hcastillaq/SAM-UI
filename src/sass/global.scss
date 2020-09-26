@@ -41,3 +41,7 @@ button {
     margin: 5px;
   }
 }
+
+.mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, .6);
+}

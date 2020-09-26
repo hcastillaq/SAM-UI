@@ -19,24 +19,14 @@ interface TreeNode {
 
 const TREE_DATA: TreeNode[] = [
   {
-    to: "/spadmin",
-    name: "Single",
+    to: "/",
+    name: "Dashboard",
   },
   {
-    name: "Fruit",
-    children: [
-      { name: "Apple", to: "/spadmin" },
-      { name: "Banana" },
-      { name: "Fruit loops" },
-    ],
+    name: "Transacciones",
   },
   {
-    name: "Vegetables",
-    children: [
-      {
-        name: "Green",
-      },
-    ],
+    name: "Usuarios",
   },
 ];
 
@@ -64,16 +54,16 @@ export class SidenavComponent implements OnInit, AfterContentInit {
     },
   ];
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.dataSource.data = TREE_DATA;
-    SIDENAV$.subscribe( () => {
+    SIDENAV$.subscribe(() => {
       this.sidenav.toggle();
     });
   }
   ngAfterContentInit(): void {
-    this.sidenav.close();
+    this.sidenav.open();
   }
 
   private _transformer = (node: TreeNode, level: number) => {
@@ -105,5 +95,4 @@ export class SidenavComponent implements OnInit, AfterContentInit {
     this.sidenav.close();
   }
 
-  
 }
