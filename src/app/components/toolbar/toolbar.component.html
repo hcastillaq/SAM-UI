@@ -51,7 +51,7 @@
   <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
     <div *ngFor="let item of navigationItem">
       <div *ngIf="item.to">
-        <button mat-button routerLinkActive="active" [routerLink]="item.to">
+        <button mat-button routerLinkActive="active" [routerLink]="item.to" [routerLinkActiveOptions]="{ exact: true }">
           {{item.name}}
         </button>
       </div>

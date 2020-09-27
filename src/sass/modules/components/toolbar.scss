@@ -22,6 +22,7 @@
 
   &.toolbar--menu {
     background-color: white !important;
+    color: $text-secondary;
 
     .active {
       background-color: mat-color($primary);

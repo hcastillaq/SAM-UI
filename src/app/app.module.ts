@@ -23,39 +23,41 @@ import { HttpTokenInterceptor } from "./interceptors/token.interceptor";
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { RouterCustomSerializer } from './helpers/serializers/route.serializer';
+import { EntityStoreModule } from './store/entity/entity-store.module';
 
 @NgModule({
-  declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MaterialModule,
-    FlexLayoutModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: false,
-        strictActionImmutability: false,
-      },
-    }),
-    EffectsModule.forRoot([AuthEffects]),
-    StoreRouterConnectingModule.forRoot({
-      serializer: RouterCustomSerializer,
-      routerState: RouterState.Full,
-    }),
-    EntityDataModule.forRoot(entityConfig),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
-    GraphQLModule,
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [SnackbarComponent, SnackbarTemplateComponent],
+	declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		HttpClientModule,
+		MaterialModule,
+		FlexLayoutModule,
+		StoreModule.forRoot(reducers, {
+			metaReducers,
+			runtimeChecks: {
+				strictStateImmutability: false,
+				strictActionImmutability: false,
+			},
+		}),
+		EffectsModule.forRoot([AuthEffects]),
+		StoreRouterConnectingModule.forRoot({
+			serializer: RouterCustomSerializer,
+			routerState: RouterState.Full,
+		}),
+		EntityDataModule.forRoot(entityConfig),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25,
+			logOnly: environment.production,
+		}),
+		GraphQLModule,
+		EntityStoreModule
+	],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
+	],
+	bootstrap: [AppComponent],
+	entryComponents: [SnackbarComponent, SnackbarTemplateComponent],
 })
 export class AppModule { }
