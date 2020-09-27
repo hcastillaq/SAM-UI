@@ -11,23 +11,25 @@ import { catchError } from "rxjs/operators";
 export class BaseService {
 	constructor(private http$: HttpClient, private apollo: Apollo) { }
 
-	graphqlQuery(query): Observable<any> {
+	graphqlQuery(query, variables = {}): Observable<any> {
 		query = gql`
       ${query},
     `;
 		return this.apollo
 			.watchQuery({
 				query,
+				variables,
 				fetchPolicy: "no-cache"
 			})
 			.valueChanges.pipe(catchError((resp) => EMPTY));
 	}
-	graphqlMutation(query): Observable<any> {
+	graphqlMutation(query, variables = {}): Observable<any> {
 		query = gql`
       ${query}
     `;
 		return this.apollo.mutate({
 			mutation: query,
+			variables,
 			fetchPolicy: "no-cache"
 		}).pipe(catchError((resp) => EMPTY));
 	}

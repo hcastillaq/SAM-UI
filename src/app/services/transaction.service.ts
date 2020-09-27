@@ -34,14 +34,8 @@ export class TransactionService extends BaseService {
 
 	add(transaction: ITransaction): Observable<ITransaction> {
 		const query = `
-			mutation{
-				createTransaction(input:
-					{
-						description: "${transaction.description}",
-						type: "${transaction.type}",
-						mount: ${transaction.mount},
-						date: "${transaction.date}" 
-					}
+			mutation($transaction: TransactionInputCreate!){
+				createTransaction(input: $transaction
 				)
 				{
 					_id,
@@ -53,6 +47,6 @@ export class TransactionService extends BaseService {
 				}
 			}
 		`;
-		return super.graphqlMutation(query).pipe(map(resp => resp.data.createTransaction));
+		return super.graphqlMutation(query, { transaction }).pipe(map(resp => resp.data.createTransaction));
 	}
 }
