@@ -22,5 +22,10 @@ export const DICTIONARY = {
     COMPANY: 'Nombre de tu compañía',
     REQUIRED: 'El campo es requerido'
   },
+  SIDE_NAV: {
+    HOME: 'Inicio',
+    TRANSACTIONS: 'Transacciones',
+    USERS: 'Usuarios'
+  },
   COMPANY: 'Compañía'
 };

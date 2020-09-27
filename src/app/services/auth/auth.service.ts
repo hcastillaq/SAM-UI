@@ -14,7 +14,6 @@ export class AuthService extends BaseService {
       login(input: { email: "${account.email}", password: "${account.password}" }) {
         token,
         user {
-          access,
           name,
           rol,
           email,
@@ -35,6 +34,7 @@ export class AuthService extends BaseService {
           input: 
           {
               user: {
+                rol: "SUPER ADMINISTRATOR",
                 email: "${account.email}", 
                 password: "${account.password}"
               }, 
@@ -47,7 +47,6 @@ export class AuthService extends BaseService {
           user {
             email
             name,
-            access,
             rol,
             company {
               _id,

@@ -83,10 +83,6 @@ export class AuthEffects {
       ofType(EAuthActions.LOGOUT),
       tap(() => {
         this.sessionServicie.logout();
-        SNACKBAR.next({
-          message: 'Hasta la proxima!',
-          type: "success",
-        });
         this.router.navigateByUrl(`${ROUTERS_LIST.AUTH.ROOT}/${ROUTERS_LIST.AUTH.LOGIN}`);
       })
     ),

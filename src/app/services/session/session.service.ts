@@ -34,8 +34,6 @@ export class SessionService {
    * @example
    * acessService.rolAccess([0,1,2]) - Verifica que el rol del usuario activo
    * se encuentre en el arreglo de accesos validos
-   *
-   * Valida si el usuario activo tiene acceso a lo que se requiera
    * @param { Array } access - arreglo  de accesos validos
    * @return { Boolean }
    */

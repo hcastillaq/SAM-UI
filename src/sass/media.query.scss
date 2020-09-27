@@ -1,0 +1,17 @@
+@media (min-width: 1201px) {
+  .toolbar {
+    padding: 0px 15% 0px 15% !important;
+  }
+
+  .hideMax1280 {
+    display: none !important;
+  }
+
+}
+
+@media (max-width: 1200px) {
+
+  .hideMinus1280 {
+    display: none !important;
+  }
+}

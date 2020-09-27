@@ -1,4 +1,3 @@
-import { ROL_ACCESS } from "./roles.helpers";
 
 /**
  * All routes names in the system
@@ -12,7 +11,3 @@ export const ROUTERS_LIST = {
 	},
 };
 
-
-export const MODULES_LIST = {
-	AUTH: 'auth'
-}
