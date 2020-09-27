@@ -1,6 +1,9 @@
 @import 'sam.theme.scss';
 @import "./vars.scss";
 @import "./modules/modules.scss";
+@import "./media.query.scss";
+
+
 
 * {
   padding: 0px;
@@ -40,4 +43,8 @@ button {
   mat-spinner {
     margin: 5px;
   }
+}
+
+.mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, .6);
 }
