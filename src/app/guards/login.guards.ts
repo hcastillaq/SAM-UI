@@ -9,7 +9,7 @@ import {
 } from "@angular/router";
 import { Observable } from "rxjs";
 import { SessionService } from "../services/session/session.service";
-import { MODULES_LIST, ROUTERS_LIST } from "../helpers/routes.helpers";
+import { ROUTERS_LIST } from "../helpers/routes.helpers";
 
 @Injectable({
   providedIn: "root",
@@ -26,7 +26,7 @@ export class LoginGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
 
     switch (route.data.module_name) {
-      case MODULES_LIST.AUTH:
+      case ROUTERS_LIST.AUTH.ROOT:
         if (this.session.validate()) {
           this.router$.navigate(["/"]);
         }

@@ -8,36 +8,43 @@ import {
 } from "@angular/material/tree";
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
+import { BREAK_POINT, BREAK_POINTS, BREAK_POINT_OBSERVER } from 'src/app/helpers/media-queries.helper';
 
 export const SIDENAV$ = new Subject<never>();
 
-interface TreeNode {
+interface TreeMenuNode {
   name: string;
   to?: string;
-  children?: TreeNode[];
+  children?: TreeMenuNode[];
+  icon?: String;
+  access?: boolean;
 }
 
-const TREE_DATA: TreeNode[] = [
-  {
-    to: "/",
-    name: "Dashboard",
-  },
-  {
-    name: "Transacciones",
-  },
-  {
-    name: "Usuarios",
-  },
-];
-
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
+interface menuNode {
   expandable: boolean;
   name: string;
   level: number;
 }
-
+export const MENU_ITEMS: TreeMenuNode[] = [
+  {
+    to: "/",
+    name: DICTIONARY.SIDE_NAV.HOME,
+    icon: 'home',
+    access: true
+  },
+  {
+    to: "/transactions",
+    name: DICTIONARY.SIDE_NAV.TRANSACTIONS,
+    icon: 'poll',
+    access: true
+  },
+  {
+    to: "/users",
+    name: DICTIONARY.SIDE_NAV.USERS,
+    icon: 'people',
+    access: true
+  },
+];
 @Component({
   selector: "app-sidenav",
   templateUrl: "./sidenav.component.html",
@@ -45,37 +52,41 @@ interface ExampleFlatNode {
 })
 export class SidenavComponent implements OnInit, AfterContentInit {
   @ViewChild("sidenav", { static: true }) sidenav: MatSidenav;
+
   DICTIONARY = DICTIONARY;
-  navigation = [
-    {
-      to: "/spadmin",
-      name: "Dashboard",
-      expands: [],
-    },
-  ];
+
+
 
   constructor() { }
 
   ngOnInit(): void {
-    this.dataSource.data = TREE_DATA;
+    this.dataSource.data = MENU_ITEMS;
     SIDENAV$.subscribe(() => {
       this.sidenav.toggle();
     });
-  }
-  ngAfterContentInit(): void {
-    this.sidenav.open();
+    BREAK_POINT_OBSERVER.subscribe(data => {
+      if (BREAK_POINTS.extraLarge === data.breakpoint) {
+        this.sidenav.close();
+      }
+    });
   }
 
-  private _transformer = (node: TreeNode, level: number) => {
+  ngAfterContentInit(): void {
+    this.sidenav.close();
+  }
+
+  private _transformer = (node: TreeMenuNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       to: node.to,
       level: level,
+      icon: node.icon,
+      access: node.access
     };
   };
 
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
+  treeControl = new FlatTreeControl<menuNode>(
     (node) => node.level,
     (node) => node.expandable
   );
@@ -89,7 +100,7 @@ export class SidenavComponent implements OnInit, AfterContentInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  hasChild = (_: number, node: menuNode) => node.expandable;
 
   close(reason: string) {
     this.sidenav.close();

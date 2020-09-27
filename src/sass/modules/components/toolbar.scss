@@ -1,4 +1,5 @@
 .toolbar {
+  margin-top: 20px;
   background-color: $background !important;
 
   .toolbar__userBtn {
@@ -11,7 +12,22 @@
     }
   }
 
+  .toolbar__title {
+    span {
+      font-weight: bold;
+      font-size: 2em;
+      color: mat-color($primary) !important;
+    }
+  }
 
+  &.toolbar--menu {
+    background-color: white !important;
+
+    .active {
+      background-color: mat-color($primary);
+      color: white;
+    }
+  }
 }
 
 
