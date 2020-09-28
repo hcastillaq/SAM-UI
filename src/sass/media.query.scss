@@ -1,6 +1,8 @@
+$mediaPadding: 0px 12% 0px 12%;
+
 @media (min-width: 1201px) {
   .toolbar {
-    padding: 0px 15% 0px 15% !important;
+    padding: $mediaPadding !important;
   }
 
   .hideMax1280 {
@@ -8,7 +10,7 @@
   }
 
   .pages__content {
-    padding: 0px 15% 0px 15% !important;
+    padding: $mediaPadding !important;
   }
 
 }

@@ -1,5 +1,1 @@
-<button mat-button (click)="add()">add transaction</button>
-
-<div *ngFor="let transaction of transactions$ | async">
-  <span>{{transaction.description}}</span>
-</div>
+<app-todo-table [config]="tableConfig"></app-todo-table>

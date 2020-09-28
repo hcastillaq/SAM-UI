@@ -10,10 +10,7 @@ import {
 	OP_ERROR,
 } from '@ngrx/data';
 import { Actions } from '@ngrx/effects';
-import { Observable, Observer } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { ITransaction } from 'src/app/interfaces/transaction.interface';
-import { TransactionService } from 'src/app/services/transaction.service';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionEntityService extends EntityCollectionServiceBase<ITransaction> {

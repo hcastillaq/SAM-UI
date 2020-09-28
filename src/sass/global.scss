@@ -16,7 +16,7 @@ body {
 }
 
 .mat-card {
-  border-radius: 10px !important;
+  border-radius: .25em !important;
   box-shadow: $box-shadow;
 }
 
@@ -49,4 +49,24 @@ button {
 
 .pages__content {
   margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+mat-footer-row,
+mat-header-row,
+mat-row,
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+  border-bottom-color: $background-divider !important;
+}
+
+
+mat-divider {
+  margin-left: 5px !important;
+  margin-right: 10px !important;
+
+  .mat-divider-vertical {
+    border-right-color: $background-divider !important;
+  }
 }

@@ -5,10 +5,11 @@ import { SidenavComponent } from "./sidenav/sidenav.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { RouterModule } from "@angular/router";
+import { TodoTableComponent } from './todo-table/todo-table.component';
 
 @NgModule({
-  declarations: [SidenavComponent, ToolbarComponent],
-  imports: [CommonModule, RouterModule, MaterialModule, FlexLayoutModule],
-  exports: [SidenavComponent, ToolbarComponent],
+	declarations: [SidenavComponent, ToolbarComponent, TodoTableComponent],
+	imports: [CommonModule, RouterModule, MaterialModule, FlexLayoutModule],
+	exports: [SidenavComponent, ToolbarComponent],
 })
-export class ComponentesModule {}
+export class ComponentesModule { }

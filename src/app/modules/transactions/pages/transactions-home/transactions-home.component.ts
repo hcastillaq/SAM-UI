@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ITodoTableConfig } from 'src/app/components/todo-table/todo-table.component';
 import { ITransaction } from 'src/app/interfaces/transaction.interface';
 import { TransactionEntityService } from 'src/app/store/entity/transactions/transaction.entity.service';
 
@@ -9,11 +10,17 @@ import { TransactionEntityService } from 'src/app/store/entity/transactions/tran
 })
 export class TransactionsHomeComponent implements OnInit {
 
-	transactions$;
+	transactions$ = this.transactionEntityService.entities$;
+
+	tableConfig: ITodoTableConfig = {
+		data: this.transactionEntityService.entities$,
+		headers: ["type", "mount", "description", "date"],
+		name: "Transactions"
+	}
+
 	constructor(private transactionEntityService: TransactionEntityService) { }
 
 	ngOnInit(): void {
-		this.transactions$ = this.transactionEntityService.entities$;
 		this.transactionEntityService.getAll();
 	}
 
