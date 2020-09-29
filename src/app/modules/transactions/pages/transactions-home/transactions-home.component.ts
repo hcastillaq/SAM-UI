@@ -15,7 +15,11 @@ export class TransactionsHomeComponent implements OnInit {
 	tableConfig: ITodoTableConfig = {
 		data: this.transactionEntityService.entities$,
 		headers: ["type", "mount", "description", "date"],
-		name: "Transactions"
+		name: "Transactions",
+		reload: () => {
+			this.transactionEntityService.clearCache();
+			this.transactionEntityService.getAll();
+		}
 	}
 
 	constructor(private transactionEntityService: TransactionEntityService) { }

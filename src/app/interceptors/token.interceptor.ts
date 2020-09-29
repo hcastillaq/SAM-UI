@@ -11,10 +11,16 @@ import { ActivatedRoute } from "@angular/router";
 import { catchError, map } from "rxjs/operators";
 import { SNACKBAR } from "../components/snackbar/snackbar.component";
 import { JwtService } from '../services/jwt/jwt.service';
+import { IAppState } from '../store/state/app.state';
+import { Store } from '@ngrx/store';
+import { SessionService } from '../services/session/session.service';
+import { authActionLogout, EAuthActions } from '../store/actions/auth.actions';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
-	constructor(private activatedRoute: ActivatedRoute, private jwtService: JwtService) { }
+	constructor(private activatedRoute: ActivatedRoute,
+		private sessionService: SessionService,
+		private jwtService: JwtService, private store: Store<IAppState>) { }
 
 	intercept(
 		req: HttpRequest<any>,
@@ -29,7 +35,12 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
 		if (currentURL.indexOf("auth") == -1) {
 			headersConfig['Authorization'] = 'Bearer ' + this.jwtService.getToken();
+
+			if (!this.sessionService.validate()) {
+				this.store.dispatch(authActionLogout());
+			}
 		}
+
 
 		const request = req.clone({ setHeaders: headersConfig });
 		return next.handle(request).pipe(
