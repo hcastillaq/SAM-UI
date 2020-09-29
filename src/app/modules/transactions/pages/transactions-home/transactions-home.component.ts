@@ -17,7 +17,6 @@ export class TransactionsHomeComponent implements OnInit {
 		headers: ["type", "mount", "description", "date"],
 		name: "Transactions",
 		reload: () => {
-			this.transactionEntityService.clearCache();
 			this.transactionEntityService.getAll();
 		}
 	}
