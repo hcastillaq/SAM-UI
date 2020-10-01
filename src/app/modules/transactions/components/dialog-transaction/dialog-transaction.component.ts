@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { SNACKBAR } from 'src/app/components/snackbar/snackbar.component';
 import { TransactionEntityService } from 'src/app/store/entity/transactions/transaction.entity.service';
 
 @Component({
@@ -10,7 +12,9 @@ import { TransactionEntityService } from 'src/app/store/entity/transactions/tran
 export class DialogTransactionComponent implements OnInit {
 
   form: FormGroup;
-  constructor(private fb: FormBuilder, private transactionsEntityService: TransactionEntityService) { }
+  constructor(private fb: FormBuilder,
+    private ref: MatDialogRef<DialogTransactionComponent>,
+    private transactionsEntityService: TransactionEntityService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -22,6 +26,12 @@ export class DialogTransactionComponent implements OnInit {
   }
 
   create() {
-    this.transactionsEntityService.add({ ...this.form.value, date: new Date(this.form.value.date).toISOString() });
+    this.transactionsEntityService.add(this.form.value).subscribe(e => {
+      SNACKBAR.next({
+        message: "Transaction created successfully",
+        type: "success",
+      });
+      this.ref.close();
+    });
   }
 }

@@ -38,6 +38,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
 			if (!this.sessionService.validate()) {
 				this.store.dispatch(authActionLogout());
+				return EMPTY;
 			}
 		}
 

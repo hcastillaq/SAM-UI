@@ -41,7 +41,7 @@
       <th mat-header-cell *matHeaderCellDef>
         {{(column !== 'actions' ? column: " ") | uppercase }}
       </th>
-      <td mat-cell *matCellDef="let element" (click)="detail(element)">
+      <td @fadeUp mat-cell *matCellDef="let element" (click)="detail(element)">
         <div *ngIf="column === 'actions'"></div>
         {{column !== 'actions' ? element[column]: " "}}
       </td>

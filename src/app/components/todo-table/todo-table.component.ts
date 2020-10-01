@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
 import { AfterViewInit, Component, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,7 +25,19 @@ export interface ITodoTableConfig {
 @Component({
 	selector: 'app-todo-table[config]',
 	templateUrl: './todo-table.component.html',
-	styleUrls: ['./todo-table.component.scss']
+	styleUrls: ['./todo-table.component.scss'],
+	animations: [
+		trigger('fadeUp', [
+			state('void', style({
+				opacity: 0,
+				paddingTop: "30px"
+			})),
+
+			transition(':enter', [
+				animate(200)
+			])
+		])
+	]
 })
 export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
