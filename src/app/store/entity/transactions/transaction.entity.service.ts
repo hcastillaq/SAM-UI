@@ -24,6 +24,4 @@ export class TransactionEntityService extends EntityCollectionServiceBase<ITrans
 			if (action.payload.data.length === 0) this.clearCache();
 		})
 	}
-
-
 }

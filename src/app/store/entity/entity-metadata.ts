@@ -16,7 +16,6 @@ const entityMetadata: EntityMetadataMap = {
 
 const pluralNames = {
 	Transaction: 'Transactions',
-
 };
 
 export const entityConfig: EntityDataModuleConfig = {

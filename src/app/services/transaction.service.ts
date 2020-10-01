@@ -43,7 +43,8 @@ export class TransactionService extends BaseService {
 					user{_id, name},
 					description,
 					mount,
-					type
+					type,
+					date
 				}
 			}
 		`;

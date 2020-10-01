@@ -2,13 +2,21 @@
   margin-top: 20px;
   background-color: $background !important;
 
+  mat-divider {
+    margin-left: 5px !important;
+    margin-right: 10px !important;
+  }
+
+  .mat-caption {
+    font-size: .7em !important;
+  }
+
   .toolbar__userBtn {
     span {
       margin-right: 10px;
       font-weight: 500;
       color: black;
       font-size: 16px;
-      text-transform: capitalize;
     }
   }
 
@@ -40,7 +48,7 @@
     background-color: mat-color($primary, 500);
     color: white;
     display: flex;
-    text-transform: capitalize;
+    font-size: 18px;
 
     .mat-icon {
       font-size: 2.5em;
@@ -48,6 +56,8 @@
       width: auto !important;
       height: auto !important;
     }
+
+
   }
 
   .toolbar__userMenu__content {

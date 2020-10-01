@@ -1,6 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -20,10 +19,9 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { AuthEffects } from "./store/effects/auth.effects";
 import { GraphQLModule } from "./graphql.module";
 import { HttpTokenInterceptor } from "./interceptors/token.interceptor";
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { RouterCustomSerializer } from './helpers/serializers/route.serializer';
 import { EntityStoreModule } from './store/entity/entity-store.module';
+import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 
 @NgModule({
 	declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
@@ -52,7 +50,8 @@ import { EntityStoreModule } from './store/entity/entity-store.module';
 			logOnly: environment.production,
 		}),
 		GraphQLModule,
-		EntityStoreModule
+		EntityStoreModule,
+
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },

@@ -13,7 +13,7 @@
     <div>
       <button class="toolbar__userBtn" mat-button color="primary" fxLayout="row" fxLayoutAlign="center"
         [matMenuTriggerFor]="menu">
-        <span>{{data.name}}</span>
+        <span>{{data.name  !== "" ? data.name : data.email}}</span>
         <mat-icon color="primary">person</mat-icon>
       </button>
       <mat-menu #menu="matMenu" class="toolbar__userMenu" xPosition="before">
@@ -21,7 +21,7 @@
           <div fxLayout="row" fxLayoutAlign="center center">
             <mat-icon color="white">person</mat-icon>
             <div class="mr-5">
-              <span>{{data.name}}</span>
+              <span>{{data.name  !== "" ? data.name : data.email}}</span>
               <h3 class="mat-caption">{{data.rol}}</h3>
             </div>
           </div>

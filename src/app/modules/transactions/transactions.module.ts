@@ -6,15 +6,35 @@ import { TransactionsHomeComponent } from './pages/transactions-home/transaction
 import { MaterialModule } from 'src/app/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TodoTableComponent } from 'src/app/components/todo-table/todo-table.component';
+import { DialogTransactionComponent } from './components/dialog-transaction/dialog-transaction.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 
 
 @NgModule({
-	declarations: [TransactionsHomeComponent, TodoTableComponent],
+	declarations: [TransactionsHomeComponent, TodoTableComponent, DialogTransactionComponent],
 	imports: [
 		CommonModule,
 		TransactionsRoutingModule,
 		MaterialModule,
-		FlexLayoutModule
-	]
+		FlexLayoutModule,
+		ReactiveFormsModule,
+		FormsModule,
+		NgxCurrencyModule.forRoot({
+			align: "left",
+			allowNegative: false,
+			allowZero: false,
+			decimal: ",",
+			precision: 0,
+			prefix: "$ ",
+			suffix: "",
+			thousands: ".",
+			nullable: false,
+			min: 0,
+			max: null,
+			inputMode: CurrencyMaskInputMode.FINANCIAL
+		})
+	],
+	entryComponents: [DialogTransactionComponent]
 })
 export class TransactionsModule { }

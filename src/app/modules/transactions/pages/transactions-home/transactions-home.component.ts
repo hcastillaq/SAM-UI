@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ITodoTableConfig } from 'src/app/components/todo-table/todo-table.component';
 import { ITransaction } from 'src/app/interfaces/transaction.interface';
 import { TransactionEntityService } from 'src/app/store/entity/transactions/transaction.entity.service';
+import { DialogTransactionComponent } from '../../components/dialog-transaction/dialog-transaction.component';
 
 @Component({
 	selector: 'app-transactions-home',
@@ -16,6 +17,7 @@ export class TransactionsHomeComponent implements OnInit {
 		data: this.transactionEntityService.entities$,
 		headers: ["type", "mount", "description", "date"],
 		name: "Transactions",
+		createComponent: DialogTransactionComponent,
 		reload: () => {
 			this.transactionEntityService.getAll();
 		}

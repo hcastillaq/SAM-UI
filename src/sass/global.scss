@@ -63,10 +63,14 @@ th.mat-header-cell {
 
 
 mat-divider {
-  margin-left: 5px !important;
-  margin-right: 10px !important;
-
   .mat-divider-vertical {
     border-right-color: $background-divider !important;
   }
+
+  border-top-color: $background-divider !important;
+
+}
+
+mat-dialog-container {
+  padding: 0px !important;
 }
