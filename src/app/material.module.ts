@@ -43,7 +43,6 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
-import { TodoTableComponent } from './components/todo-table/todo-table.component';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 
 export const CUSTOM_DATE_FORMAT = {
