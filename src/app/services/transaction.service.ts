@@ -50,4 +50,22 @@ export class TransactionService extends BaseService {
 		`;
 		return super.graphqlMutation(query, { transaction }).pipe(map(resp => resp.data.createTransaction));
 	}
+
+	update(transaction: ITransaction): Observable<ITransaction> {
+		const query = `
+			mutation($transaction: TransactionInputUpdate!, $id: String!){
+				updateTransaction(input: $transaction, id:$id)
+				{
+					_id,
+					company{_id,name},
+					user{_id, name},
+					description,
+					mount,
+					type,
+					date
+				}
+			}
+		`;
+		return super.graphqlMutation(query, { transaction, id: transaction._id }).pipe(map(resp => resp.data.updateTransaction));
+	}
 }

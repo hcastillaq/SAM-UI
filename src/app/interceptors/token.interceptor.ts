@@ -38,6 +38,10 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
 			if (!this.sessionService.validate()) {
 				this.store.dispatch(authActionLogout());
+				SNACKBAR.next({
+					message: 'token expired',
+					type: 'warning'
+				});
 				return EMPTY;
 			}
 		}

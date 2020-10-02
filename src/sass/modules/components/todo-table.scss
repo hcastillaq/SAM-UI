@@ -99,6 +99,7 @@
     tbody {
       tr {
         cursor: pointer !important;
+        overflow: hidden;
 
         &:hover {
           background-color: rgba(0, 0, 0, 0.04) !important;

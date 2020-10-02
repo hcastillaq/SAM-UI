@@ -20,12 +20,13 @@ export class TransactionsHomeComponent implements OnInit {
 			return transactions.reverse().map(transaction => ({
 				...transaction,
 				user: transaction.user.name,
-				date: moment(String(transaction.date)).format("YYYY-DD-MM")
+				date: moment(String(transaction.date)).format("DD-MM-YYYY")
 			}))
 		})),
 		headers: ["type", "mount", "description", "date", "user"],
 		name: "Transactions",
 		createComponent: DialogTransactionComponent,
+		updateComponent: DialogTransactionComponent,
 		reload: () => {
 			this.transactionEntityService.getAll();
 		}
@@ -35,16 +36,6 @@ export class TransactionsHomeComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.transactionEntityService.getAll();
-	}
-
-	add() {
-		const transaction: ITransaction = {
-			description: "soy la description " + Math.floor(Math.random() * 10),
-			mount: parseFloat(String((Math.random() * 10) * (Math.random() * 10))),
-			type: 'entry',
-			date: "2020-09-26"
-		}
-		this.transactionEntityService.add(transaction);
 	}
 
 }

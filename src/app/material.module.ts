@@ -44,6 +44,19 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
 import { TodoTableComponent } from './components/todo-table/todo-table.component';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+
+export const CUSTOM_DATE_FORMAT = {
+	parse: {
+		display: ["DD-MM-YYYY", "MM-DD-YYYY", "YYYY-MM-DD"],
+	},
+	display: {
+		dateInput: 'DD-MM-YYYY',
+		monthYearLabel: 'MMMM YYYY',
+		dateA11yLabel: 'LL',
+		monthYearA11yLabel: 'MMM YYYY',
+	},
+};
 
 @NgModule({
 	exports: [
@@ -89,6 +102,8 @@ import { TodoTableComponent } from './components/todo-table/todo-table.component
 		MatTreeModule,
 		PortalModule,
 		ScrollingModule,
+		MatDatepickerModule,
+		MomentDateModule
 	],
 	entryComponents: [MatSnackBarContainer],
 })

@@ -8,5 +8,6 @@ export interface ITransaction {
 	date?: String,
 	company?: ICompany,
 	user?: IUser,
-	type?: String
+	type?: String,
+	__typename?: String
 }

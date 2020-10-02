@@ -30,7 +30,7 @@ export interface ITodoTableConfig {
 		trigger('fadeUp', [
 			state('void', style({
 				opacity: 0,
-				paddingTop: "30px"
+				transform: "translateY(12px)"
 			})),
 
 			transition(':enter', [
@@ -102,7 +102,7 @@ export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	update(item) {
 		if (this.config.updateComponent) {
-			this.dialog.open(this.config.detailComponent, {
+			this.dialog.open(this.config.updateComponent, {
 				data: {
 					action: 'update',
 					item: { ...item }

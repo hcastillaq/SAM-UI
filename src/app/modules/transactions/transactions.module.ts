@@ -9,6 +9,8 @@ import { TodoTableComponent } from 'src/app/components/todo-table/todo-table.com
 import { DialogTransactionComponent } from './components/dialog-transaction/dialog-transaction.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
 
 @NgModule({

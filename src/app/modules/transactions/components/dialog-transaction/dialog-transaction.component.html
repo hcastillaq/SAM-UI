@@ -45,8 +45,11 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <div fxLayoutAlign="end center">
-        <button mat-raised-button color="primary" (click)="create()" [disabled]="form.invalid"> Create </button>
+      <div fxLayoutAlign="end center" *ngIf="data.action === 'create' || data.action === 'update'">
+        <button mat-raised-button color="primary" *ngIf="data.action === 'create'" (click)="create()"
+          [disabled]="form.invalid"> Create </button>
+        <button mat-raised-button color="primary" *ngIf="data.action === 'update'" (click)="update()"
+          [disabled]="form.invalid"> Update </button>
       </div>
     </form>
 

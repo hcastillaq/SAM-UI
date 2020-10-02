@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MaterialModule } from "./material.module";
+import { CUSTOM_DATE_FORMAT, MaterialModule } from "./material.module";
 import { StoreModule } from "@ngrx/store";
 import { reducers, metaReducers } from "./store/reducers";
 import { EffectsModule } from "@ngrx/effects";
@@ -21,7 +21,10 @@ import { GraphQLModule } from "./graphql.module";
 import { HttpTokenInterceptor } from "./interceptors/token.interceptor";
 import { RouterCustomSerializer } from './helpers/serializers/route.serializer';
 import { EntityStoreModule } from './store/entity/entity-store.module';
-import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
+import { MomentDateAdapter, MomentDateModule } from '@angular/material-moment-adapter';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
 
 @NgModule({
 	declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
@@ -51,9 +54,14 @@ import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 		}),
 		GraphQLModule,
 		EntityStoreModule,
-
 	],
 	providers: [
+		{
+			provide: DateAdapter,
+			useClass: MomentDateAdapter,
+			deps: [MAT_DATE_LOCALE],
+		},
+		{ provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT },
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
 	],
 	bootstrap: [AppComponent],
