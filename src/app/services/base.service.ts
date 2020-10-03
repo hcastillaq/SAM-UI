@@ -6,45 +6,49 @@ import gql from "graphql-tag";
 import { catchError } from "rxjs/operators";
 
 @Injectable({
-  providedIn: "root",
+	providedIn: "root",
 })
 export class BaseService {
-  constructor(private http$: HttpClient, private apollo: Apollo) { }
+	constructor(private http$: HttpClient, private apollo: Apollo) { }
 
-  graphqlQuery(query): Observable<any> {
-    query = gql`
+	graphqlQuery(query, variables = {}): Observable<any> {
+		query = gql`
+      ${query},
+    `;
+		return this.apollo
+			.watchQuery({
+				query,
+				variables,
+				fetchPolicy: "no-cache"
+			})
+			.valueChanges.pipe(catchError((resp) => EMPTY));
+	}
+	graphqlMutation(query, variables = {}): Observable<any> {
+		query = gql`
       ${query}
     `;
-    return this.apollo
-      .watchQuery({
-        query,
-      })
-      .valueChanges.pipe(catchError((resp) => EMPTY));
-  }
-  graphqlMutation(query): Observable<any> {
-    query = gql`
-      ${query}
-    `;
-    return this.apollo.mutate({
-      mutation: query
-    }).pipe(catchError((resp) => EMPTY));
-  }
+		return this.apollo.mutate({
+			mutation: query,
+			variables,
+			fetchPolicy: "no-cache"
+		}).pipe(catchError((resp) => EMPTY));
+	}
 
-  get(url, params: HttpParams = new HttpParams()) {
-    return this.http$.get(`${url}`, { params });
-  }
-  post(url, data) {
-    return this.http$.post(`${url}`, data);
-  }
-  update(url, params: HttpParams = new HttpParams()) {
-    return this.http$.put(`${url}`, { params });
-  }
-  delete(url, params: HttpParams = new HttpParams()) {
-    return this.http$.request("DELETE", `${url}`, {
-      body: params,
-    });
-  }
-  put(url, data) {
-    return this.http$.put(url, data);
-  }
+	get(url, params: HttpParams = new HttpParams()) {
+		return this.http$.get(`${url}`, { params });
+	}
+	post(url, data) {
+		return this.http$.post(`${url}`, data);
+	}
+	update(url, params: HttpParams = new HttpParams()) {
+		return this.http$.put(`${url}`, { params });
+	}
+	delete(url, params: HttpParams = new HttpParams()) {
+		return this.http$.request("DELETE", `${url}`, {
+			body: params,
+		});
+	}
+	put(url, data) {
+		return this.http$.put(url, data);
+	}
 }

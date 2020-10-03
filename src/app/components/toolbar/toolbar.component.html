@@ -13,7 +13,7 @@
     <div>
       <button class="toolbar__userBtn" mat-button color="primary" fxLayout="row" fxLayoutAlign="center"
         [matMenuTriggerFor]="menu">
-        <span>{{data.name}}</span>
+        <span>{{data.name  !== "" ? data.name : data.email}}</span>
         <mat-icon color="primary">person</mat-icon>
       </button>
       <mat-menu #menu="matMenu" class="toolbar__userMenu" xPosition="before">
@@ -21,7 +21,7 @@
           <div fxLayout="row" fxLayoutAlign="center center">
             <mat-icon color="white">person</mat-icon>
             <div class="mr-5">
-              <span>{{data.name}}</span>
+              <span>{{data.name  !== "" ? data.name : data.email}}</span>
               <h3 class="mat-caption">{{data.rol}}</h3>
             </div>
           </div>
@@ -45,17 +45,14 @@
   </div>
 </mat-toolbar>
 
-
-
 <mat-toolbar class="toolbar toolbar--menu hideMinus1280" fxLayout="row" fxLayoutAlign="space-between center">
   <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
     <div *ngFor="let item of navigationItem">
       <div *ngIf="item.to">
-        <button mat-button routerLinkActive="active" [routerLink]="item.to">
+        <button mat-button routerLinkActive="active" [routerLink]="item.to" [routerLinkActiveOptions]="{ exact: true }">
           {{item.name}}
         </button>
       </div>
     </div>
-
   </div>
 </mat-toolbar>

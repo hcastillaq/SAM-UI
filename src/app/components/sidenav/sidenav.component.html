@@ -8,18 +8,19 @@
     <div class="sidenav__routes">
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
         <!-- This is the tree node template for leaf nodes -->
-        <mat-tree-node fxLayout="row" *matTreeNodeDef="let node" matTreeNodePadding>
+        <mat-tree-node fxLayout="row" *matTreeNodeDef="let node" matTreeNodePadding (click)="closeSideNav(node)">
           <div *ngIf="node.access" fxLayout="row" fxFlex="100%">
             <div *ngIf="node.to !== undefined" fxLayout="row" fxFlex="100%">
-              <div class="sidenav__routes__route" [routerLink]="node.to" routerLinkActive="active" fxLayout="row"
-                fxFlex="100%">
+              <div class="sidenav__routes__route" [routerLink]="node.to" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }" fxLayout="row" fxFlex="100%">
                 <mat-icon *ngIf="node.icon">{{node.icon}}</mat-icon>
                 {{node.name}}
               </div>
             </div>
 
             <div *ngIf="node.to === undefined" fxLayout="row" fxFlex="100%">
-              <div class="sidenav__routes__route" routerLinkActive="active" fxLayout="row" fxFlex="100%">
+              <div class="sidenav__routes__route" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                fxLayout="row" fxFlex="100%">
                 <mat-icon *ngIf="node.icon">{{node.icon}}</mat-icon>
                 {{node.name}}
               </div>
@@ -27,11 +28,13 @@
           </div>
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
-        <mat-tree-node fxLayout="row" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        <mat-tree-node fxLayout="row" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding
+          (click)="closeSideNav(node)">
           <div *ngIf="node.access" fxLayout="row" fxFlex="100%">
             <div *ngIf="node.to !== undefined" fxLayout="row" fxFlex="100%">
               <div fxLayout="row" fxFlex="100%" fxLayoutAlign="space-between center" [routerLink]="node.to"
-                routerLinkActive="active" class="sidenav__routes__route" matTreeNodeToggle>
+                routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="sidenav__routes__route"
+                matTreeNodeToggle>
                 <mat-icon *ngIf="node.icon">{{node.icon}}</mat-icon>
                 {{node.name}}
                 <mat-icon class="mat-icon-rtl-mirror">
@@ -42,7 +45,7 @@
 
             <div *ngIf="node.to === undefined" fxLayout="row" fxFlex="100%">
               <div fxLayout="row" fxFlex="100%" fxLayoutAlign="space-between center" routerLinkActive="active"
-                class="sidenav__routes__route" matTreeNodeToggle>
+                [routerLinkActiveOptions]="{ exact: true }" class="sidenav__routes__route" matTreeNodeToggle>
                 <div fxLayout="row" fxLayoutAlign="flex-start center">
                   <mat-icon *ngIf="node.icon">{{node.icon}}</mat-icon>
                   {{node.name}}

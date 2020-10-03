@@ -1,4 +1,4 @@
 export interface ICompany {
-  _id?: String
-  name: String
+	_id?: String
+	name?: String
 }

@@ -11,13 +11,13 @@ import { SidenavComponent } from 'src/app/components/sidenav/sidenav.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, ToolbarComponent, SidenavComponent],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    MaterialModule,
-    FlexLayoutModule,
-    ReactiveFormsModule
-  ]
+	declarations: [HomeComponent, ToolbarComponent, SidenavComponent],
+	imports: [
+		CommonModule,
+		DashboardRoutingModule,
+		MaterialModule,
+		FlexLayoutModule,
+		ReactiveFormsModule,
+	]
 })
 export class DashboardModule { }

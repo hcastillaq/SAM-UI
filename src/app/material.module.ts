@@ -34,8 +34,8 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import {
-  MatSnackBarModule,
-  MatSnackBarContainer,
+	MatSnackBarModule,
+	MatSnackBarContainer,
 } from "@angular/material/snack-bar";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
@@ -43,52 +43,67 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
+import { MomentDateModule } from '@angular/material-moment-adapter';
+
+export const CUSTOM_DATE_FORMAT = {
+	parse: {
+		display: ["DD-MM-YYYY", "MM-DD-YYYY", "YYYY-MM-DD"],
+	},
+	display: {
+		dateInput: 'DD-MM-YYYY',
+		monthYearLabel: 'MMMM YYYY',
+		dateA11yLabel: 'LL',
+		monthYearA11yLabel: 'MMM YYYY',
+	},
+};
 
 @NgModule({
-  exports: [
-    A11yModule,
-    CdkStepperModule,
-    CdkTableModule,
-    CdkTreeModule,
-    DragDropModule,
-    MatAutocompleteModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatStepperModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatTreeModule,
-    PortalModule,
-    ScrollingModule,
-  ],
-  entryComponents: [MatSnackBarContainer],
+	exports: [
+		A11yModule,
+		CdkStepperModule,
+		CdkTableModule,
+		CdkTreeModule,
+		DragDropModule,
+		MatAutocompleteModule,
+		MatBadgeModule,
+		MatBottomSheetModule,
+		MatButtonModule,
+		MatButtonToggleModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatChipsModule,
+		MatStepperModule,
+		MatDatepickerModule,
+		MatDialogModule,
+		MatDividerModule,
+		MatExpansionModule,
+		MatGridListModule,
+		MatIconModule,
+		MatInputModule,
+		MatListModule,
+		MatMenuModule,
+		MatNativeDateModule,
+		MatPaginatorModule,
+		MatProgressBarModule,
+		MatProgressSpinnerModule,
+		MatRadioModule,
+		MatRippleModule,
+		MatSelectModule,
+		MatSidenavModule,
+		MatSliderModule,
+		MatSlideToggleModule,
+		MatSnackBarModule,
+		MatSortModule,
+		MatTableModule,
+		MatTabsModule,
+		MatToolbarModule,
+		MatTooltipModule,
+		MatTreeModule,
+		PortalModule,
+		ScrollingModule,
+		MatDatepickerModule,
+		MomentDateModule
+	],
+	entryComponents: [MatSnackBarContainer],
 })
-export class MaterialModule {}
+export class MaterialModule { }

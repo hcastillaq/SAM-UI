@@ -1,0 +1,115 @@
+.todo-table {
+  width: 100%;
+  overflow: hidden;
+  border-radius: .25em !important;
+  padding: 0px !important;
+
+
+  .todo-table__header {
+    height: 64px;
+    width: calc(100% -48px);
+    background-color: #ebebee !important;
+    border-bottom-color: $background-divider !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 24px 0px 24px;
+
+    .todo-table__header__left {
+      width: 70%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+
+      .todo-table__header__title {
+        height: 50%;
+        display: flex;
+        justify-content: space-between;
+        justify-content: center;
+
+        mat-divider {
+          margin: 0px 20px 0px 20px !important;
+        }
+
+        span {
+          display: flex;
+          align-items: center;
+          font-weight: 500;
+          font-size: 18px;
+        }
+      }
+
+      .todo-table__header__search {
+        height: 36px;
+        background-color: white;
+        width: 250px;
+        padding: 5px 10px 5px 10px;
+        display: flex;
+        border-radius: 9999px;
+        align-items: center;
+
+        .todo-table__header__search__icon {
+          mat-icon {
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+
+        .todo-table__header__search__btn {
+          input {
+            border: none;
+            outline-style: none !important;
+            margin-left: 5px;
+            height: 30px;
+          }
+        }
+      }
+    }
+
+    .todo-table__header__right {
+      width: 30%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .todo-table__header__search__actionButtons {
+        button {
+          box-shadow: none !important;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+  .table__table__notFound {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px 20px 0px;
+  }
+
+  .todo-table__table {
+    width: 100%;
+
+    table {
+      width: 100%;
+
+      tbody {
+        tr {
+          cursor: pointer !important;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.04) !important;
+          }
+        }
+      }
+    }
+  }
+
+}

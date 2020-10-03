@@ -32,13 +32,13 @@ export class SessionService {
 
   /**
    * @example
-   * acessService.rolAccess([0,1,2]) - Verifica que el rol del usuario activo
+   * service.rolAccess(["admin", "superAdmin"]) - Verifica que el rol del usuario activo
    * se encuentre en el arreglo de accesos validos
    * @param { Array } access - arreglo  de accesos validos
    * @return { Boolean }
    */
-  rolAccess(access): Boolean {
-    const rol = this.getUser().rol.rol;
+  access(access: Array<String>): Boolean {
+    const rol = this.getUser().rol;
     let state = access.includes(rol);
     return state;
   }

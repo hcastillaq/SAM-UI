@@ -1,0 +1,58 @@
+<div class="dialog">
+  <div class="dialog__header">
+    <div class="dialog__header__title">
+      <h1 mat-dialog-title>Nueva Transacción</h1>
+    </div>
+    <div class="dialog__header__actions">
+      <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-content>
+    <form fxLayout="column" fxFlex="100%" [formGroup]="form">
+
+      <div fxLayout="row" fxFlex="99%" fxLayoutGap="1%">
+        <mat-form-field appearance="fill">
+          <mat-label>Select</mat-label>
+          <mat-select formControlName="type" required>
+            <mat-option value="entry">entry</mat-option>
+            <mat-option value="expense">expense</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>
+            Mount
+          </mat-label>
+          <input matInput currencyMask formControlName="mount" required />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="fill">
+        <mat-label>
+          Description
+        </mat-label>
+        <textarea matInput formControlName="description" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <div fxLayoutAlign="end center" *ngIf="data.action === 'create' || data.action === 'update'">
+        <button mat-raised-button class="flat" color="primary" *ngIf="data.action === 'create'" (click)="create()"
+          [disabled]="form.invalid"> Crear Transacción </button>
+        <button mat-raised-button class="flat" color="primary" *ngIf="data.action === 'update'" (click)="update()"
+          [disabled]="form.invalid"> Actualizar Transacción </button>
+      </div>
+    </form>
+
+  </div>
+
+</div>
