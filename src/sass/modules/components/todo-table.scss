@@ -4,6 +4,7 @@
   border-radius: .25em !important;
   padding: 0px !important;
 
+
   .todo-table__header {
     height: 64px;
     width: calc(100% -48px);
@@ -93,18 +94,22 @@
     padding: 20px 0px 20px 0px;
   }
 
-  table {
+  .todo-table__table {
     width: 100%;
 
-    tbody {
-      tr {
-        cursor: pointer !important;
-        overflow: hidden;
+    table {
+      width: 100%;
 
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.04) !important;
+      tbody {
+        tr {
+          cursor: pointer !important;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.04) !important;
+          }
         }
       }
     }
   }
+
 }

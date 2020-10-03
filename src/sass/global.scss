@@ -48,8 +48,11 @@ button {
 }
 
 .pages__content {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  padding: 0px;
+  padding-bottom: $layoutBottom;
+  padding-right: $layoutRight;
+  padding-left: $layoutLeft;
+  margin-top: $layoutTop;
 }
 
 mat-footer-row,
@@ -60,7 +63,6 @@ td.mat-footer-cell,
 th.mat-header-cell {
   border-bottom-color: $background-divider !important;
 }
-
 
 mat-divider {
   .mat-divider-vertical {

@@ -27,4 +27,8 @@ export class TransactionEntityDataService extends DefaultDataService<ITransactio
 	update(transaction: Update<ITransaction>): Observable<ITransaction> {
 		return this.transactionService.update(transaction.changes);
 	}
+
+	delete(transactionId: string): Observable<string> {
+		return this.transactionService.delete(transactionId);
+	}
 }

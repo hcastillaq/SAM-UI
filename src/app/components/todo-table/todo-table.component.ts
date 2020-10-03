@@ -9,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 
 export interface ITodoTableConfig {
 	data: Observable<any>,
-	headers: String[],
+	headers: string[],
 	name: String,
 	reload?: Function,
 	createComponent?: ComponentType<any> | TemplateRef<any>,
@@ -17,7 +17,7 @@ export interface ITodoTableConfig {
 	updateComponent?: ComponentType<any> | TemplateRef<any>,
 	delete?: {
 		confirmationComponent: ComponentType<any> | TemplateRef<any>,
-		callback(item: any): Function
+		callback(item: any): void
 	}
 }
 
@@ -34,7 +34,7 @@ export interface ITodoTableConfig {
 			})),
 
 			transition(':enter', [
-				animate(200)
+				animate(400)
 			])
 		])
 	]
@@ -44,7 +44,7 @@ export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
 	subsDestroyed$ = new Subject<Boolean>();
 
 	@Input() config: ITodoTableConfig;
-	displayedColumns: String[];
+	displayedColumns: string[];
 	dataSource: MatTableDataSource<any>;
 
 	pageSize: number = 5;
@@ -116,7 +116,9 @@ export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.dialog.open(this.config.delete.confirmationComponent)
 				.afterClosed()
 				.pipe(takeUntil(this.subsDestroyed$)).subscribe(resp => {
-					this.config.delete.callback(item)
+					if (resp) {
+						this.config.delete.callback(item)
+					}
 				});
 		}
 	}

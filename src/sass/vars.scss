@@ -4,6 +4,8 @@ $background-gray: #ebebee;
 $background-divider: rgba(82, 63, 105, 0.06);
 
 $success: mat-palette($mat-green);
+$error: mat-palette($mat-red);
+$warning: mat-palette($mat-orange);
 
 $text-secondary: rgba(0, 0, 0, 0.54);
 
@@ -11,9 +13,21 @@ $box-shadow: 0px 5px 5px -3px rgba(82, 63, 104, 0.06),
 0px 8px 10px 1px rgba(82, 63, 104, 0.042),
 0px 3px 14px 2px rgba(82, 63, 104, 0.036) !important;
 
-$toolbarHeight: 60px;
 
 
 .text-secondary {
   color: $text-secondary !important;
 }
+
+
+/**  LAYOUT **/
+
+$layoutRight: 30px;
+$layoutLeft: 30px;
+$layoutBottom: 30px;
+$layoutTop: 30px;
+
+
+/** ELEMENTS ***/
+$toolbarHeight: calc(#{$layoutTop}*3);
+$toolbarHeightMenu: calc(#{$layoutTop}*2);

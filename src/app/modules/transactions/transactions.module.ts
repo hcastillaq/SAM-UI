@@ -11,10 +11,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
-	declarations: [TransactionsHomeComponent, TodoTableComponent, DialogTransactionComponent],
+	declarations: [TransactionsHomeComponent, TodoTableComponent, DialogTransactionComponent, ConfirmDialogComponent],
 	imports: [
 		CommonModule,
 		TransactionsRoutingModule,
@@ -37,6 +38,6 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 			inputMode: CurrencyMaskInputMode.FINANCIAL
 		})
 	],
-	entryComponents: [DialogTransactionComponent]
+	entryComponents: [DialogTransactionComponent, ConfirmDialogComponent]
 })
 export class TransactionsModule { }

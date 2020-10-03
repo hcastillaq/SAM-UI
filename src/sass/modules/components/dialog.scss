@@ -1,6 +1,7 @@
 $dialogPadding: 20px;
 
 .dialog {
+  min-width: 300px !important;
 
   .dialog__header {
     display: flex;

@@ -2,7 +2,15 @@
   box-shadow: $box-shadow;
 
   &.error {
-    background-color: mat-color($warn, 600);
+    background-color: mat-color($error, 600);
+
+    span {
+      color: white;
+    }
+  }
+
+  &.warning {
+    background-color: mat-color($warning, 600);
 
     span {
       color: white;

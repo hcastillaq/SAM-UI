@@ -55,8 +55,6 @@ export class SidenavComponent implements OnInit, AfterContentInit {
 
 	DICTIONARY = DICTIONARY;
 
-
-
 	constructor() { }
 
 	ngOnInit(): void {
@@ -73,6 +71,12 @@ export class SidenavComponent implements OnInit, AfterContentInit {
 
 	ngAfterContentInit(): void {
 		this.sidenav.close();
+	}
+
+	closeSideNav(node: TreeMenuNode) {
+		if (node.to) {
+			this.sidenav.close();
+		}
 	}
 
 	private _transformer = (node: TreeMenuNode, level: number) => {

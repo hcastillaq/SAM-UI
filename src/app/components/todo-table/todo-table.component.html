@@ -34,32 +34,34 @@
 
   </div>
 
-  <table mat-table [dataSource]="dataSource">
-    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-      <th mat-header-cell *matHeaderCellDef>
-        {{(column !== 'actions' ? column: " ") | uppercase }}
-      </th>
-      <td @fadeUp mat-cell *matCellDef="let element" (click)="detail(element)">
-        <div *ngIf="column === 'actions' && (config.updateComponent || config.delete)">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_horiz</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="config.updateComponent" (click)="update(element)">
-              <mat-icon>edit</mat-icon> Update
+  <div class="todo-table__table">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th @fadeUp mat-header-cell *matHeaderCellDef>
+          {{(column !== 'actions' ? column: " ") | uppercase }}
+        </th>
+        <td @fadeUp mat-cell *matCellDef="let element" (click)="detail(element)">
+          <div *ngIf="column === 'actions' && (config.updateComponent || config.delete)">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_horiz</mat-icon>
             </button>
-            <button mat-menu-item *ngIf="config.delete" (click)="delete(element)">
-              <mat-icon>delete</mat-icon> Delete
-            </button>
-          </mat-menu>
-        </div>
-        {{column !== 'actions' ? element[column]: " "}}
-      </td>
-    </ng-container>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item *ngIf="config.updateComponent" (click)="update(element)">
+                <mat-icon>edit</mat-icon> Update
+              </button>
+              <button mat-menu-item *ngIf="config.delete" (click)="delete(element)">
+                <mat-icon>delete</mat-icon> Delete
+              </button>
+            </mat-menu>
+          </div>
+          {{column !== 'actions' ? element[column]: " "}}
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
 
   <div class="table__table__notFound" *ngIf="(dataSource.data.length === 0) || (dataSource.filteredData.length === 0)">
     <span>No se encontró información</span>

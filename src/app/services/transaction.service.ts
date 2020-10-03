@@ -68,4 +68,16 @@ export class TransactionService extends BaseService {
 		`;
 		return super.graphqlMutation(query, { transaction, id: transaction._id }).pipe(map(resp => resp.data.updateTransaction));
 	}
+
+
+	delete(id: String): Observable<string> {
+		const query = `
+			mutation($id: String!){
+				deleteTransaction(id:$id){
+					_id
+				}
+			}
+		`;
+		return super.graphqlMutation(query, { id }).pipe(map(resp => String(resp.data.deleteTransaction._id)));
+	}
 }

@@ -5,6 +5,10 @@ import { ITransaction } from 'src/app/interfaces/transaction.interface';
 import { TransactionEntityService } from 'src/app/store/entity/transactions/transaction.entity.service';
 import { DialogTransactionComponent } from '../../components/dialog-transaction/dialog-transaction.component';
 import * as moment from 'moment';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { SNACKBAR } from 'src/app/components/snackbar/snackbar.component';
+import { SessionService } from 'src/app/services/session/session.service';
+import { ROLES } from 'src/app/helpers/roles.helpers';
 
 @Component({
 	selector: 'app-transactions-home',
@@ -26,13 +30,21 @@ export class TransactionsHomeComponent implements OnInit {
 		headers: ["type", "mount", "description", "date", "user"],
 		name: "Transactions",
 		createComponent: DialogTransactionComponent,
-		updateComponent: DialogTransactionComponent,
+		updateComponent: this.sessionService.access([ROLES.SUPER_ADMINISTRATOR, ROLES.ADMINISTRATOR]) ? DialogTransactionComponent : undefined,
+		delete: this.sessionService.access([ROLES.SUPER_ADMINISTRATOR]) ? {
+			confirmationComponent: ConfirmDialogComponent,
+			callback: (item: ITransaction) => {
+				this.transactionEntityService.delete(item);
+			}
+		} : undefined,
 		reload: () => {
 			this.transactionEntityService.getAll();
 		}
 	}
 
-	constructor(private transactionEntityService: TransactionEntityService) { }
+	constructor(
+		private transactionEntityService: TransactionEntityService,
+		private sessionService: SessionService) { }
 
 	ngOnInit(): void {
 		this.transactionEntityService.getAll();

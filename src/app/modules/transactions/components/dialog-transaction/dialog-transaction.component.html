@@ -46,10 +46,10 @@
       </mat-form-field>
 
       <div fxLayoutAlign="end center" *ngIf="data.action === 'create' || data.action === 'update'">
-        <button mat-raised-button color="primary" *ngIf="data.action === 'create'" (click)="create()"
-          [disabled]="form.invalid"> Create </button>
-        <button mat-raised-button color="primary" *ngIf="data.action === 'update'" (click)="update()"
-          [disabled]="form.invalid"> Update </button>
+        <button mat-raised-button class="flat" color="primary" *ngIf="data.action === 'create'" (click)="create()"
+          [disabled]="form.invalid"> Crear Transacción </button>
+        <button mat-raised-button class="flat" color="primary" *ngIf="data.action === 'update'" (click)="update()"
+          [disabled]="form.invalid"> Actualizar Transacción </button>
       </div>
     </form>
 
