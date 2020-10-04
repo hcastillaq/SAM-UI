@@ -20,7 +20,8 @@
             "allowedCommonJsDependencies": [
               "jwt-decode",
               "graphql-tag",
-              "zen-observable"
+              "zen-observable",
+              "hammerjs"
             ],
             "outputPath": "dist/SAM-UI",
             "index": "src/index.html",
