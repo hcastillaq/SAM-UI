@@ -1,0 +1,28 @@
+$dialogPadding: 20px;
+
+.dialog {
+  min-width: 300px !important;
+
+  .dialog__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    padding: $dialogPadding;
+  }
+
+  .mat-dialog-title {
+    padding: 0px;
+    margin: 0px
+  }
+
+  .mat-dialog-content {
+    padding: $dialogPadding !important;
+    margin: 0px !important;
+  }
+
+  .mat-dialog-actions {
+    padding: 0px $dialogPadding 0px 0px !important;
+    margin: 0px !important;
+  }
+}

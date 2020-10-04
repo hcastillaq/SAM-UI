@@ -1,20 +1,27 @@
 <mat-toolbar class="toolbar" fxLayout="row" fxLayoutAlign="space-between center">
-  <button mat-icon-button color="primary" (click)="sideNav()">
-    <mat-icon>menu</mat-icon>
-  </button>
+  <div fxLayout="row" fxLayoutAlign="flex-start center">
+    <button mat-icon-button color="primary" (click)="sideNav()" class="hideMax1280">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="toolbar__title hideMinus1280">
+      <span>
+        SAM
+      </span>
+    </div>
+  </div>
   <div>
     <div>
       <button class="toolbar__userBtn" mat-button color="primary" fxLayout="row" fxLayoutAlign="center"
         [matMenuTriggerFor]="menu">
-        <span>{{data.name}}</span>
+        <span>{{data.name  !== "" ? data.name : data.email}}</span>
         <mat-icon color="primary">person</mat-icon>
       </button>
-      <mat-menu #menu="matMenu" class="toolbar__userMenu">
+      <mat-menu #menu="matMenu" class="toolbar__userMenu" xPosition="before">
         <div class="toolbar__userMenu__header">
           <div fxLayout="row" fxLayoutAlign="center center">
             <mat-icon color="white">person</mat-icon>
             <div class="mr-5">
-              <span>{{data.name}}</span>
+              <span>{{data.name  !== "" ? data.name : data.email}}</span>
               <h3 class="mat-caption">{{data.rol}}</h3>
             </div>
           </div>
@@ -34,6 +41,18 @@
           <button mat-button color="primary">{{dictionary.AUTH.LOGOUT}}</button>
         </div>
       </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
+
+<mat-toolbar class="toolbar toolbar--menu hideMinus1280" fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxLayout="row" fxLayoutAlign="flex-start center" fxLayoutGap="10px">
+    <div *ngFor="let item of navigationItem">
+      <div *ngIf="item.to">
+        <button mat-button routerLinkActive="active" [routerLink]="item.to" [routerLinkActiveOptions]="{ exact: true }">
+          {{item.name}}
+        </button>
+      </div>
     </div>
   </div>
 </mat-toolbar>

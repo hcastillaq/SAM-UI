@@ -1,0 +1,27 @@
+.snackbar {
+  box-shadow: $box-shadow;
+
+  &.error {
+    background-color: mat-color($error, 600);
+
+    span {
+      color: white;
+    }
+  }
+
+  &.warning {
+    background-color: mat-color($warning, 600);
+
+    span {
+      color: white;
+    }
+  }
+
+  &.success {
+    background-color: mat-color($success, 600);
+
+    span {
+      color: white;
+    }
+  }
+}

@@ -1,10 +1,12 @@
 @import 'sam.theme.scss';
 @import "./vars.scss";
 @import "./modules/modules.scss";
+@import "./media.query.scss";
 
 * {
   padding: 0px;
   margin: 0px;
+  text-decoration: none !important;
 }
 
 body {
@@ -14,7 +16,7 @@ body {
 }
 
 .mat-card {
-  border-radius: 10px !important;
+  border-radius: .25em !important;
   box-shadow: $box-shadow;
 }
 
@@ -39,4 +41,38 @@ button {
   mat-spinner {
     margin: 5px;
   }
+}
+
+.mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, .6);
+}
+
+.pages__content {
+  padding: 0px;
+  padding-bottom: $layoutBottom;
+  padding-right: $layoutRight;
+  padding-left: $layoutLeft;
+  margin-top: $layoutTop;
+}
+
+mat-footer-row,
+mat-header-row,
+mat-row,
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+  border-bottom-color: $background-divider !important;
+}
+
+mat-divider {
+  .mat-divider-vertical {
+    border-right-color: $background-divider !important;
+  }
+
+  border-top-color: $background-divider !important;
+
+}
+
+mat-dialog-container {
+  padding: 0px !important;
 }

@@ -6,8 +6,9 @@ import { LoginComponent } from "./pages/login/login.component";
 import { MaterialModule } from "src/app/material.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { RegisterComponent } from './pages/register/register.component';
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

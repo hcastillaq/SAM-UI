@@ -1,0 +1,93 @@
+<div class="auth" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card fxLayout="column" class="auth__card">
+
+    <div fxLayout="column" fxLayoutAlign="center center" class="auth__card__header">
+      <span class="title mat-display-3">
+        {{DICTIONARY.APP.NAME}}
+      </span>
+      <span class="subtitle">
+        {{DICTIONARY.AUTH.REGISTER_PHRASE}}
+      </span>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="column" class="auth__card__form">
+      <mat-card-content fxLayout="column" fxFlex="100%">
+
+        <mat-form-field appearance="fill">
+          <mat-label>
+            {{DICTIONARY.FORMS.COMPANY}}
+          </mat-label>
+          <input matInput formControlName="company" required>
+          <mat-error *ngIf="form.get('company').hasError('required')">
+            {{DICTIONARY.FORMS.REQUIRED}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>
+            {{DICTIONARY.FORMS.EMAIL}}
+          </mat-label>
+          <input matInput formControlName="email" required>
+          <mat-error *ngIf="form.get('email').hasError('email')">
+            Correo electrónico invalido
+          </mat-error>
+          <mat-error *ngIf="form.get('email').hasError('required')">
+            {{DICTIONARY.FORMS.REQUIRED}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>
+            {{DICTIONARY.FORMS.PASSWORD}}
+          </mat-label>
+          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required />
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('email').hasError('required')">
+            {{DICTIONARY.FORMS.REQUIRED}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>
+            {{DICTIONARY.FORMS.CONFIRM_PASSWORD}}
+          </mat-label>
+          <input matInput formControlName="confirmPassword" [type]="hide2 ? 'password' : 'text'" required />
+          <button type="button" mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide2">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('confirmPassword').hasError('required')">
+            {{DICTIONARY.FORMS.REQUIRED}}
+          </mat-error>
+          <mat-error *ngIf="form.get('confirmPassword').hasError('NoPasswordMatch')">
+            Las contraseñas deben coincidir
+          </mat-error>
+        </mat-form-field>
+
+
+        <div fxLayout="column" class="mt-1">
+          <div fxLayout="row" fxFlex="100%">
+            <button class="height" mat-flat-button [disabled]="form.invalid || (loading | async)" color="primary"
+              fxFlex="100%" fxLayoutAlign="center center">
+              <span *ngIf="!(loading | async)">
+                {{DICTIONARY.AUTH.REGISTER}}
+              </span>
+              <mat-spinner *ngIf="loading | async" color="primary" diameter="25"></mat-spinner>
+            </button>
+          </div>
+        </div>
+
+      </mat-card-content>
+    </form>
+
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <a class="pointer mat-subheading-1 text-secondary" [routerLink]="'/'+ROUTES.AUTH.ROOT+'/'+ROUTES.AUTH.LOGIN">
+        {{DICTIONARY.AUTH.TO_LOGIN}}
+      </a>
+    </div>
+
+  </mat-card>
+</div>

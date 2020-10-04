@@ -1,9 +1,0 @@
-.snackbar {
-  box-shadow: $box-shadow;
-  &.error {
-    background-color: mat-color($warn, 600);
-    span {
-      color: white;
-    }
-  }
-}

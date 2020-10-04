@@ -4,7 +4,7 @@ import { DICTIONARY } from 'src/app/helpers/dictionary.helpers';
 import { JwtService } from 'src/app/services/jwt/jwt.service';
 import { authActionLogout } from 'src/app/store/actions/auth.actions';
 import { IAppState } from 'src/app/store/state/app.state';
-import { SIDENAV$ } from '../sidenav/sidenav.component';
+import { MENU_ITEMS, SIDENAV$ } from '../sidenav/sidenav.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -13,6 +13,7 @@ import { SIDENAV$ } from '../sidenav/sidenav.component';
 })
 export class ToolbarComponent implements OnInit {
 
+  navigationItem = MENU_ITEMS;
   dictionary = DICTIONARY;
   data: { [key: string]: any } = this.jwtService.getObjectToken();
   constructor(private jwtService: JwtService, private store: Store<IAppState>) { }

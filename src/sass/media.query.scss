@@ -1,0 +1,25 @@
+$mediaPadding: 12%;
+
+@media (min-width: 1201px) {
+  .toolbar {
+    padding-left: $mediaPadding !important;
+    padding-right: $mediaPadding !important;
+  }
+
+  .hideMax1280 {
+    display: none !important;
+  }
+
+  .pages__content {
+    padding-left: $mediaPadding !important;
+    padding-right: $mediaPadding !important;
+  }
+
+}
+
+@media (max-width: 1200px) {
+
+  .hideMinus1280 {
+    display: none !important;
+  }
+}

@@ -6,8 +6,6 @@ import { Store } from "@ngrx/store";
 import { IAppState } from "./../../../../store/state/app.state";
 import { authActionLogin } from "src/app/store/actions/auth.actions";
 import { selectAuthLoading } from "src/app/store/selectors/auth.selectors";
-import { SessionService } from 'src/app/services/session/session.service';
-import { Router } from '@angular/router';
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -23,9 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<IAppState>) {
   }
 
-
   ngOnInit() {
-
     this.form = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required]],

@@ -1,0 +1,23 @@
+<div class="dialog">
+  <div class="dialog__header">
+    <div class="dialog__header__title">
+      <h1 mat-dialog-title color="warn">Confirmar</h1>
+    </div>
+    <div class="dialog__header__actions">
+      <button mat-icon-button [mat-dialog-close]="false">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div mat-dialog-content>
+    <span>¿Esta seguro de ejecutar esta acción?</span>
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button mat-button color="" [mat-dialog-close]="false">Cancelar</button>
+    <button mat-raised-button color="warn" class="flat" [mat-dialog-close]="true">Confirmar</button>
+  </div>
+
+</div>

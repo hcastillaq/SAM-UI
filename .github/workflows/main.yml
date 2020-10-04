@@ -27,11 +27,16 @@ jobs:
       run: npm run build
       
     - name: MASTER
-      if: github.ref == 'refs/heads/master'
+      if: ${{github.ref == 'refs/heads/master'}}
       run: npm run build:prod
-        
-  
-    
+
+    - name: DEPLOY
+      if: ${{github.ref == 'refs/heads/master' && github.event_name == 'push'}}
+      uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only hosting
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       
       
     
