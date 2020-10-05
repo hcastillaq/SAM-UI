@@ -1,7 +1,7 @@
 $dialogPadding: 20px;
 
 .dialog {
-  min-width: 300px !important;
+  min-width: 280px !important;
 
   .dialog__header {
     display: flex;
@@ -9,6 +9,12 @@ $dialogPadding: 20px;
     align-items: center;
     overflow: hidden;
     padding: $dialogPadding;
+
+
+    &.dialog__header--confirmation {
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+    }
   }
 
   .mat-dialog-title {
@@ -22,7 +28,7 @@ $dialogPadding: 20px;
   }
 
   .mat-dialog-actions {
-    padding: 0px $dialogPadding 0px 0px !important;
+    padding: 0px $dialogPadding 10px 0px !important;
     margin: 0px !important;
   }
 }

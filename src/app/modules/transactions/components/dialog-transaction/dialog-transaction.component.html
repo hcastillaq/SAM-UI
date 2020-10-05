@@ -47,9 +47,21 @@
 
       <div fxLayoutAlign="end center" *ngIf="data.action === 'create' || data.action === 'update'">
         <button mat-raised-button class="flat" color="primary" *ngIf="data.action === 'create'" (click)="create()"
-          [disabled]="form.invalid"> Crear Transacción </button>
+          [disabled]="form.invalid || (loading|async)">
+          <div fxLayout="flex" fxFlex="100%" fxLayoutAlign="center center">
+            <span>
+              Crear Transacción
+            </span>
+            <mat-spinner *ngIf="loading | async" diameter="20"></mat-spinner>
+          </div>
+        </button>
         <button mat-raised-button class="flat" color="primary" *ngIf="data.action === 'update'" (click)="update()"
-          [disabled]="form.invalid"> Actualizar Transacción </button>
+          [disabled]="form.invalid || (loading|async)">
+          <div>
+            <span>Actualizar Transacción </span>
+            <mat-spinner *ngIf="loading | async" diameter="20"></mat-spinner>
+          </div>
+        </button>
       </div>
     </form>
 
