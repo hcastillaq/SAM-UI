@@ -6,7 +6,6 @@ import { TransactionEntityService } from 'src/app/store/entity/transactions/tran
 import { DialogTransactionComponent } from '../../components/dialog-transaction/dialog-transaction.component';
 import * as moment from 'moment';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
-import { SNACKBAR } from 'src/app/components/snackbar/snackbar.component';
 import { SessionService } from 'src/app/services/session/session.service';
 import { ROLES } from 'src/app/helpers/roles.helpers';
 
@@ -21,7 +20,7 @@ export class TransactionsHomeComponent implements OnInit {
 
 	tableConfig: ITodoTableConfig = {
 		data: this.transactionEntityService.entities$.pipe(map((transactions) => {
-			return transactions.reverse().map(transaction => ({
+			return transactions.map(transaction => ({
 				...transaction,
 				user: transaction.user.name,
 				date: moment(String(transaction.date)).format("DD-MM-YYYY")

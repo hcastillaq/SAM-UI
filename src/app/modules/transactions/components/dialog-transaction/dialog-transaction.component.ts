@@ -8,6 +8,7 @@ import { ITransaction } from 'src/app/interfaces/transaction.interface';
 import { CUSTOM_DATE_FORMAT } from 'src/app/material.module';
 import { TransactionEntityService } from 'src/app/store/entity/transactions/transaction.entity.service';
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-dialog-transaction',
   templateUrl: './dialog-transaction.component.html',
@@ -24,6 +25,7 @@ import * as moment from 'moment';
 export class DialogTransactionComponent implements OnInit {
 
   form: FormGroup;
+  loading: Observable<boolean> = this.transactionsEntityService.loading$;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { action: "create" | "update" | "delete", item: ITransaction },
     private fb: FormBuilder,
