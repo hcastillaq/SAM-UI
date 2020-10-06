@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TransactionsHomeComponent } from '../transactions/pages/transactions-home/transactions-home.component';
 import { HomeComponent } from './componentes/home/home.component';
 
 const routes: Routes = [
@@ -11,6 +10,10 @@ const routes: Routes = [
 			{
 				path: 'transactions',
 				loadChildren: () => import("./../transactions/transactions.module").then((m) => m.TransactionsModule),
+			},
+			{
+				path: 'analytics',
+				loadChildren: () => import("./../analytics/analytics.module").then((m) => m.AnalyticsModule),
 			}
 		]
 	},

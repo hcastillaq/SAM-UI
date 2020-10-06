@@ -1,0 +1,12 @@
+.graph__box {
+  overflow: auto;
+
+  mat-card-content {
+    min-height: 30vh;
+
+    .ngx-charts-outer {
+      display: flex !important;
+      flex-direction: column-reverse;
+    }
+  }
+}
