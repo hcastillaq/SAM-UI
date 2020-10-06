@@ -44,6 +44,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export const CUSTOM_DATE_FORMAT = {
 	parse: {
@@ -102,7 +103,9 @@ export const CUSTOM_DATE_FORMAT = {
 		PortalModule,
 		ScrollingModule,
 		MatDatepickerModule,
-		MomentDateModule
+		MomentDateModule,
+		NgxChartsModule
+
 	],
 	entryComponents: [MatSnackBarContainer],
 })

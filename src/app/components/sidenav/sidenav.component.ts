@@ -33,6 +33,12 @@ export const MENU_ITEMS: TreeMenuNode[] = [
 		access: true
 	},
 	{
+		to: "/analytics",
+		name: DICTIONARY.SIDE_NAV.ANALYTICS,
+		icon: 'people',
+		access: true
+	},
+	{
 		to: "/transactions",
 		name: DICTIONARY.SIDE_NAV.TRANSACTIONS,
 		icon: 'poll',

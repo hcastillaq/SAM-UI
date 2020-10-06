@@ -1,0 +1,8 @@
+<mat-card class="graph__box">
+  <mat-card-content>
+    <ngx-charts-line-chart [results]="saleData" [yAxis]="true" [scheme]="colorScheme" schemeType="ordinal"
+      [autoScale]="true" [timeline]="false" legendTitle="Entrada / Gasto" [trimXAxisTicks]="true"
+      [maxXAxisTickLength]="6" [legend]="true" legendPosition="below">
+    </ngx-charts-line-chart>
+  </mat-card-content>
+</mat-card>

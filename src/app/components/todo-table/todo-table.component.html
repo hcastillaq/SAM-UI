@@ -64,7 +64,11 @@
   </div>
 
   <div class="table__table__notFound" *ngIf="(dataSource.data.length === 0) || (dataSource.filteredData.length === 0)">
-    <span>No se encontró información</span>
+    <ng-template #elseTemplase>
+      <span>No se encontró información</span>
+    </ng-template>
+
+    <mat-spinner diameter="20" color="primary" *ngIf="config.loading | async; else elseTemplase"></mat-spinner>
   </div>
 
 

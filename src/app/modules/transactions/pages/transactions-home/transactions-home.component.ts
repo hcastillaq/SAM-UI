@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ITodoTableConfig } from 'src/app/components/todo-table/todo-table.component';
 import { ITransaction } from 'src/app/interfaces/transaction.interface';
@@ -6,7 +6,6 @@ import { TransactionEntityService } from 'src/app/store/entity/transactions/tran
 import { DialogTransactionComponent } from '../../components/dialog-transaction/dialog-transaction.component';
 import * as moment from 'moment';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
-import { SNACKBAR } from 'src/app/components/snackbar/snackbar.component';
 import { SessionService } from 'src/app/services/session/session.service';
 import { ROLES } from 'src/app/helpers/roles.helpers';
 
@@ -15,13 +14,14 @@ import { ROLES } from 'src/app/helpers/roles.helpers';
 	templateUrl: './transactions-home.component.html',
 	styleUrls: ['./transactions-home.component.scss']
 })
-export class TransactionsHomeComponent implements OnInit {
+export class TransactionsHomeComponent implements OnInit, AfterViewInit {
 
 	transactions$ = this.transactionEntityService.entities$;
 
 	tableConfig: ITodoTableConfig = {
+		loading: this.transactionEntityService.loading$,
 		data: this.transactionEntityService.entities$.pipe(map((transactions) => {
-			return transactions.reverse().map(transaction => ({
+			return transactions.map((transaction) => ({
 				...transaction,
 				user: transaction.user.name,
 				date: moment(String(transaction.date)).format("DD-MM-YYYY")
@@ -38,6 +38,7 @@ export class TransactionsHomeComponent implements OnInit {
 			}
 		} : undefined,
 		reload: () => {
+			this.transactionEntityService.clearCache();
 			this.transactionEntityService.getAll();
 		}
 	}
@@ -46,7 +47,11 @@ export class TransactionsHomeComponent implements OnInit {
 		private transactionEntityService: TransactionEntityService,
 		private sessionService: SessionService) { }
 
+	ngAfterViewInit() {
+
+	}
 	ngOnInit(): void {
+		this.transactionEntityService.clearCache();
 		this.transactionEntityService.getAll();
 	}
 

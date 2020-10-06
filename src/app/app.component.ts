@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { DFD } from './helpers/globals.helpers';
 import { MediaQueriesMatcher } from './helpers/media-queries.helper';
 
 @Component({
