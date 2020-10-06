@@ -21,6 +21,7 @@ import { GraphQLModule } from "./graphql.module";
 import { HttpTokenInterceptor } from "./interceptors/token.interceptor";
 import { RouterCustomSerializer } from './helpers/serializers/route.serializer';
 import { EntityStoreModule } from './store/entity/entity-store.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
 	declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
@@ -50,6 +51,7 @@ import { EntityStoreModule } from './store/entity/entity-store.module';
 		}),
 		GraphQLModule,
 		EntityStoreModule,
+		NgxChartsModule
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },

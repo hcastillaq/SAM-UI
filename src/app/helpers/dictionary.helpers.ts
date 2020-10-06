@@ -25,7 +25,8 @@ export const DICTIONARY = {
   SIDE_NAV: {
     HOME: 'Inicio',
     TRANSACTIONS: 'Transacciones',
-    USERS: 'Usuarios'
+    USERS: 'Usuarios',
+    ANALYTICS: 'Analítica'
   },
   COMPANY: 'Compañía'
 };

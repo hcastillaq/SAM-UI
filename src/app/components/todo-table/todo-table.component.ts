@@ -4,11 +4,12 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit, TemplateRef, ViewCh
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { asyncScheduler, Observable, of, scheduled, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 export interface ITodoTableConfig {
 	data: Observable<any>,
+	loading: Observable<boolean>,
 	headers: string[],
 	name: String,
 	reload?: Function,
@@ -20,7 +21,6 @@ export interface ITodoTableConfig {
 		callback(item: any): void
 	}
 }
-
 
 @Component({
 	selector: 'app-todo-table[config]',
@@ -40,8 +40,8 @@ export interface ITodoTableConfig {
 	]
 })
 export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
-
 	subsDestroyed$ = new Subject<Boolean>();
+	dataObserver: Subscription = undefined;
 
 	@Input() config: ITodoTableConfig;
 	displayedColumns: string[];
@@ -58,12 +58,19 @@ export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.config.headers.push('actions');
 			this.displayedColumns = this.config.headers;
 			this.dataSource = new MatTableDataSource([]);
+
 			this.config.data.pipe(takeUntil(this.subsDestroyed$)).subscribe(data => {
+				this.observerDataUnsubscribe();
 				this.dataSource.data = data;
 			})
 		}
 	}
-
+	observerDataUnsubscribe() {
+		if (this.dataObserver) {
+			this.dataObserver.unsubscribe();
+			this.dataObserver = undefined;
+		}
+	}
 	ngAfterViewInit() {
 		this.dataSource.paginator = this.paginator;
 	}
@@ -85,6 +92,8 @@ export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	reload() {
 		if (this.config.reload) {
+			this.observerDataUnsubscribe();
+			this.dataSource.data = [];
 			this.config.reload();
 		}
 	}
@@ -126,6 +135,7 @@ export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
 	ngOnDestroy() {
 		this.subsDestroyed$.next(true);
 		this.subsDestroyed$.unsubscribe();
+		this.observerDataUnsubscribe();
 	}
 
 }
