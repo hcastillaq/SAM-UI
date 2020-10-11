@@ -80,4 +80,25 @@ export class TransactionService extends BaseService {
 		`;
 		return super.graphqlMutation(query, { id }).pipe(map(resp => String(resp.data.deleteTransaction._id)));
 	}
+
+
+	analytics(format: string, start: String, end: String): Observable<any> {
+		const query = `
+		  query($format: String! $start: DateTime!, $end: DateTime!){
+					analyticsTransactions(format:$format start:$start, end:$end){
+					    entries{
+								_id,
+								total
+							},
+							expenses{
+							_id,
+								total
+							},
+							moneyByEntries,
+							moneyByExpenses   
+					}
+				}
+		`;
+		return super.graphqlMutation(query, { format, start, end }).pipe(map(resp => resp.data.analyticsTransactions));
+	}
 }
