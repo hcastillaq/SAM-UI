@@ -1,8 +1,118 @@
-<mat-card class="graph__box">
-  <mat-card-content>
-    <ngx-charts-line-chart [results]="saleData" [yAxis]="true" [scheme]="colorScheme" schemeType="ordinal"
-      [autoScale]="true" [timeline]="false" legendTitle="Entrada / Gasto" [trimXAxisTicks]="true"
-      [maxXAxisTickLength]="6" [legend]="true" legendPosition="below">
-    </ngx-charts-line-chart>
-  </mat-card-content>
-</mat-card>
+<div class="analytics">
+
+  <div class="analytics_row">
+    <mat-card fxFlex="100%" fxLayoutAlign="end end">
+      <mat-card-content>
+        <form [formGroup]="form" fxLayout="row" fxFlex="50%" fxLayoutGap="20px">
+          <mat-form-field appearance="outline" fxFlex="1 1 auto">
+            <mat-label>Agrupación</mat-label>
+            <mat-select formControlName="format">
+              <mat-option value="%Y-%m-%d">
+                Dia
+              </mat-option>
+              <mat-option value="%Y-%m">
+                Mes
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="1 1 auto">
+            <mat-label>Desde</mat-label>
+            <input matInput readonly (click)="picker.open()" color="primary" class="pointer" [matDatepicker]="picker"
+              formControlName="start">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="1 1 auto">
+            <mat-label>Hasta</mat-label>
+            <input matInput readonly (click)="picker2.open()" color="primary" class="pointer" [matDatepicker]="picker2"
+              formControlName="end">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <div class="analytics_row analytics_row--twoColumns">
+    <div fxLayout="row" fxFlex="1 1 auto" fxLayoutGap="20px">
+      <mat-card class="analytics__indicator" fxFlex="1 1 auto">
+        <mat-card-content>
+          indicador 1
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="analytics__indicator" fxFlex="1 1 auto">
+        <mat-card-content>
+          indicador 2
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div fxLayout="row" fxFlex="1 1 auto" fxLayoutGap="20px">
+      <mat-card class="analytics__indicator" fxFlex="1 1 auto">
+        <mat-card-content>
+          indicador 3
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="analytics__indicator" fxFlex="1 1 auto">
+        <mat-card-content>
+          indicador 4
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="analytics_row analytics_row--twoColumns">
+
+    <div class="analytics___graph__box">
+      <mat-card>
+        <mat-card-content>
+          <ngx-charts-pie-grid [results]="barras" [scheme]="colorScheme" schemeType="ordinal">
+          </ngx-charts-pie-grid>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="analytics___graph__box">
+      <mat-card>
+        <mat-card-content>
+          <ngx-charts-bar-vertical [results]="barras" [yAxis]="true" [xAxis]="true" [scheme]="colorScheme"
+            schemeType="ordinal" legendTitle="Entrada / Gasto" [trimXAxisTicks]="true" [maxXAxisTickLength]="6"
+            [legend]="false" legendPosition="below" [roundDomains]="true">
+          </ngx-charts-bar-vertical>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <div class="analytics_row">
+    <div class="analytics___graph__box analytics___graph__box--barrasGroup">
+      <mat-card>
+        <mat-card-content>
+          <ngx-charts-bar-vertical-2d [results]="barrasGroup" [yAxis]="true" [xAxis]="true" [scheme]="colorScheme"
+            [trimXAxisTicks]="false" [maxXAxisTickLength]="6" [legend]="false" legendPosition="below"
+            [roundDomains]="true">
+          </ngx-charts-bar-vertical-2d>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="analytics_row">
+    <div class="analytics___graph__box analytics___graph__box--timeline">
+      <mat-card>
+        <mat-card-content>
+          <ngx-charts-line-chart [results]="lineal" [roundDomains]="true" [roundDomains]="true" [yAxis]="true"
+            [xAxis]="true" [scheme]="colorScheme" schemeType="ordinal" [autoScale]="false" [timeline]="true"
+            legendTitle="Entrada / Gasto" [trimXAxisTicks]="true" [maxXAxisTickLength]="6" [legend]="false"
+            legendPosition="below">
+          </ngx-charts-line-chart>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+</div>
