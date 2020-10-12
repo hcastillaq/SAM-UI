@@ -1,135 +1,123 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { DFD } from 'src/app/helpers/globals.helpers';
-import { ITransaction } from 'src/app/interfaces/transaction.interface';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { TransactionService } from 'src/app/services/transaction.service';
-import * as moment from 'moment';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { CUSTOM_DATE_FORMAT } from 'src/app/material.module';
 @Component({
   selector: 'app-analytics-home',
   templateUrl: './analytics-home.component.html',
-  styleUrls: ['./analytics-home.component.scss']
+  styleUrls: ['./analytics-home.component.scss'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMAT },
+  ]
 })
 export class AnalyticsHomeComponent implements OnInit, AfterViewInit {
 
-  saleData = [];
+  lineal = [];
+  barras = [];
+  barrasGroup = [];
   colorScheme = {
-    domain: ['#4caf50', '#f44336']
+    domain: ['#2196F3', '#C51162']
   };
 
-  constructor(private transactionsService: TransactionService) { }
+  form: FormGroup;
+
+  constructor(private transactionsService: TransactionService, private fb: FormBuilder) { }
   ngAfterViewInit(): void {
-    this.prueba()
+    // this.prueba()
   }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      start: ["", [Validators.required]],
+      end: ["", [Validators.required]],
+      format: ["%Y-%m-%d", [Validators.required]],
+    });
+    this.form.controls['start'].valueChanges.subscribe(() => {
+      if (this.form.get('start').invalid) this.form.get("end").disabled;
 
+    })
+    this.form.valueChanges.subscribe(() => {
+      if (this.form.valid) {
+        this.transactionsService.analytics(this.form.value.format, this.form.value.start, this.form.value.end).subscribe(resp => {
+          if (resp.entries.length !== 0) {
 
-  }
+            this.lineal = [];
 
-  prueba() {
-    this.transactionsService.getAll().subscribe((transactions: ITransaction[]) => {
+            this.barras = [
+              {
+                name: "Ingresos",
+                value: resp.moneyByEntries
+              },
+              {
+                name: "Egresos",
+                value: resp.moneyByExpenses
+              }
+            ];
 
-      let TOTAL_DINERO_EN_MOVIMIENTO = 0;
-      let TOTAL_DINERO_EN_GASTOS = 0;
-      let TOTAL = 0;
+            new Promise(resolve => {
+              const series = resp.entries.map((transaction) => {
+                return {
+                  value: transaction.total,
+                  name: new Date(transaction._id)
+                };
+              })
+              this.lineal = [...this.lineal, { name: "Ingresos", series }]
+              resolve();
+            });
 
-      let allTransactionsDF = new DFD.DataFrame(transactions);
+            new Promise(resolve => {
+              const series = resp.expenses.map((transaction) => {
+                return {
+                  value: transaction.total,
+                  name: new Date(transaction._id)
+                };
+              })
+              this.lineal = [...this.lineal, { name: "Egresos", series }]
+              resolve();
+            });
 
-      allTransactionsDF.drop({
-        columns: ["_id", "company", "__typename", "user"],
-        inplace: true
-      });
+            new Promise(resolve => {
+              const data = [];
 
-      allTransactionsDF.addColumn({
-        column: "date",
-        inplace: true,
-        value: allTransactionsDF["date"].apply((e) => {
-          return moment(e).format("YYYY-MM-DD");
-        }).values
-      });
-
-      let entryDFD = allTransactionsDF
-        .query({ column: "type", is: "==", to: "entry" })
-        .rename({
-          mapper: {
-            "date": "name",
-            "mount": "value"
+              for (let entry of resp.entries) {
+                for (let [index, expense] of resp.expenses.entries()) {
+                  if (entry._id === expense._id) {
+                    data.push({
+                      name: entry._id,
+                      series: [
+                        {
+                          name: "Ingresos",
+                          value: entry.total
+                        },
+                        {
+                          name: "Egresos",
+                          value: expense.total
+                        }
+                      ]
+                    });
+                    resp.expenses.slice(index, 1);
+                    break;
+                  }
+                }
+              }
+              this.barrasGroup = data;
+              console.log(this.barrasGroup)
+              resolve();
+            });
           }
-        }).drop({ columns: ["description", "type"] })
-
-      let expenseDFD = allTransactionsDF
-        .query({ column: "type", is: "==", to: "expense" })
-        .rename({
-          mapper: {
-            "date": "name",
-            "mount": "value"
-          }
-        }).drop({ columns: ["description", "type"] });
-
-      expenseDFD.print();
-      entryDFD.print();
-
-      entryDFD.to_json().then(result => {
-        console.log()
-        this.saleData = [...this.saleData, {
-          "name": "Entrada",
-          "series": JSON.parse(result)
-        }]
-      })
-      expenseDFD.to_json().then(result => {
-        this.saleData = [...this.saleData, {
-          "name": "Gasto",
-          "series": JSON.parse(result)
-        }]
-      })
-
-
-
+        });
+      }
     });
   }
+
 }
 
-// {
-//   "name": "Qatar",
-//     "series": [
-//       {
-//         "value": 2239,
-//         "name": "2016-09-13T07:59:07.067Z"
-//       },
-//       {
-//         "value": 3648,
-//         "name": "2016-09-23T05:59:27.668Z"
-//       },
-//       {
-//         "value": 3604,
-//         "name": "2016-09-14T09:05:38.321Z"
-//       },
-//       {
-//         "value": 6492,
-//         "name": "2016-09-15T10:40:49.556Z"
-//       },
-//       {
-//         "value": 3613,
-//         "name": "2016-09-14T02:32:34.283Z"
-//       },
-//       {
-//         "name": "2016-09-19T17:53:23.375Z",
-//         "value": 4277
-//       },
-//       {
-//         "name": "2016-09-13T16:41:27.137Z",
-//         "value": 3016
-//       },
-//       {
-//         "name": "2016-09-16T05:20:53.186Z",
-//         "value": 5501
-//       },
-//       {
-//         "name": "2016-09-19T16:43:04.961Z",
-//         "value": 3505
-//       },
-//       {
-//         "name": "2016-09-21T07:56:29.639Z",
-//         "value": 3663
-//       }
-//     ]
-// },
+
+
