@@ -1,33 +1,40 @@
-import { createAction, props } from "@ngrx/store";
-import { IAccount } from "src/app/interfaces/account";
-import { IRegister } from 'src/app/interfaces/register.interface';
-import { IUser } from 'src/app/interfaces/user.interface';
+import { createAction, props } from '@ngrx/store';
+import { Account } from 'src/app/interfaces/account';
+import { LoginResponse } from 'src/app/interfaces/auth.interface';
+import { Company } from 'src/app/interfaces/company.interface';
+import { Register } from 'src/app/interfaces/register.interface';
+import { User } from 'src/app/interfaces/user.interface';
 
-export enum EAuthActions {
-  LOGIN = "[AUTH] LOGIN",
-  LOGIN_SUCCESS = "[AUTH] LOGIN SUCCESS",
-  LOGOUT = "[AUTH] LOGOUT",
-  LOADING = "[AUTH] SET LOADING",
-  REGISTER = "[AUTH] REGISTER",
-  SET_USER = "[AUTH] SET USER"
+export enum AuthActions {
+  LOGIN = '[AUTH] LOGIN',
+  LOGIN_SUCCESS = '[AUTH] LOGIN SUCCESS',
+  LOGOUT = '[AUTH] LOGOUT',
+  LOADING = '[AUTH] SET LOADING',
+  REGISTER = '[AUTH] REGISTER',
+  SET_DATA = '[AUTH] SET DATA',
 }
 
 export const authActionLogin = createAction(
-  EAuthActions.LOGIN,
-  props<IAccount>()
+  AuthActions.LOGIN,
+  props<Account>(),
 );
 
 export const authActionLoading = createAction(
-  EAuthActions.LOADING,
-  props<{ loading: Boolean }>()
+  AuthActions.LOADING,
+  props<{ loading: Boolean }>(),
 );
 
 export const authActionRegister = createAction(
-  EAuthActions.REGISTER,
-  props<IRegister>()
+  AuthActions.REGISTER,
+  props<Register>(),
 );
-export const authActionLogout = createAction(EAuthActions.LOGOUT);
-export const authActionLoginSuccess = createAction(EAuthActions.LOGIN_SUCCESS, props<{ resp: any }>());
-export const authActionSetUser = createAction(EAuthActions.SET_USER, props<IUser>());
+export const authActionLogout = createAction(AuthActions.LOGOUT);
 
-
+export const authActionLoginSuccess = createAction(
+  AuthActions.LOGIN_SUCCESS,
+  props<LoginResponse>(),
+);
+export const authActionSetData = createAction(
+  AuthActions.SET_DATA,
+  props<{ user?: User; company?: Company }>(),
+);

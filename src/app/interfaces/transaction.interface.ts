@@ -1,13 +1,13 @@
-import { ICompany } from './company.interface';
-import { IUser } from './user.interface';
+import { Company } from './company.interface';
+import { User } from './user.interface';
 
-export interface ITransaction {
-	_id?: String;
-	description?: String;
-	mount?: Number;
-	date?: String,
-	company?: ICompany,
-	user?: IUser,
-	type?: String,
-	__typename?: String
+export interface Transaction {
+  _id?: String;
+  description?: String;
+  mount?: Number;
+  date?: String;
+  company?: Company;
+  user?: User;
+  type?: String;
+  __typename?: String;
 }

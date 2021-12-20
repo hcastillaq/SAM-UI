@@ -1,7 +1,8 @@
-import { IUser } from 'src/app/interfaces/user.interface';
+import { Company } from 'src/app/interfaces/company.interface';
+import { User } from 'src/app/interfaces/user.interface';
 
 export interface IAuthState {
   loading: Boolean;
-  user: IUser
+  user: User;
+  company: Company;
 }
-

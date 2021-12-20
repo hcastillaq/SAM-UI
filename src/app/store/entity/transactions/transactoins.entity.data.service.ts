@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { DefaultDataService, HttpUrlGenerator } from '@ngrx/data';
 import { Update } from '@ngrx/entity';
 import { Observable } from 'rxjs';
-import { ITransaction } from 'src/app/interfaces/transaction.interface';
+import { Transaction } from 'src/app/interfaces/transaction.interface';
 import { TransactionService } from 'src/app/services/transactions/transaction.service';
 
 @Injectable()
-export class TransactionEntityDataService extends DefaultDataService<ITransaction> {
+export class TransactionEntityDataService extends DefaultDataService<Transaction> {
   constructor(
     http: HttpClient,
     httpUrlGenerator: HttpUrlGenerator,
@@ -16,15 +16,15 @@ export class TransactionEntityDataService extends DefaultDataService<ITransactio
     super('Transaction', http, httpUrlGenerator);
   }
 
-  getAll(): Observable<ITransaction[]> {
+  getAll(): Observable<Transaction[]> {
     return this.transactionService.getAll();
   }
 
-  add(transaction: ITransaction): Observable<ITransaction> {
+  add(transaction: Transaction): Observable<Transaction> {
     return this.transactionService.add(transaction);
   }
 
-  update(transaction: Update<ITransaction>): Observable<ITransaction> {
+  update(transaction: Update<Transaction>): Observable<Transaction> {
     return this.transactionService.update(transaction.changes);
   }
 
