@@ -15,29 +15,28 @@ import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confir
 
 
 @NgModule({
-	declarations: [TransactionsHomeComponent, TodoTableComponent, DialogTransactionComponent, ConfirmDialogComponent],
-	imports: [
-		CommonModule,
-		TransactionsRoutingModule,
-		MaterialModule,
-		FlexLayoutModule,
-		ReactiveFormsModule,
-		FormsModule,
-		NgxCurrencyModule.forRoot({
-			align: "left",
-			allowNegative: false,
-			allowZero: false,
-			decimal: ",",
-			precision: 0,
-			prefix: "$ ",
-			suffix: "",
-			thousands: ".",
-			nullable: false,
-			min: 0,
-			max: null,
-			inputMode: CurrencyMaskInputMode.FINANCIAL
-		})
-	],
-	entryComponents: [DialogTransactionComponent, ConfirmDialogComponent]
+    declarations: [TransactionsHomeComponent, TodoTableComponent, DialogTransactionComponent, ConfirmDialogComponent],
+    imports: [
+        CommonModule,
+        TransactionsRoutingModule,
+        MaterialModule,
+        FlexLayoutModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgxCurrencyModule.forRoot({
+            align: "left",
+            allowNegative: false,
+            allowZero: false,
+            decimal: ",",
+            precision: 0,
+            prefix: "$ ",
+            suffix: "",
+            thousands: ".",
+            nullable: false,
+            min: 0,
+            max: null,
+            inputMode: CurrencyMaskInputMode.FINANCIAL
+        })
+    ]
 })
 export class TransactionsModule { }

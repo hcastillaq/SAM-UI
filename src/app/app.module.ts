@@ -24,39 +24,38 @@ import { EntityStoreModule } from './store/entity/entity-store.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
-	declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
-		HttpClientModule,
-		MaterialModule,
-		FlexLayoutModule,
-		StoreModule.forRoot(reducers, {
-			metaReducers,
-			runtimeChecks: {
-				strictStateImmutability: false,
-				strictActionImmutability: false,
-			},
-		}),
-		EffectsModule.forRoot([AuthEffects]),
-		StoreRouterConnectingModule.forRoot({
-			serializer: RouterCustomSerializer,
-			routerState: RouterState.Full,
-		}),
-		EntityDataModule.forRoot(entityConfig),
-		StoreDevtoolsModule.instrument({
-			maxAge: 25,
-			logOnly: environment.production,
-		}),
-		GraphQLModule,
-		EntityStoreModule,
-		NgxChartsModule
-	],
-	providers: [
-		{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
-	],
-	bootstrap: [AppComponent],
-	entryComponents: [SnackbarComponent, SnackbarTemplateComponent],
+    declarations: [AppComponent, SnackbarComponent, SnackbarTemplateComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MaterialModule,
+        FlexLayoutModule,
+        StoreModule.forRoot(reducers, {
+            metaReducers,
+            runtimeChecks: {
+                strictStateImmutability: false,
+                strictActionImmutability: false,
+            },
+        }),
+        EffectsModule.forRoot([AuthEffects]),
+        StoreRouterConnectingModule.forRoot({
+            serializer: RouterCustomSerializer,
+            routerState: RouterState.Full,
+        }),
+        EntityDataModule.forRoot(entityConfig),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25,
+            logOnly: environment.production,
+        }),
+        GraphQLModule,
+        EntityStoreModule,
+        NgxChartsModule
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
