@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { EAuthActions, authActionLoading, authActionLoginSuccess, authActionSetUser } from "../actions/auth.actions";
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  mergeMap,
-  finalize,
-  tap,
-  delay, map
-} from "rxjs/operators";
-import { AuthService } from "src/app/services/auth/auth.service";
-import { IAccount } from "src/app/interfaces/account";
-import { IAppState } from "../state/app.state";
-import { Store } from "@ngrx/store";
-import { JwtService } from "src/app/services/jwt/jwt.service";
-import { Router } from "@angular/router";
+  EAuthActions,
+  authActionLoading,
+  authActionLoginSuccess,
+  authActionSetUser,
+} from '../actions/auth.actions';
+import { mergeMap, finalize, tap, delay, map } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { IAccount } from 'src/app/interfaces/account';
+import { IAppState } from '../state/app.state';
+import { Store } from '@ngrx/store';
+import { JwtService } from 'src/app/services/jwt/jwt.service';
+import { Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session/session.service';
 import { ROUTERS_LIST } from 'src/app/helpers/routes.helpers';
 import { SNACKBAR } from 'src/app/components/snackbar/snackbar.component';
@@ -26,8 +26,8 @@ export class AuthEffects {
     private authService: AuthService,
     private jwt: JwtService,
     private router: Router,
-    private sessionServicie: SessionService
-  ) { }
+    private sessionServicie: SessionService,
+  ) {}
 
   login$ = createEffect(() =>
     this.actions$.pipe(
@@ -38,15 +38,18 @@ export class AuthEffects {
       mergeMap((account: IAccount) =>
         this.authService.login(account).pipe(
           delay(1000),
-          mergeMap((resp) => {
-            return [authActionLoading({ loading: false }), authActionLoginSuccess(resp)];
+          mergeMap((resp: any) => {
+            return [
+              authActionLoading({ loading: false }),
+              authActionLoginSuccess(resp),
+            ];
           }),
           finalize(() => {
             this.store.dispatch(authActionLoading({ loading: false }));
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 
   register$ = createEffect(() =>
@@ -55,39 +58,48 @@ export class AuthEffects {
       tap(() => {
         this.store.dispatch(authActionLoading({ loading: true }));
       }),
-      mergeMap((data: IRegister) => this.authService.register(data).pipe(
-        delay(1000),
-        mergeMap((resp) => {
-          return [authActionLoading({ loading: false }), authActionLoginSuccess(resp)];
-        }),
-        finalize(() => {
-          this.store.dispatch(authActionLoading({ loading: false }));
-        })
-      )),
-    )
+      mergeMap((data: IRegister) =>
+        this.authService.register(data).pipe(
+          delay(1000),
+          mergeMap((resp: any) => {
+            return [
+              authActionLoading({ loading: false }),
+              authActionLoginSuccess(resp),
+            ];
+          }),
+          finalize(() => {
+            this.store.dispatch(authActionLoading({ loading: false }));
+          }),
+        ),
+      ),
+    ),
   );
 
-  loginSuccess$ = createEffect(() => this.actions$.pipe(
-    ofType(EAuthActions.LOGIN_SUCCESS),
-    map((resp: any) => {
-      const user: IUser = { ...resp.user }
-      this.jwt.saveToken(resp.token);
-      this.router.navigate(["/"]);
-      return authActionSetUser(user);
-    })
-  ));
-
-
-  logout$ = createEffect(() =>
+  loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EAuthActions.LOGOUT),
-      tap(() => {
-        this.sessionServicie.logout();
-        this.router.navigateByUrl(`${ROUTERS_LIST.AUTH.ROOT}/${ROUTERS_LIST.AUTH.LOGIN}`);
-      })
+      ofType(EAuthActions.LOGIN_SUCCESS),
+      map((resp: any) => {
+        const user: IUser = { ...resp.user };
+        this.jwt.saveToken(resp.token);
+        this.router.navigate(['/']);
+        return authActionSetUser(user);
+      }),
     ),
+  );
+
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(EAuthActions.LOGOUT),
+        tap(() => {
+          this.sessionServicie.logout();
+          this.router.navigateByUrl(
+            `${ROUTERS_LIST.AUTH.ROOT}/${ROUTERS_LIST.AUTH.LOGIN}`,
+          );
+        }),
+      ),
     {
-      dispatch: false
-    }
+      dispatch: false,
+    },
   );
 }

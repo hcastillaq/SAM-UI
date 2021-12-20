@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { ITransaction } from '../interfaces/transaction.interface';
-import { BaseService } from './base.service';
+import { ITransaction } from '../../interfaces/transaction.interface';
+import { BaseService } from '../base.service';
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root',
 })
 export class TransactionService extends BaseService {
-	getAll(): Observable<ITransaction[]> {
-		const query = `
+  getAll(): Observable<ITransaction[]> {
+    const query = `
 			query{
 				getAllTransactions{
 					_id,
@@ -29,11 +29,13 @@ export class TransactionService extends BaseService {
 				}
 			}
 		`;
-		return super.graphqlQuery(query).pipe(map((resp: any) => resp.data.getAllTransactions));
-	}
+    return super
+      .graphqlQuery(query)
+      .pipe(map((resp: any) => resp.data.getAllTransactions));
+  }
 
-	add(transaction: ITransaction): Observable<ITransaction> {
-		const query = `
+  add(transaction: ITransaction): Observable<ITransaction> {
+    const query = `
 			mutation($transaction: TransactionInputCreate!){
 				createTransaction(input: $transaction
 				)
@@ -48,11 +50,13 @@ export class TransactionService extends BaseService {
 				}
 			}
 		`;
-		return super.graphqlMutation(query, { transaction }).pipe(map(resp => resp.data.createTransaction));
-	}
+    return super
+      .graphqlMutation(query, { transaction })
+      .pipe(map((resp) => resp.data.createTransaction));
+  }
 
-	update(transaction: ITransaction): Observable<ITransaction> {
-		const query = `
+  update(transaction: ITransaction): Observable<ITransaction> {
+    const query = `
 			mutation($transaction: TransactionInputUpdate!, $id: String!){
 				updateTransaction(input: $transaction, id:$id)
 				{
@@ -66,24 +70,26 @@ export class TransactionService extends BaseService {
 				}
 			}
 		`;
-		return super.graphqlMutation(query, { transaction, id: transaction._id }).pipe(map(resp => resp.data.updateTransaction));
-	}
+    return super
+      .graphqlMutation(query, { transaction, id: transaction._id })
+      .pipe(map((resp) => resp.data.updateTransaction));
+  }
 
-
-	delete(id: String): Observable<string> {
-		const query = `
+  delete(id: String): Observable<string> {
+    const query = `
 			mutation($id: String!){
 				deleteTransaction(id:$id){
 					_id
 				}
 			}
 		`;
-		return super.graphqlMutation(query, { id }).pipe(map(resp => String(resp.data.deleteTransaction._id)));
-	}
+    return super
+      .graphqlMutation(query, { id })
+      .pipe(map((resp) => String(resp.data.deleteTransaction._id)));
+  }
 
-
-	analytics(format: string, start: String, end: String): Observable<any> {
-		const query = `
+  analytics(format: string, start: String, end: String): Observable<any> {
+    const query = `
 		  query($format: String! $start: DateTime!, $end: DateTime!){
 					analyticsTransactions(format:$format start:$start, end:$end){
 					    entries{
@@ -99,6 +105,8 @@ export class TransactionService extends BaseService {
 					}
 				}
 		`;
-		return super.graphqlMutation(query, { format, start, end }).pipe(map(resp => resp.data.analyticsTransactions));
-	}
+    return super
+      .graphqlMutation(query, { format, start, end })
+      .pipe(map((resp) => resp.data.analyticsTransactions));
+  }
 }
