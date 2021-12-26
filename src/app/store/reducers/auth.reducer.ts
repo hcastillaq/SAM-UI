@@ -1,10 +1,11 @@
-import { Action, createReducer, on } from "@ngrx/store";
-import { IAuthState } from "../state/auth.state";
-import * as authActions from "../actions/auth.actions";
+import { Action, createReducer, on } from '@ngrx/store';
+import { IAuthState } from '../state/auth.state';
+import * as authActions from '../actions/auth.actions';
 
 export const initialAuthState: IAuthState = {
   loading: false,
-  user: null
+  user: null,
+  company: null,
 };
 
 const authReducer$ = createReducer(
@@ -13,10 +14,10 @@ const authReducer$ = createReducer(
     ...state,
     loading,
   })),
-  on(authActions.authActionSetUser, (state, user) => ({
+  on(authActions.authActionSetData, (state, data) => ({
     ...state,
-    user
-  }))
+    data,
+  })),
 );
 
 export function authReducer(state, action) {

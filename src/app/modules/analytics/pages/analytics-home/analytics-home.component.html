@@ -1,118 +1,171 @@
-<div class="analytics">
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <form
+        [formGroup]="form"
+        fxLayout="row wrap"
+        fxLayoutGap="20px"
+        fxLayoutAlign="end baseline">
+        <div
+          fxFlex="100%"
+          fxFlex.gt-sm="1 1 auto"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          class="m2"
+          *ngIf="loading">
+          <mat-spinner diameter="20"></mat-spinner>
+        </div>
+        <mat-form-field appearance="outline" fxFlex="1 1 auto">
+          <mat-label>Periodicidad</mat-label>
+          <mat-select formControlName="periodicity">
+            <mat-option value="diary"> Diario </mat-option>
+            <mat-option value="monthly"> Mensual </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="1 1 auto">
+          <mat-label>Desde</mat-label>
+          <input
+            matInput
+            readonly
+            (click)="picker.open()"
+            color="primary"
+            class="pointer"
+            [matDatepicker]="picker"
+            formControlName="start" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="1 1 auto">
+          <mat-label>Hasta</mat-label>
+          <input
+            matInput
+            readonly
+            [min]="form.get('start').value"
+            (click)="picker2.open()"
+            color="primary"
+            class="pointer"
+            [matDatepicker]="picker2"
+            formControlName="end" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <button
+          fxFlex="100%"
+          fxFlex.gt-sm="5%"
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="getAnalitycs()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
 
-  <div class="analytics_row">
-    <mat-card fxFlex="100%" fxLayoutAlign="end end">
-      <mat-card-content>
-        <form [formGroup]="form" fxLayout="row" fxFlex="50%" fxLayoutGap="20px">
-          <mat-form-field appearance="outline" fxFlex="1 1 auto">
-            <mat-label>Agrupación</mat-label>
-            <mat-select formControlName="format">
-              <mat-option value="%Y-%m-%d">
-                Dia
-              </mat-option>
-              <mat-option value="%Y-%m">
-                Mes
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="1 1 auto">
-            <mat-label>Desde</mat-label>
-            <input matInput readonly (click)="picker.open()" color="primary" class="pointer" [matDatepicker]="picker"
-              formControlName="start">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="1 1 auto">
-            <mat-label>Hasta</mat-label>
-            <input matInput readonly (click)="picker2.open()" color="primary" class="pointer" [matDatepicker]="picker2"
-              formControlName="end">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-
-        </form>
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  class="mt4"
+  *ngIf="!isSearched">
+  <span class="center"
+    >Por favor rellene los campos para hacer una busqueda.</span
+  >
+</div>
+<div *ngIf="!loading && isSearched" fxLayout="column" class="analytics">
+  <div class="indicators">
+    <mat-card @fadeUp>
+      <mat-card-content fxLayout="row" fxLayoutAlign="center center">
+        <apx-chart
+          *ngIf="chartOptions3"
+          [series]="chartOptions3.series"
+          [chart]="chartOptions3.chart"
+          [labels]="chartOptions3.labels"
+          [fill]="chartOptions3.fill"
+          [colors]="chartOptions3.fill.colors"
+          [responsive]="chartOptions3.responsive"></apx-chart>
       </mat-card-content>
     </mat-card>
 
+    <mat-card fxLayout="row" @fadeUp>
+      <mat-card-content
+        fxFlex="100%"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px">
+        <span class="mat-display-2">
+          {{ entryMinusExpense }}
+        </span>
+        <span
+          class="subheading-2"
+          [class.text-entry]="entryMinusExpense > 0"
+          [class.text-expense]="entryMinusExpense < 0">
+          Ingreso - Egreso
+        </span>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card fxLayout="row" @fadeUp>
+      <mat-card-content
+        fxFlex="100%"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px">
+        <span class="mat-display-2">
+          {{ entry }}
+        </span>
+        <span class="subheading-2 text-entry"> Total Ingresos </span>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card fxLayout="row" @fadeUp>
+      <mat-card-content
+        fxFlex="100%"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px">
+        <span class="mat-display-2">
+          {{ expense }}
+        </span>
+        <span class="subheading-2 text-expense"> Total Egresos </span>
+      </mat-card-content>
+    </mat-card>
   </div>
+  <div class="graphs">
+    <mat-card @fadeUp>
+      <mat-card-content class="p2">
+        <div id="chart-bar" *ngIf="chartOptions2">
+          <apx-chart
+            [series]="chartOptions2.series"
+            [chart]="chartOptions2.chart"
+            [dataLabels]="chartOptions2.dataLabels"
+            [plotOptions]="chartOptions2.plotOptions"
+            [xaxis]="chartOptions2.xaxis"
+            [stroke]="chartOptions2.stroke"
+            [colors]="chartOptions.colors"></apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-  <div class="analytics_row analytics_row--twoColumns">
-    <div fxLayout="row" fxFlex="1 1 auto" fxLayoutGap="20px">
-      <mat-card class="analytics__indicator" fxFlex="1 1 auto">
-        <mat-card-content>
-          indicador 1
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="analytics__indicator" fxFlex="1 1 auto">
-        <mat-card-content>
-          indicador 2
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <div fxLayout="row" fxFlex="1 1 auto" fxLayoutGap="20px">
-      <mat-card class="analytics__indicator" fxFlex="1 1 auto">
-        <mat-card-content>
-          indicador 3
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="analytics__indicator" fxFlex="1 1 auto">
-        <mat-card-content>
-          indicador 4
-        </mat-card-content>
-      </mat-card>
-    </div>
+    <mat-card @fadeUp>
+      <mat-card-content class="p2">
+        <div id="chart" *ngIf="chartOptions">
+          <apx-chart
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [xaxis]="chartOptions.xaxis"
+            [yaxis]="chartOptions.yaxis"
+            [dataLabels]="chartOptions.dataLabels"
+            [grid]="chartOptions.grid"
+            [stroke]="chartOptions.stroke"
+            [colors]="chartOptions.colors"
+            [markers]="chartOptions.markers"></apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-
-  <div class="analytics_row analytics_row--twoColumns">
-
-    <div class="analytics___graph__box">
-      <mat-card>
-        <mat-card-content>
-          <ngx-charts-pie-grid [results]="barras" [scheme]="colorScheme" schemeType="ordinal">
-          </ngx-charts-pie-grid>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <div class="analytics___graph__box">
-      <mat-card>
-        <mat-card-content>
-          <ngx-charts-bar-vertical [results]="barras" [yAxis]="true" [xAxis]="true" [scheme]="colorScheme"
-            schemeType="ordinal" legendTitle="Entrada / Gasto" [trimXAxisTicks]="true" [maxXAxisTickLength]="6"
-            [legend]="false" legendPosition="below" [roundDomains]="true">
-          </ngx-charts-bar-vertical>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-  </div>
-
-  <div class="analytics_row">
-    <div class="analytics___graph__box analytics___graph__box--barrasGroup">
-      <mat-card>
-        <mat-card-content>
-          <ngx-charts-bar-vertical-2d [results]="barrasGroup" [yAxis]="true" [xAxis]="true" [scheme]="colorScheme"
-            [trimXAxisTicks]="false" [maxXAxisTickLength]="6" [legend]="false" legendPosition="below"
-            [roundDomains]="true">
-          </ngx-charts-bar-vertical-2d>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
-
-  <div class="analytics_row">
-    <div class="analytics___graph__box analytics___graph__box--timeline">
-      <mat-card>
-        <mat-card-content>
-          <ngx-charts-line-chart [results]="lineal" [roundDomains]="true" [roundDomains]="true" [yAxis]="true"
-            [xAxis]="true" [scheme]="colorScheme" schemeType="ordinal" [autoScale]="false" [timeline]="true"
-            legendTitle="Entrada / Gasto" [trimXAxisTicks]="true" [maxXAxisTickLength]="6" [legend]="false"
-            legendPosition="below">
-          </ngx-charts-line-chart>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
-
 </div>

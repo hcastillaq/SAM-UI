@@ -1,11 +1,14 @@
 // Import theming functions
 .auth {
-  height: 100vh;
-
   .auth__card {
+    margin: 0 auto;
+    margin-top: 15vh;
     padding-top: 40px;
-    width: 320px;
-    border-radius: .25em !important;
+    margin-bottom: 60px;
+    width: 100%;
+    max-width: 400px;
+    min-width: 300px;
+    border-radius: 0.25em !important;
 
     mat-form-field {
       margin-bottom: 5px;

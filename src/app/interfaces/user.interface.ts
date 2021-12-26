@@ -1,10 +1,10 @@
-import { ICompany } from './company.interface';
+import { Company } from './company.interface';
 
-export interface IUser {
-	_id?: String;
-	email?: String,
-	name?: String
-	rol?: String
-	company?: ICompany
-	password?: String
+export interface User {
+  _id?: String;
+  email?: String;
+  name?: String;
+  rol?: String;
+  company?: Company;
+  password?: String;
 }

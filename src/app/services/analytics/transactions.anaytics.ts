@@ -1,18 +1,14 @@
-import { ITransaction } from 'src/app/interfaces/transaction.interface';
+import { Transaction } from 'src/app/interfaces/transaction.interface';
 
 export class AnalyticTransactionService {
-  private transactions: ITransaction[];
+  private transactions: Transaction[];
   private dataFrame: any;
 
-  constructor(transactions: ITransaction[]) {
+  constructor(transactions: Transaction[]) {
     this.transactions = transactions;
   }
 
-  createDataFrame() {
+  createDataFrame() {}
 
-  }
-
-  formatDateColumn() {
-
-  }
+  formatDateColumn() {}
 }

@@ -5,21 +5,20 @@ import {
   createFeatureSelector,
   createSelector,
   MetaReducer,
-} from "@ngrx/store";
-import { environment } from "../../../environments/environment";
-import { EAuthActions } from '../actions/auth.actions';
-import { IAppState } from "../state/app.state";
-import { authReducer } from "./auth.reducer";
+} from '@ngrx/store';
+import { environment } from '../../../environments/environment';
+import { AuthActions } from '../actions/auth.actions';
+import { IAppState } from '../state/app.state';
+import { authReducer } from './auth.reducer';
 
 export const reducers: ActionReducerMap<IAppState> = {
   auth: authReducer,
-  router: routerReducer
+  router: routerReducer,
 };
 
 export function clearState(reducer) {
   return function (state, action) {
-
-    if (action.type === EAuthActions.LOGOUT) {
+    if (action.type === AuthActions.LOGOUT) {
       state = undefined;
     }
 

@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  graphql: "https://sam-api-v1.herokuapp.com/graphql"
+  api: 'https://sfm-v1.herokuapp.com',
+  graphql: 'http://localhost:7000/graphql',
 };

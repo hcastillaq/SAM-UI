@@ -1,69 +1,90 @@
-<div class="auth" fxLayout="row" fxLayoutAlign="center center">
+<div class="auth">
   <mat-card fxLayout="column" class="auth__card">
-
-    <div fxLayout="column" fxLayoutAlign="center center" class="auth__card__header">
-      <span class=" title mat-display-3">
-        {{DICTIONARY.APP.NAME}}
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      class="auth__card__header">
+      <span class="title mat-display-3">
+        {{ DICTIONARY.APP.NAME }}
       </span>
-      <span class="subtitle ">
-        {{DICTIONARY.AUTH.PHRASE}}
+      <span class="subtitle">
+        {{ DICTIONARY.AUTH.PHRASE }}
       </span>
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" fxLayout="column" class="auth__card__form">
-      <mat-card-content fxLayout="column" fxFlex="100%">
-
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      fxLayout="column"
+      class="auth__card__form">
+      <mat-card-content fxLayout="column" fxFlex="100%" fxLayoutGap="20px">
         <mat-form-field appearance="fill">
           <mat-label>
-            {{DICTIONARY.FORMS.EMAIL}}
+            {{ DICTIONARY.FORMS.EMAIL }}
           </mat-label>
-          <input matInput formControlName="email" required>
+          <input matInput formControlName="email" required />
           <mat-error *ngIf="form.get('email').hasError('email')">
             Correo electrónico invalido
           </mat-error>
           <mat-error *ngIf="form.get('email').hasError('required')">
-            {{DICTIONARY.FORMS.REQUIRED}}
+            {{ DICTIONARY.FORMS.REQUIRED }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>
-            {{DICTIONARY.FORMS.PASSWORD}}
+            {{ DICTIONARY.FORMS.PASSWORD }}
           </mat-label>
-          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required />
-          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          <input
+            matInput
+            formControlName="password"
+            [type]="hide ? 'password' : 'text'"
+            required />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
           <mat-error *ngIf="form.get('email').hasError('required')">
-            {{DICTIONARY.FORMS.REQUIRED}}
+            {{ DICTIONARY.FORMS.REQUIRED }}
           </mat-error>
         </mat-form-field>
 
         <div fxLayout="column" class="mt-1">
           <div fxLayout="row" fxFlex="100%">
-            <button class="height" mat-flat-button [disabled]="form.invalid || (loading | async)" color="primary"
-              fxFlex="100%" fxLayoutAlign="center center">
+            <button
+              class="height"
+              mat-flat-button
+              [disabled]="form.invalid || (loading | async)"
+              color="primary"
+              fxFlex="100%"
+              fxLayoutAlign="center center">
               <span *ngIf="!(loading | async)">
-                {{DICTIONARY.AUTH.LOGIN}}
+                {{ DICTIONARY.AUTH.LOGIN }}
               </span>
-              <mat-spinner *ngIf="loading | async" color="primary" diameter="25"></mat-spinner>
+              <mat-spinner
+                *ngIf="loading | async"
+                color="primary"
+                diameter="25"></mat-spinner>
             </button>
           </div>
-
         </div>
-
       </mat-card-content>
     </form>
 
     <div fxLayout="column" fxLayoutAlign="center center">
       <span class="mat-subheading-1 reset text-secondary">
-        {{DICTIONARY.AUTH.NOT_ACCOUNT}}
+        {{ DICTIONARY.AUTH.NOT_ACCOUNT }}
       </span>
-      <a class="pointer mat-subheading-1 text-secondary" [routerLink]="'/'+ROUTES.AUTH.ROOT+'/'+ROUTES.AUTH.REGISTER">
-        {{DICTIONARY.AUTH.CREATE_ACCOUNT}}
+      <a
+        class="pointer mat-subheading-1 text-secondary"
+        [routerLink]="'/' + ROUTES.AUTH.ROOT + '/' + ROUTES.AUTH.REGISTER">
+        {{ DICTIONARY.AUTH.CREATE_ACCOUNT }}
       </a>
     </div>
-
   </mat-card>
 </div>

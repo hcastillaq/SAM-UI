@@ -1,4 +1,4 @@
-export interface ICompany {
-	_id?: String
-	name?: String
+export interface Company {
+  _id?: String;
+  name?: String;
 }

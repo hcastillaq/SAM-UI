@@ -4,12 +4,10 @@ import { CommonModule } from '@angular/common';
 import { AnalyticsRoutingModule } from './analytics-routing.module';
 import { AnalyticsHomeComponent } from './pages/analytics-home/analytics-home.component';
 import { MaterialModule } from 'src/app/material.module';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
-
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [AnalyticsHomeComponent],
@@ -20,6 +18,7 @@ import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
-  ]
+    NgApexchartsModule,
+  ],
 })
-export class AnalyticsModule { }
+export class AnalyticsModule {}
