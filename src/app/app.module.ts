@@ -21,7 +21,6 @@ import { GraphQLModule } from './graphql.module';
 import { HttpTokenInterceptor } from './interceptors/token.interceptor';
 import { RouterCustomSerializer } from './helpers/serializers/route.serializer';
 import { EntityStoreModule } from './store/entity/entity-store.module';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CustomDateAdapter } from './helpers/date/adapter';
 
@@ -53,7 +52,6 @@ import { CustomDateAdapter } from './helpers/date/adapter';
     }),
     GraphQLModule,
     EntityStoreModule,
-    NgxChartsModule,
   ],
   providers: [
     { provide: DateAdapter, useClass: CustomDateAdapter },

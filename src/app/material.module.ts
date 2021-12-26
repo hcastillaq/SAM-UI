@@ -40,7 +40,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export const CUSTOM_DATE_FORMAT = {
   parse: {
@@ -99,7 +98,6 @@ export const CUSTOM_DATE_FORMAT = {
     PortalModule,
     ScrollingModule,
     MatDatepickerModule,
-    NgxChartsModule,
   ],
 })
 export class MaterialModule {}
