@@ -17,7 +17,6 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { SnackbarTemplateComponent } from './components/snackbar-template/snackbar-template.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthEffects } from './store/effects/auth.effects';
-import { GraphQLModule } from './graphql.module';
 import { HttpTokenInterceptor } from './interceptors/token.interceptor';
 import { RouterCustomSerializer } from './helpers/serializers/route.serializer';
 import { EntityStoreModule } from './store/entity/entity-store.module';
@@ -50,7 +49,6 @@ import { CustomDateAdapter } from './helpers/date/adapter';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    GraphQLModule,
     EntityStoreModule,
   ],
   providers: [
