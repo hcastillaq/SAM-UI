@@ -1,8 +1,8 @@
 @import 'sam.theme.scss';
-@import "./vars.scss";
-@import "./modules/modules.scss";
-@import "./media.query.scss";
-
+@import './vars.scss';
+@import './modules/modules.scss';
+@import './media.query.scss';
+@import './utils/colors.scss';
 * {
   padding: 0px;
   margin: 0px;
@@ -12,11 +12,11 @@
 body {
   background-color: $background !important;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 .mat-card {
-  border-radius: .25em !important;
+  border-radius: 0.25em !important;
   box-shadow: $box-shadow;
 }
 
@@ -44,7 +44,7 @@ button {
 }
 
 .mat-drawer-backdrop.mat-drawer-shown {
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .pages__content {
@@ -53,6 +53,7 @@ button {
   padding-right: $layoutRight;
   padding-left: $layoutLeft;
   margin-top: $layoutTop;
+  min-width: 300px !important;
 }
 
 mat-footer-row,
@@ -70,7 +71,6 @@ mat-divider {
   }
 
   border-top-color: $background-divider !important;
-
 }
 
 mat-dialog-container {

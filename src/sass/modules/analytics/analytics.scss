@@ -1,52 +1,28 @@
 .analytics {
-  padding-bottom: 30px;
-
-  .analytics_row {
-    margin-bottom: 20px;
-    overflow: auto;
-
-    .mat-form-field-wrapper {
+  margin-top: 20px;
+  display: grid;
+  gap: 20px;
+  .indicators {
+    padding: 10px 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    mat-card {
+      height: 200px !important;
+      margin: 0px !important;
       padding: 0px !important;
-    }
-
-    .analytics___graph__box {
-      height: 200px;
-
-      mat-card {
-        padding: 20px 20px 20px 20px !important;
-        margin: 0px !important;
-        height: calc(100% - 40px);
-        box-shadow: $box-shadow !important;
-      }
-
       mat-card-content {
-        overflow: auto !important;
         height: 100%;
-        width: 100%;
-      }
-
-      &.analytics___graph__box--timeline {
-        height: 300px;
-      }
-
-      &.analytics___graph__box--barrasGroup {
-        height: 300px;
       }
     }
-
-    &.analytics_row--twoColumns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-
-      .analytics___graph__box {
-        width: 1 1 auto;
-        flex: 1;
-        min-width: 300px;
-      }
-    }
-
   }
 
-
+  .graphs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    .mat-card {
+      max-height: 500px;
+    }
+  }
 }

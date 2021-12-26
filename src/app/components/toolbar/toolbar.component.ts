@@ -12,14 +12,16 @@ import { MENU_ITEMS, SIDENAV$ } from '../sidenav/sidenav.component';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-
+  title = DICTIONARY.APP.NAME;
   navigationItem = MENU_ITEMS;
   dictionary = DICTIONARY;
   data: { [key: string]: any } = this.jwtService.getObjectToken();
-  constructor(private jwtService: JwtService, private store: Store<IAppState>) { }
+  constructor(
+    private jwtService: JwtService,
+    private store: Store<IAppState>,
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   sideNav() {
     SIDENAV$.next();
@@ -28,5 +30,4 @@ export class ToolbarComponent implements OnInit {
   logout() {
     this.store.dispatch(authActionLogout());
   }
-
 }

@@ -1,24 +1,25 @@
 .todo-table {
   width: 100%;
-  overflow: hidden;
   border-radius: 0.25em !important;
   padding: 0px !important;
-
   .todo-table__header {
-    height: 64px;
     width: calc(100% - 48px);
     background-color: #ebebee !important;
     border-bottom-color: $background-divider !important;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    padding: 0px 24px 0px 24px;
+    padding: 20px 24px 20px 24px;
+    flex-wrap: wrap-reverse;
+    gap: 20px;
 
     .todo-table__header__left {
-      width: 70%;
+      min-width: 250px;
+      width: 69%;
       height: 100%;
       display: flex;
       align-items: center;
+      justify-content: flex-start;
       overflow: hidden;
 
       .todo-table__header__title {
@@ -42,7 +43,7 @@
       .todo-table__header__search {
         height: 36px;
         background-color: white;
-        width: 250px;
+        width: 100%;
         padding: 5px 10px 5px 10px;
         display: flex;
         border-radius: 9999px;
@@ -58,7 +59,9 @@
         }
 
         .todo-table__header__search__btn {
+          width: 100%;
           input {
+            width: 100%;
             border: none;
             outline-style: none !important;
             margin-left: 5px;
@@ -69,12 +72,12 @@
     }
 
     .todo-table__header__right {
-      width: 30%;
+      min-width: 100px;
       height: 100%;
       overflow: hidden;
       display: flex;
       justify-content: flex-end;
-      align-items: center;
+      align-items: flex-end;
 
       .todo-table__header__search__actionButtons {
         button {
@@ -95,9 +98,12 @@
 
   .todo-table__table {
     width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
 
     table {
       width: 100%;
+      min-width: 600px;
 
       tbody {
         tr {

@@ -6,7 +6,7 @@ import {
   authActionLoginSuccess,
   authActionSetData,
 } from '../actions/auth.actions';
-import { mergeMap, finalize, tap, delay, map } from 'rxjs/operators';
+import { mergeMap, finalize, tap, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Account } from 'src/app/interfaces/account';
 import { IAppState } from '../state/app.state';
@@ -36,7 +36,6 @@ export class AuthEffects {
       }),
       mergeMap((account: Account) =>
         this.authService.login(account).pipe(
-          delay(1000),
           mergeMap((resp: any) => {
             return [
               authActionLoading({ loading: false }),

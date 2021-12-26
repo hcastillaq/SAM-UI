@@ -51,18 +51,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
     const request = req.clone({ setHeaders: headersConfig });
     return next.handle(request).pipe(
-      map((resp: any) => {
-        if (resp.status && resp.body.errors) {
-          SNACKBAR.next({
-            message: resp.body.errors[0].message.error,
-            type: 'error',
-          });
-        }
-        return resp;
-      }),
-      catchError((resp) => {
+      catchError((error: HttpErrorResponse) => {
         SNACKBAR.next({
-          message: resp.error.errors[0].message,
+          message: error.error.message,
           type: 'error',
         });
         return EMPTY;

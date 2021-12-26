@@ -1,78 +1,44 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
-import { Transaction } from '../../interfaces/transaction.interface';
+import { EMPTY, merge, Observable, of } from 'rxjs';
+import { delay, map, mergeAll } from 'rxjs/operators';
+import { environment } from 'src/environments/environment.prod';
+import { Analitycs, Transaction } from '../../interfaces/transaction.interface';
 import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransactionService extends BaseService {
+  private path = environment.api + '/transaction';
   getAll(): Observable<Transaction[]> {
-    const query = `
-			query{
-				getAllTransactions{
-					_id,
-					mount,
-					description,
-					date,
-					user{
-						_id,
-						name,
-						rol
-					},
-					company{
-						_id,
-						name
-					},
-					type
-				}
-			}
-		`;
-    return super
-      .graphqlQuery(query)
-      .pipe(map((resp: any) => resp.data.getAllTransactions));
+    return this.get(this.path).pipe(
+      map((resp) =>
+        resp.map((transaction) => {
+          transaction.date = new Date(transaction.date * 1000);
+          return transaction;
+        }),
+      ),
+    );
   }
 
   add(transaction: Transaction): Observable<Transaction> {
-    const query = `
-			mutation($transaction: TransactionInputCreate!){
-				createTransaction(input: $transaction
-				)
-				{
-					_id,
-					company{_id,name},
-					user{_id, name},
-					description,
-					mount,
-					type,
-					date
-				}
-			}
-		`;
-    return super
-      .graphqlMutation(query, { transaction })
-      .pipe(map((resp) => resp.data.createTransaction));
+    transaction.date = new Date(transaction.date).getTime() / 1000;
+    return this.post(this.path, transaction).pipe(
+      map((transaction) => {
+        transaction.date = new Date(transaction.date * 1000);
+        return transaction;
+      }),
+    );
   }
 
   update(transaction: Transaction): Observable<Transaction> {
-    const query = `
-			mutation($transaction: TransactionInputUpdate!, $id: String!){
-				updateTransaction(input: $transaction, id:$id)
-				{
-					_id,
-					company{_id,name},
-					user{_id, name},
-					description,
-					mount,
-					type,
-					date
-				}
-			}
-		`;
-    return super
-      .graphqlMutation(query, { transaction, id: transaction._id })
-      .pipe(map((resp) => resp.data.updateTransaction));
+    transaction.date = new Date(transaction.date).getTime() / 1000;
+    return this.put(this.path, transaction).pipe(
+      map((transaction) => {
+        transaction.date = new Date(transaction.date * 1000);
+        return transaction;
+      }),
+    );
   }
 
   delete(id: String): Observable<string> {
@@ -88,25 +54,7 @@ export class TransactionService extends BaseService {
       .pipe(map((resp) => String(resp.data.deleteTransaction._id)));
   }
 
-  analytics(format: string, start: String, end: String): Observable<any> {
-    const query = `
-		  query($format: String! $start: DateTime!, $end: DateTime!){
-					analyticsTransactions(format:$format start:$start, end:$end){
-					    entries{
-								_id,
-								total
-							},
-							expenses{
-							_id,
-								total
-							},
-							moneyByEntries,
-							moneyByExpenses   
-					}
-				}
-		`;
-    return super
-      .graphqlMutation(query, { format, start, end })
-      .pipe(map((resp) => resp.data.analyticsTransactions));
+  analytics(analitycs: Analitycs): Observable<any> {
+    return this.post(this.path + '/analytics', analitycs);
   }
 }

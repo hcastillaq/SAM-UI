@@ -1,13 +1,25 @@
-import { Company } from './company.interface';
-import { User } from './user.interface';
-
 export interface Transaction {
-  _id?: String;
-  description?: String;
+  id?: string;
+  description?: string;
   mount?: Number;
-  date?: String;
-  company?: Company;
-  user?: User;
-  type?: String;
-  __typename?: String;
+  date?: string | number;
+  company_id?: string;
+  user_id?: string;
+  type?: string;
+}
+
+export type Periodicity = 'monthly' | 'diary';
+
+export interface Analitycs {
+  start?: number;
+  end?: number;
+  transactions?: {
+    [key: string]: {
+      entry: number;
+      expense: number;
+    };
+  };
+  entry?: number;
+  expense?: number;
+  periodicity?: Periodicity;
 }

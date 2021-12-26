@@ -4,7 +4,7 @@ import { Transaction } from 'src/app/interfaces/transaction.interface';
 const entityMetadata: EntityMetadataMap = {
   Transaction: {
     selectId: (transaction: Transaction) => {
-      return String(transaction._id);
+      return String(transaction.id);
     },
     entityDispatcherOptions: {
       optimisticAdd: false,
