@@ -30,7 +30,7 @@ export class DialogTransactionComponent implements OnInit {
       mount: ['', [Validators.required, Validators.min(0)]],
       type: ['', [Validators.required]],
       description: [''],
-      date: ['', [Validators.required]],
+      date: [new Date().toISOString().split('T')[0], [Validators.required]],
     });
     this.fillFormUpdateData();
   }

@@ -1,6 +1,9 @@
 $dialogPadding: 20px;
 
 .dialog {
+  &.transactions {
+    max-width: 400px;
+  }
   min-width: 280px !important;
 
   .dialog__header {
@@ -10,7 +13,6 @@ $dialogPadding: 20px;
     overflow: hidden;
     padding: $dialogPadding;
 
-
     &.dialog__header--confirmation {
       padding-top: 10px !important;
       padding-bottom: 10px !important;
@@ -19,7 +21,7 @@ $dialogPadding: 20px;
 
   .mat-dialog-title {
     padding: 0px;
-    margin: 0px
+    margin: 0px;
   }
 
   .mat-dialog-content {

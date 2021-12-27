@@ -6,18 +6,17 @@ import { HomeComponent } from './componentes/home/home.component';
 import { MaterialModule } from 'src/app/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
-import { SidenavComponent } from 'src/app/components/sidenav/sidenav.component';
-
+import { ComponentsModule } from 'src/app/components/componentes.module';
 
 @NgModule({
-	declarations: [HomeComponent, ToolbarComponent, SidenavComponent],
-	imports: [
-		CommonModule,
-		DashboardRoutingModule,
-		MaterialModule,
-		FlexLayoutModule,
-		ReactiveFormsModule,
-	]
+  declarations: [HomeComponent],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    MaterialModule,
+    FlexLayoutModule,
+    ReactiveFormsModule,
+    ComponentsModule,
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}

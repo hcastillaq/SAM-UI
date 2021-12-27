@@ -1,4 +1,4 @@
-<div class="dialog">
+<div class="dialog transactions">
   <div class="dialog__header">
     <div class="dialog__header__title">
       <h1 mat-dialog-title *ngIf="data.action === 'update'">
@@ -17,28 +17,8 @@
   <mat-divider></mat-divider>
 
   <div mat-dialog-content>
-    <form fxLayout="column" fxFlex="100%" [formGroup]="form">
-      <div fxLayout="row wrap" fxFlex="99%" fxLayoutGap="">
-        <mat-form-field appearance="fill" fxFlex="100%">
-          <mat-label>Seleccionar Tipo</mat-label>
-          <mat-select formControlName="type">
-            <mat-option value="entry"> {{ translate('Entry') }}</mat-option>
-            <mat-option value="expense"> {{ translate('Expense') }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" fxFlex="100%">
-          <mat-label> {{ translate('Mount') }} </mat-label>
-          <input matInput currencyMask formControlName="mount" />
-        </mat-form-field>
-      </div>
-
-      <mat-form-field appearance="fill">
-        <mat-label> {{ translate('Description') }} </mat-label>
-        <textarea matInput formControlName="description"></textarea>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
+    <form fxLayout="row wrap" fxFlex="100%" [formGroup]="form">
+      <mat-form-field appearance="fill" fxFlex="100%">
         <mat-label>Seleccionar Fecha</mat-label>
         <input
           matInput
@@ -50,7 +30,27 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
+      <mat-form-field appearance="fill" fxFlex="100%">
+        <mat-label>Seleccionar Tipo</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="entry"> {{ translate('Entry') }}</mat-option>
+          <mat-option value="expense"> {{ translate('Expense') }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="100%">
+        <mat-label> {{ translate('Mount') }} </mat-label>
+        <input matInput currencyMask formControlName="mount" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlex="100%">
+        <mat-label> {{ translate('Description') }} </mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
       <div
+        fxFlex="100%"
+        fxLayout="row"
         fxLayoutAlign="end center"
         *ngIf="data.action === 'create' || data.action === 'update'">
         <button

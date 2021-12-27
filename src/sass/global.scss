@@ -76,3 +76,18 @@ mat-divider {
 mat-dialog-container {
   padding: 0px !important;
 }
+
+mat-card-content {
+  overflow: auto;
+}
+
+table {
+  min-width: 400px;
+  td,
+  th {
+    font-size: 1.2em !important;
+  }
+  th {
+    text-transform: uppercase;
+  }
+}

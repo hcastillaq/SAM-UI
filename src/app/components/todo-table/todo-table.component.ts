@@ -1,10 +1,3 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
 import {
   AfterViewInit,
@@ -18,31 +11,17 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import {
-  asyncScheduler,
-  Observable,
-  of,
-  scheduled,
-  Subject,
-  Subscription,
-} from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { FadeUp } from 'src/app/animations/fadeUp';
-import { TRANSLATE } from 'src/app/helpers/dictionary.helpers';
 
 export interface ITodoTableConfig {
-  data: Observable<any>;
-  loading: Observable<boolean>;
-  headers: string[];
-  name: String;
-  reload?: Function;
-  createComponent?: ComponentType<any> | TemplateRef<any>;
-  detailComponent?: ComponentType<any> | TemplateRef<any>;
-  updateComponent?: ComponentType<any> | TemplateRef<any>;
-  delete?: {
-    confirmationComponent: ComponentType<any> | TemplateRef<any>;
-    callback(item: any): void;
+  header?: {
+    name: String;
+    reload?: Function;
+    create?: ComponentType<any> | TemplateRef<any>;
   };
+  dataSource: MatTableDataSource<any>;
+  loading: Observable<boolean>;
 }
 
 @Component({
@@ -57,45 +36,29 @@ export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() config: ITodoTableConfig;
   displayedColumns: string[];
-  dataSource: MatTableDataSource<any>;
 
-  pageSize: number = 5;
+  pageSize: number = 10;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    if (this.config) {
-      this.config.headers.push('actions');
-      this.displayedColumns = this.config.headers;
-      this.dataSource = new MatTableDataSource([]);
-
-      this.config.data
-        .pipe(takeUntil(this.subsDestroyed$))
-        .subscribe((data) => {
-          this.observerDataUnsubscribe();
-          this.dataSource.data = data;
-        });
-    }
-  }
-  observerDataUnsubscribe() {
-    if (this.dataObserver) {
-      this.dataObserver.unsubscribe();
-      this.dataObserver = undefined;
+    if (!this.config) {
+      throw new Error('config is required in TodoTableComponent');
     }
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.config.dataSource.paginator = this.paginator;
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.config.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   create() {
-    if (this.config.createComponent) {
-      this.dialog.open(this.config.createComponent, {
+    if (this.config.header.create) {
+      this.dialog.open(this.config.header.create, {
         data: {
           action: 'create',
         },
@@ -104,56 +67,14 @@ export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   reload() {
-    if (this.config.reload) {
-      this.observerDataUnsubscribe();
-      this.dataSource.data = [];
-      this.config.reload();
+    if (this.config.header.reload) {
+      this.config.dataSource.data = [];
+      this.config.header.reload();
     }
-  }
-
-  detail(item) {
-    if (this.config.detailComponent) {
-      this.dialog.open(this.config.detailComponent, {
-        data: {
-          action: 'detail',
-          item: { ...item },
-        },
-      });
-    }
-  }
-
-  update(item) {
-    if (this.config.updateComponent) {
-      this.dialog.open(this.config.updateComponent, {
-        data: {
-          action: 'update',
-          item: { ...item },
-        },
-      });
-    }
-  }
-
-  delete(item) {
-    if (this.config.delete) {
-      this.dialog
-        .open(this.config.delete.confirmationComponent)
-        .afterClosed()
-        .pipe(takeUntil(this.subsDestroyed$))
-        .subscribe((resp) => {
-          if (resp) {
-            this.config.delete.callback(item);
-          }
-        });
-    }
-  }
-
-  translate(word: string | String) {
-    return TRANSLATE(String(word));
   }
 
   ngOnDestroy() {
     this.subsDestroyed$.next(true);
     this.subsDestroyed$.unsubscribe();
-    this.observerDataUnsubscribe();
   }
 }

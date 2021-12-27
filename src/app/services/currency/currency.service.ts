@@ -1,10 +1,35 @@
 import { Injectable } from '@angular/core';
+import * as numeral from 'numeral';
 
+numeral.register('locale', 'es', {
+  delimiters: {
+    thousands: '.',
+    decimal: ',',
+  },
+  abbreviations: {
+    thousand: 'k',
+    million: 'm',
+    billion: 'b',
+    trillion: 't',
+  },
+  ordinal: function (number) {
+    return number === 1 ? 'er' : 'ème';
+  },
+  currency: {
+    symbol: 'COP',
+  },
+});
+numeral.locale('es');
+console.log(numeral);
 @Injectable({
   providedIn: 'root',
 })
 export class CurrencyService {
-  format(mount: number): string {
-    return new Intl.NumberFormat('de-DE').format(mount);
+  constructor() {}
+  format(mount: number, compact = false): string {
+    if (compact) {
+      return numeral(mount).format('0a');
+    }
+    return numeral(mount).format();
   }
 }

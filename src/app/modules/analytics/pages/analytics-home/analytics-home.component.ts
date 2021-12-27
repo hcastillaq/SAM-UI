@@ -8,10 +8,16 @@ import {
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { ChartComponent } from 'ng-apexcharts';
 import { FadeUp } from 'src/app/animations/fadeUp';
 import { CustomDateAdapter } from 'src/app/helpers/date/adapter';
-import { Analitycs } from 'src/app/interfaces/transaction.interface';
+import { TRANSLATE } from 'src/app/helpers/dictionary.helpers';
+import {
+  Analitycs,
+  TransactionAnalytic,
+} from 'src/app/interfaces/transaction.interface';
+import { CurrencyService } from 'src/app/services/currency/currency.service';
 
 import { TransactionService } from 'src/app/services/transactions/transaction.service';
 @Component({
@@ -33,14 +39,26 @@ export class AnalyticsHomeComponent implements OnInit {
   expense = 100000000;
   entry = 500000000;
   entryMinusExpense = 0;
-  public chartOptions: any;
-  public chartOptions2: any;
-  public chartOptions3: any;
-
+  chartOptions: any;
+  chartOptions2: any;
+  chartOptions3: any;
+  chartUtility: any;
+  dataSourceUtility = new MatTableDataSource<any>();
+  displayedColumnsUtility = ['date', 'entry', 'expense', 'utility'];
   constructor(
     private transactionsService: TransactionService,
     private fb: FormBuilder,
+    private currencyService: CurrencyService,
   ) {}
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      start: ['2021-12-01', [Validators.required]],
+      end: ['2021-12-31', [Validators.required]],
+      periodicity: ['diary', [Validators.required]],
+    });
+
+    this.getAnalitycs();
+  }
 
   getAnalitycs() {
     this.loading = true;
@@ -67,10 +85,18 @@ export class AnalyticsHomeComponent implements OnInit {
               data: categories.map((cat) => resp.transactions[cat].expense),
             },
           ];
+          const seriesUtility = [
+            {
+              name: 'Utilidad',
+              data: categories.map((cat) => resp.transactions[cat].utility),
+            },
+          ];
 
           this.buildLineGraph(series, categories);
           this.buildLineGraphBar(series, categories);
           this.buildGraphPie([this.entry, this.expense]);
+          this.buildGraphUtility(seriesUtility, categories);
+          this.buildTableUtility(resp.transactions);
           this.loading = false;
         },
         error: () => {
@@ -86,32 +112,48 @@ export class AnalyticsHomeComponent implements OnInit {
         type: 'pie',
         height: 200,
       },
+      dataLabels: {
+        enabled: true,
+        style: {
+          fontSize: '16px',
+          fontWeight: 'bold',
+          colors: ['#fafafa'],
+        },
+      },
       fill: {
         colors: ['#44ad00', '#C51162'],
       },
-      labels: ['Ingresos', 'Egresos'],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            legend: {
-              position: 'bottom',
-            },
+      tooltip: {
+        enabled: true,
+        style: {
+          fontSize: '16px',
+        },
+        y: {
+          formatter: (value) => {
+            return this.currencyService.format(value);
           },
         },
-      ],
+      },
+      labels: ['Ingresos', 'Egresos'],
     };
   }
+
   buildLineGraphBar(series, categories) {
     this.chartOptions2 = {
       series,
       chart: {
         type: 'bar',
         height: 400,
+        zoom: {
+          enabled: true,
+          type: 'x',
+          autoScaleYaxis: true,
+        },
       },
       colors: ['#44ad00', '#C51162'],
       plotOptions: {
         bar: {
+          borderRadius: 10,
           horizontal: false,
           dataLabels: {
             position: 'top',
@@ -119,11 +161,14 @@ export class AnalyticsHomeComponent implements OnInit {
         },
       },
       dataLabels: {
-        enabled: true,
-        offsetX: -6,
+        enabled: false,
+        offsetY: -20,
         style: {
-          fontSize: '12px',
-          colors: ['#fff'],
+          fontSize: '10px',
+          colors: ['#000'],
+        },
+        formatter: (value) => {
+          return this.currencyService.format(value, false);
         },
       },
       stroke: {
@@ -131,11 +176,29 @@ export class AnalyticsHomeComponent implements OnInit {
         width: 1,
         colors: ['#fff'],
       },
+      title: {
+        text: 'Ingresos vs Egresos',
+        align: 'left',
+      },
+      tooltip: {
+        style: {
+          fontSize: '16px',
+        },
+      },
       xaxis: {
         categories,
+        tickPlacement: 'on',
+      },
+      yaxis: {
+        labels: {
+          formatter: (value) => {
+            return this.currencyService.format(value, false);
+          },
+        },
       },
     };
   }
+
   buildLineGraph(series, categories) {
     this.chartOptions = {
       series,
@@ -144,6 +207,8 @@ export class AnalyticsHomeComponent implements OnInit {
         stacked: false,
         zoom: {
           enabled: true,
+          type: 'x',
+          autoScaleYaxis: true,
         },
         height: 400,
       },
@@ -161,18 +226,85 @@ export class AnalyticsHomeComponent implements OnInit {
         text: 'Ingresos vs Egresos',
         align: 'left',
       },
+      tooltip: {
+        style: {
+          fontSize: '16px',
+        },
+      },
       grid: false,
       xaxis: {
         categories,
       },
-      yaxis: {},
+      yaxis: {
+        labels: {
+          formatter: (value) => {
+            return this.currencyService.format(value, false);
+          },
+        },
+      },
     };
   }
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      start: ['', [Validators.required]],
-      end: ['', [Validators.required]],
-      periodicity: ['', [Validators.required]],
+
+  buildGraphUtility(series, categories) {
+    this.chartUtility = {
+      series,
+      chart: {
+        type: 'area',
+        stacked: false,
+        zoom: {
+          enabled: true,
+          type: 'x',
+          autoScaleYaxis: true,
+        },
+        height: 400,
+      },
+      colors: ['#44ad00', '#C51162'],
+      markers: {
+        size: 5,
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: 'smooth',
+      },
+      title: {
+        text: 'Utilidad',
+        align: 'left',
+      },
+      grid: false,
+      xaxis: {
+        categories,
+      },
+      tooltip: {
+        style: {
+          fontSize: '16px',
+        },
+      },
+      yaxis: {
+        labels: {
+          formatter: (value) => {
+            return this.currencyService.format(value, false);
+          },
+        },
+      },
+    };
+  }
+
+  buildTableUtility(data: TransactionAnalytic) {
+    const resp = [];
+    Object.keys(data).forEach((date) => {
+      resp.push({
+        date,
+        entry: data[date].entry,
+        expense: data[date].expense,
+        utility: data[date].utility,
+      });
     });
+    this.dataSourceUtility.data = resp;
+  }
+
+  translate(word: string): string {
+    return TRANSLATE(word);
   }
 }
