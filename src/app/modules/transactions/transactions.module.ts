@@ -9,15 +9,11 @@ import { TodoTableComponent } from 'src/app/components/todo-table/todo-table.com
 import { DialogTransactionComponent } from './components/dialog-transaction/dialog-transaction.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
-import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { ComponentsModule } from 'src/app/components/componentes.module';
 
 @NgModule({
-  declarations: [
-    TransactionsHomeComponent,
-    TodoTableComponent,
-    DialogTransactionComponent,
-    ConfirmDialogComponent,
-  ],
+  declarations: [TransactionsHomeComponent, DialogTransactionComponent],
   imports: [
     CommonModule,
     TransactionsRoutingModule,
@@ -25,6 +21,8 @@ import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confir
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
+    ComponentsModule,
+    PipesModule,
     NgxCurrencyModule.forRoot({
       align: 'left',
       allowNegative: false,

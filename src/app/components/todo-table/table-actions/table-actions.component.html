@@ -1,0 +1,13 @@
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_horiz</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngIf="config.update" (click)="update()">
+      <mat-icon>edit</mat-icon> Actualizar
+    </button>
+    <button mat-menu-item *ngIf="config.delete" (click)="delete()">
+      <mat-icon>delete</mat-icon> Eliminar
+    </button>
+  </mat-menu>
+</div>

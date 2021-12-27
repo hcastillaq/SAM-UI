@@ -8,3 +8,13 @@ $expense: #c51162;
 .text-expense {
   color: $expense;
 }
+
+.mat-entry {
+  background-color: $entry !important;
+  color: white !important;
+}
+
+.mat-expense {
+  background-color: $expense !important;
+  color: white !important;
+}

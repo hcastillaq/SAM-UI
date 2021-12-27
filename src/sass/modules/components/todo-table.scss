@@ -100,11 +100,13 @@
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-
     table {
       width: 100%;
       min-width: 600px;
-
+      td,
+      th {
+        font-size: 1.1em !important;
+      }
       tbody {
         tr {
           cursor: pointer !important;

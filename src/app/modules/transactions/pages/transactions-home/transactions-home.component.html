@@ -1,1 +1,47 @@
-<app-todo-table [config]="tableConfig"></app-todo-table>
+<app-todo-table [config]="tableConfig">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>{{ translate('type') }}</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip-list>
+          <mat-chip selected [color]="element.type">
+            {{ translate(element.type) }}
+          </mat-chip>
+        </mat-chip-list>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mount">
+      <th mat-header-cell *matHeaderCellDef>{{ translate('mount') }}</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.mount | customCurrency }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>{{ translate('date') }}</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.date }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>{{ translate('description') }}</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.description }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <app-table-actions
+          [config]="actionsConfig"
+          [item]="element"></app-table-actions>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr @fadeUp mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</app-todo-table>

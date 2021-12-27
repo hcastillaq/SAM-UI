@@ -2,9 +2,7 @@
   <div class="todo-table__header">
     <div class="todo-table__header__left">
       <div class="todo-table__header__title" fxHide.lt-md>
-        <span>
-          {{ translate(config.name) }}
-        </span>
+        <span>{{ config.header.name }} </span>
         <mat-divider [vertical]="true"></mat-divider>
       </div>
 
@@ -20,12 +18,12 @@
 
     <div class="todo-table__header__right">
       <div class="todo-table__header__search__actionButtons">
-        <button mat-icon-button *ngIf="config.reload" (click)="reload()">
+        <button mat-icon-button *ngIf="config.header.reload" (click)="reload()">
           <mat-icon>restore</mat-icon>
         </button>
         <button
           mat-mini-fab
-          *ngIf="config.createComponent"
+          *ngIf="config.header.create"
           color="primary"
           (click)="create()">
           <mat-icon>add</mat-icon>
@@ -35,53 +33,12 @@
   </div>
 
   <div class="todo-table__table">
-    <table mat-table [dataSource]="dataSource">
-      <ng-container
-        *ngFor="let column of displayedColumns"
-        [matColumnDef]="column">
-        <th @fadeUp mat-header-cell *matHeaderCellDef>
-          {{ (column !== 'actions' ? translate(column) : ' ') | uppercase }}
-        </th>
-        <td
-          @fadeUp
-          mat-cell
-          *matCellDef="let element"
-          (click)="detail(element)">
-          <div
-            *ngIf="
-              column === 'actions' && (config.updateComponent || config.delete)
-            ">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_horiz</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button
-                mat-menu-item
-                *ngIf="config.updateComponent"
-                (click)="update(element)">
-                <mat-icon>edit</mat-icon> Actualizar
-              </button>
-              <button
-                mat-menu-item
-                *ngIf="config.delete"
-                (click)="delete(element)">
-                <mat-icon>delete</mat-icon> Eliminar
-              </button>
-            </mat-menu>
-          </div>
-          {{ column !== 'actions' ? translate(element[column]) : ' ' }}
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+    <ng-content></ng-content>
   </div>
-
   <div
     class="table__table__notFound"
     *ngIf="
-      dataSource.data.length === 0 || dataSource.filteredData.length === 0
+      config.dataSource.data.length === 0 || config.dataSource.data.length === 0
     ">
     <ng-template #elseTemplase>
       <span>No se encontró información</span>
