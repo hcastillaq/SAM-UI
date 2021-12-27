@@ -98,13 +98,13 @@
         fxLayoutAlign="center center"
         fxLayoutGap="10px">
         <span class="mat-display-2">
-          {{ entryMinusExpense }}
+          {{ entryMinusExpense | customCurrency }}
         </span>
         <span
           class="subheading-2"
           [class.text-entry]="entryMinusExpense > 0"
           [class.text-expense]="entryMinusExpense < 0">
-          Ingreso - Egreso
+          Utilidad
         </span>
       </mat-card-content>
     </mat-card>
@@ -116,7 +116,7 @@
         fxLayoutAlign="center center"
         fxLayoutGap="10px">
         <span class="mat-display-2">
-          {{ entry }}
+          {{ entry | customCurrency }}
         </span>
         <span class="subheading-2 text-entry"> Total Ingresos </span>
       </mat-card-content>
@@ -129,7 +129,7 @@
         fxLayoutAlign="center center"
         fxLayoutGap="10px">
         <span class="mat-display-2">
-          {{ expense }}
+          {{ expense | customCurrency }}
         </span>
         <span class="subheading-2 text-expense"> Total Egresos </span>
       </mat-card-content>

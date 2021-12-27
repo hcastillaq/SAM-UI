@@ -6,6 +6,7 @@ import { TransactionEntityService } from 'src/app/store/entity/transactions/tran
 import { DialogTransactionComponent } from '../../components/dialog-transaction/dialog-transaction.component';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { SessionService } from 'src/app/services/session/session.service';
+import { CurrencyService } from 'src/app/services/currency/currency.service';
 
 @Component({
   selector: 'app-transactions-home',
@@ -21,11 +22,12 @@ export class TransactionsHomeComponent implements OnInit, AfterViewInit {
       map((transactions) => {
         return transactions.map((transaction) => ({
           ...transaction,
+          mountFormat: this.currencyService.format(transaction.mount),
           date: new Date(transaction.date).toISOString().split('T')[0],
         }));
       }),
     ),
-    headers: ['type', 'mount', 'date', 'description'],
+    headers: ['type', 'mountFormat', 'date', 'description'],
     name: 'Transactions',
     createComponent: DialogTransactionComponent,
     updateComponent: DialogTransactionComponent,
@@ -43,7 +45,7 @@ export class TransactionsHomeComponent implements OnInit, AfterViewInit {
 
   constructor(
     private transactionEntityService: TransactionEntityService,
-    private sessionService: SessionService,
+    private currencyService: CurrencyService,
   ) {}
 
   ngAfterViewInit() {}

@@ -1,7 +1,7 @@
 export interface Transaction {
   id?: string;
   description?: string;
-  mount?: Number;
+  mount?: number;
   date?: string | number;
   company_id?: string;
   user_id?: string;
