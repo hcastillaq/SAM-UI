@@ -1,7 +1,8 @@
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, merge, Observable, of } from 'rxjs';
 import { delay, map, mergeAll } from 'rxjs/operators';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { Analitycs, Transaction } from '../../interfaces/transaction.interface';
 import { BaseService } from '../base.service';
 
@@ -41,8 +42,8 @@ export class TransactionService extends BaseService {
     );
   }
 
-  delete(id: String): Observable<string> {
-    return of('');
+  delete(id: string): Observable<string> {
+    return super.delete(this.path, { id }).pipe(map((res) => res.id));
   }
 
   analytics(analitycs: Analitycs): Observable<any> {

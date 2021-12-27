@@ -18,9 +18,9 @@ export class BaseService {
   update(url, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http$.put(`${url}`, { params });
   }
-  delete(url, params: HttpParams = new HttpParams()): Observable<any> {
+  delete(url, body): Observable<any> {
     return this.http$.request('DELETE', `${url}`, {
-      body: params,
+      body,
     });
   }
   put(url, data): Observable<any> {
