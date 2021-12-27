@@ -7,6 +7,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [AnalyticsHomeComponent],
@@ -18,6 +19,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ReactiveFormsModule,
     FormsModule,
     NgApexchartsModule,
+    PipesModule,
   ],
 })
 export class AnalyticsModule {}
