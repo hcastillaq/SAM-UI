@@ -37,7 +37,7 @@ export class TodoTableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() config: ITodoTableConfig;
   displayedColumns: string[];
 
-  pageSize: number = 5;
+  pageSize: number = 10;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private dialog: MatDialog) {}

@@ -40,6 +40,7 @@ export const DICTIONARY = {
   TYPE: 'Tipo',
   TRANSACTIONS: 'Transacciones',
   SEARCH: 'Buscar',
+  UTILITY: 'Utilidad',
 };
 
 export const TRANSLATE = (word: string): string => {

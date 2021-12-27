@@ -76,7 +76,8 @@
     >Por favor rellene los campos para hacer una busqueda.</span
   >
 </div>
-<div *ngIf="!loading && isSearched" fxLayout="column" class="analytics">
+
+<div *ngIf="!loading && isSearched" fxLayout="column" class="analytics mb4">
   <div class="indicators">
     <mat-card @fadeUp>
       <mat-card-content fxLayout="row" fxLayoutAlign="center center">
@@ -87,6 +88,8 @@
           [labels]="chartOptions3.labels"
           [fill]="chartOptions3.fill"
           [colors]="chartOptions3.fill.colors"
+          [dataLabels]="chartOptions3.dataLabels"
+          [tooltip]="chartOptions3.tooltip"
           [responsive]="chartOptions3.responsive"></apx-chart>
       </mat-card-content>
     </mat-card>
@@ -135,17 +138,87 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div class="graphs">
+
+  <div class="two-columns mb2">
+    <mat-card @fadeUp>
+      <mat-card-content class="p2" fxLayout="row">
+        <table mat-table [dataSource]="dataSourceUtility" fxFlex="100%">
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>{{ translate('date') }}</th>
+            <td mat-cell *matCellDef="let element">
+              {{ translate(element.date) }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="entry">
+            <th mat-header-cell *matHeaderCellDef>{{ translate('entry') }}</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.entry | customCurrency }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="expense">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ translate('expense') }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.expense | customCurrency }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="utility">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ translate('utility') }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <span
+                [class]="element.utility > 0 ? 'text-entry' : 'text-expense'">
+                {{ element.utility | customCurrency }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsUtility"></tr>
+          <tr
+            @fadeUp
+            mat-row
+            *matRowDef="let row; columns: displayedColumnsUtility"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card @fadeUp>
+      <mat-card-content class="p2">
+        <div id="chart-bar" *ngIf="chartUtility">
+          <apx-chart
+            [title]="chartUtility.title"
+            [series]="chartUtility.series"
+            [chart]="chartUtility.chart"
+            [dataLabels]="chartUtility.dataLabels"
+            [plotOptions]="chartUtility.plotOptions"
+            [xaxis]="chartUtility.xaxis"
+            [yaxis]="chartUtility.yaxis"
+            [stroke]="chartUtility.stroke"
+            [colors]="chartOptions.colors"
+            [tooltip]="chartUtility.tooltip"
+            [markers]="chartUtility.markers"></apx-chart>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="two-columns">
     <mat-card @fadeUp>
       <mat-card-content class="p2">
         <div id="chart-bar" *ngIf="chartOptions2">
           <apx-chart
+            [title]="chartOptions2.title"
             [series]="chartOptions2.series"
             [chart]="chartOptions2.chart"
             [dataLabels]="chartOptions2.dataLabels"
             [plotOptions]="chartOptions2.plotOptions"
             [xaxis]="chartOptions2.xaxis"
+            [yaxis]="chartOptions2.yaxis"
             [stroke]="chartOptions2.stroke"
+            [tooltip]="chartOptions2.tooltip"
             [colors]="chartOptions.colors"></apx-chart>
         </div>
       </mat-card-content>
@@ -155,6 +228,7 @@
       <mat-card-content class="p2">
         <div id="chart" *ngIf="chartOptions">
           <apx-chart
+            [title]="chartOptions.title"
             [series]="chartOptions.series"
             [chart]="chartOptions.chart"
             [xaxis]="chartOptions.xaxis"
@@ -163,6 +237,7 @@
             [grid]="chartOptions.grid"
             [stroke]="chartOptions.stroke"
             [colors]="chartOptions.colors"
+            [tooltip]="chartOptions.tooltip"
             [markers]="chartOptions.markers"></apx-chart>
         </div>
       </mat-card-content>

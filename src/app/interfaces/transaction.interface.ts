@@ -9,16 +9,17 @@ export interface Transaction {
 }
 
 export type Periodicity = 'monthly' | 'diary';
-
+export interface TransactionAnalytic {
+  [key: string]: {
+    entry: number;
+    expense: number;
+    utility: number;
+  };
+}
 export interface Analitycs {
   start?: number;
   end?: number;
-  transactions?: {
-    [key: string]: {
-      entry: number;
-      expense: number;
-    };
-  };
+  transactions?: TransactionAnalytic;
   entry?: number;
   expense?: number;
   periodicity?: Periodicity;
