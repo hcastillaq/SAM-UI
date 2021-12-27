@@ -170,9 +170,9 @@ export class AnalyticsHomeComponent implements OnInit {
   }
   ngOnInit(): void {
     this.form = this.fb.group({
-      start: ['2021-12-01', [Validators.required]],
-      end: ['2021-12-31', [Validators.required]],
-      periodicity: ['diary', [Validators.required]],
+      start: ['', [Validators.required]],
+      end: ['', [Validators.required]],
+      periodicity: ['', [Validators.required]],
     });
   }
 }
