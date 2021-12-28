@@ -3,7 +3,7 @@
  */
 export const DICTIONARY = {
   APP: {
-    NAME: 'SFM',
+    NAME: 'SAM',
   },
   AUTH: {
     PHRASE: '¡Bienvenido!',
