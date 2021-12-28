@@ -56,8 +56,6 @@ export class AnalyticsHomeComponent implements OnInit {
       end: ['', [Validators.required]],
       periodicity: ['', [Validators.required]],
     });
-
-    this.getAnalitycs();
   }
 
   getAnalitycs() {
