@@ -20,7 +20,6 @@ numeral.register('locale', 'es', {
   },
 });
 numeral.locale('es');
-console.log(numeral);
 @Injectable({
   providedIn: 'root',
 })
