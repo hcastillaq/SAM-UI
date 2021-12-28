@@ -52,9 +52,9 @@ export class AnalyticsHomeComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.form = this.fb.group({
-      start: ['2021-12-01', [Validators.required]],
-      end: ['2021-12-31', [Validators.required]],
-      periodicity: ['diary', [Validators.required]],
+      start: ['', [Validators.required]],
+      end: ['', [Validators.required]],
+      periodicity: ['', [Validators.required]],
     });
 
     this.getAnalitycs();
@@ -109,13 +109,13 @@ export class AnalyticsHomeComponent implements OnInit {
     this.chartOptions3 = {
       series,
       chart: {
-        type: 'pie',
+        type: 'donut',
         height: 200,
       },
       dataLabels: {
         enabled: true,
         style: {
-          fontSize: '16px',
+          fontSize: '20px',
           fontWeight: 'bold',
           colors: ['#fafafa'],
         },
